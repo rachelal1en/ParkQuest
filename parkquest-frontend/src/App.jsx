@@ -1,21 +1,20 @@
-
-// import reactLogo from './assets/react.svg'
+import React from 'react';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import './App.css'
 import ParksList from './components/ParkList';
-import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ParkDetail from './components/ParkDetail';
 
 function App() {
-
+    const history = useNavigate();
   return (
     <div className='App'>
       <header>
         <p>ParkQuest</p>
         <div>
-          <button>Logout</button>
-          <button>Sign up</button>
+          <a href="components/Login"><button>Login</button></a>
+          <a href="components/Signup"><button>Sign up</button></a>
         </div>
       </header>
 
@@ -36,6 +35,6 @@ function App() {
       </div>
     </div>
   )
-}
+};
 
 export default App;
