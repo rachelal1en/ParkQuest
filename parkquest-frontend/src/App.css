@@ -1,19 +1,91 @@
 /* Header */
 header {
+  /* flex: 0 1 auto;  */
+  background: #004d40; /* Example color */
+  color: white;
+  height: 70px;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  align-items: center;
+  padding:  0 35px;
 }
 
 /* First Page */
 .first-page {
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: center; 
+  justify-content: center; 
+  height: calc(100vh - 70px);
+  /* overflow-y: auto;  */
+  /* width: 100%; */
+  /* border: 2px solid red; */
 }
 
 /* Parks list */
-.park-list h2{
-  margin-top: 100px;
+.park-list {
+  padding: 20px;
+  text-align: center;
+}
+
+.park-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.park-list li {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align:justify;
+}
+
+.park-list a {
+  color: #004d40;
+}
+
+.park-list a:hover {
+  color: #149f88;
+}
+
+/* Park Details */
+.park-details {
+  padding: 20px 35px;
+  text-align: center;
+}
+
+.park-details img {
+  width: 400px;
+  padding-top: 20px;
+}
+
+.park-details p {
+  text-align: justify;
+}
+
+.hours {
+  text-align: left;
+  padding-top: 20px;
+}
+
+.hours ul {
+  list-style: none;
+}
+
+/* Favorite List */
+.favorite-list {
+  text-align: center;
+  padding: 20px 35px;
+}
+
+.favorite-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
