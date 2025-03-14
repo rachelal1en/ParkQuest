@@ -1,5 +1,5 @@
-
-// import reactLogo from './assets/react.svg'
+import React from 'react';
+import { useNavigate, Route, Routes } from 'react-router-dom';
 import './App.css'
 import ParksList from './components/ParkList';
 import { Route, Routes, useLocation, Link } from 'react-router-dom';
@@ -9,6 +9,8 @@ import ParkDetail from './components/ParkDetail';
 import FavoritesList from './components/FavoritesList';
 
 function App() {
+
+  const history = useNavigate();
   const location = useLocation(); // Get current route
   const isHomePage = location.pathname === "/"; // Check if on home page
 
@@ -17,8 +19,8 @@ function App() {
       <header>
         <h2>ParkQuest</h2>
         <div>
-          <button>Logout</button>
-          <button>Sign up</button>
+          <a href="components/Login"><button>Login</button></a>
+          <a href="components/Signup"><button>Sign up</button></a>
         </div>
       </header>
 
@@ -43,6 +45,6 @@ function App() {
       </div>
     </div>
   )
-}
+};
 
 export default App;
