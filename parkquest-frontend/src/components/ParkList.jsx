@@ -56,7 +56,7 @@ const ParksList = () => {
         <option key={state} value={state}>
             {state}
         </option>
-        ))}
+        ))}page 
     </select>
 
     <button onClick={fetchParks}>Search</button>
@@ -66,9 +66,9 @@ const ParksList = () => {
     <ul>
         {parks.map((park) => (
         <li key={park.id}>
-            <h3>
+            <h4>
             <Link to={`/parks/${park.parkCode}`}>{park.fullName}</Link>
-            </h3>
+            </h4>
             <p>{park.description}</p>
         </li>
         ))}
