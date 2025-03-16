@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginButton from "./GoogleLoginButton.jsx";
 
 function Login() {
@@ -66,11 +67,11 @@ function Login() {
                 {error && <div className="error">{error}</div>}
                 <button type="submit">Login</button>
             </form>
-        {/*<div>*/}
-        {/*        <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">*/}
-        {/*            <GoogleLoginButton />*/}
-        {/*        </GoogleOAuthProvider>*/}
-        {/*</div>*/}
+        <div>
+                <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">
+                    <GoogleLoginButton />
+                </GoogleOAuthProvider>
+        </div>
             <div>
                 <br/>
                 <p>Not Registered? <Link to="/Signup">Register</Link></p>
