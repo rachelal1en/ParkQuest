@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import GoogleLoginButton from "./GoogleLoginButton.jsx";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -8,11 +9,11 @@ function Login() {
     const [error, setError] = useState("");
 
 
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
 
      try{
             //prevents blanks
@@ -32,6 +33,7 @@ const handleSubmit = async (e) => {
                 //Handle successful login
                 console.log('Login successful:', response.data);
                 history('/App');
+
         } catch (error){
                 //handles errors
                 console.error('Login failed:', error.response ? error.response.data : error.message);
@@ -41,6 +43,7 @@ const handleSubmit = async (e) => {
 
     return(
         <div>
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input
@@ -60,14 +63,20 @@ const handleSubmit = async (e) => {
                     required
                 />
                 {/* renders error message */}
-                {error && <p className="error">{error}</p>}
+                {error && <div className="error">{error}</div>}
                 <button type="submit">Login</button>
             </form>
+        {/*<div>*/}
+        {/*        <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">*/}
+        {/*            <GoogleLoginButton />*/}
+        {/*        </GoogleOAuthProvider>*/}
+        {/*</div>*/}
             <div>
-                <p>Not Registered? <a href="/signup">Register</a></p>
+                <br/>
+                <p>Not Registered? <Link to="/Signup">Register</Link></p>
             </div>
         </div>
-    );
-}
+    )
+};
 
 export default Login;

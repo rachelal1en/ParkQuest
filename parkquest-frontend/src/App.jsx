@@ -9,6 +9,7 @@ import FavoritesList from './components/FavoritesList';
 import Campgrounds from './components/Campgrounds';
 import CampgroundDetail from './components/CampgroundDetail';
 
+
 function App() {
 
   const location = useLocation(); // Get current route
@@ -19,8 +20,8 @@ function App() {
       <header>
         <h2>ParkQuest</h2>
         <div>
-          <a href="components/Login"><button>Login</button></a>
-          <a href="components/Signup"><button>Sign up</button></a>
+          <button><Link to="/Login">Login</Link></button>
+          <button><Link to="/Signup">Signup</Link></button>
         </div>
       </header>
 

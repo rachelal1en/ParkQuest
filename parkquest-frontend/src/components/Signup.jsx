@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Signup () {
     const [email, setEmail] = useState('');
@@ -78,7 +78,7 @@ function Signup () {
                 <button type="submit">Sign up</button>
             </form>
             <div>
-                <p>Already registered? <a href="/Login">Login</a></p>
+                <p>Already registered? <Link to="/Login">Login</Link></p>
             </div>
         </div>
         )
