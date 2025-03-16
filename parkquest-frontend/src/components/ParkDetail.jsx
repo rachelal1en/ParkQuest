@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_PARKS_API_KEY;
 
@@ -8,6 +8,7 @@ export default function ParkDetail() {
   const { id } = useParams();
   const [park, setPark] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${id}&api_key=${API_KEY}`)
@@ -40,12 +41,20 @@ export default function ParkDetail() {
     }
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="park-details">
       <button onClick={saveToFavorites}>Save to My List</button>
+      
       <button>
         <Link to="/favorites">My Favorite Parks</Link>
       </button>
+
+      <button onClick={goBack}>Back</button>
+
       <h1>{park.fullName}</h1>
 
       {park.images?.length > 0 && (
@@ -61,6 +70,10 @@ export default function ParkDetail() {
         </a>
       </p>
 
+      <button>
+        <Link to={`/park/campgrounds/${park.parkCode}`}>Find Campgrounds</Link>
+      </button>
+      
       {park.operatingHours?.length > 0 && (
         <div className="hours">
           <h3>Operating Hours:</h3>

@@ -1,16 +1,16 @@
 import React from 'react';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, Link } from 'react-router-dom';
 import './App.css'
 import ParksList from './components/ParkList';
-import { Route, Routes, useLocation, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ParkDetail from './components/ParkDetail';
 import FavoritesList from './components/FavoritesList';
+import Campgrounds from './components/Campgrounds';
+import CampgroundDetail from './components/CampgroundDetail';
 
 function App() {
 
-  const history = useNavigate();
   const location = useLocation(); // Get current route
   const isHomePage = location.pathname === "/"; // Check if on home page
 
@@ -31,6 +31,9 @@ function App() {
                 <h1>Welcome to ParkQuest!</h1>
                 <h3>Plan your trip to national parks with ease!</h3>
                 <button>
+                  <Link to="/parklist">Search Parks/Campgrounds</Link>
+                </button>
+                <button>
                   <Link to="/favorites">My Favorite Parks</Link>
                 </button>
               </div>
@@ -40,6 +43,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/parklist" element={<ParksList />} />
           <Route path="/parks/:id" element={<ParkDetail />} />
+          <Route path="/park/campgrounds/:id" element={<Campgrounds />} />
+          <Route path="/campgrounds/:campgroundId" element={<CampgroundDetail />} />
           <Route path="/favorites" element={<FavoritesList />} />
         </Routes>
       </div>
