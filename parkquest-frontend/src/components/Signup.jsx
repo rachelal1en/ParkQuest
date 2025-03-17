@@ -46,8 +46,9 @@ function Signup () {
             };
 
     return (
-        <div>
+        <div className="account-forms">
             <h2>Sign up</h2>
+            <br />
             <form onSubmit={handleSignup}>
                 {/* renders error message */}
                 {error && <div className="error">{error}</div>}
@@ -58,7 +59,7 @@ function Signup () {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                />
+                /><br />
                 <input
                     id="password"
                     type="password"
@@ -66,7 +67,7 @@ function Signup () {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                />
+                /><br />
                 <input
                     id="confirmPassword"
                     type="password"
@@ -74,11 +75,13 @@ function Signup () {
                     value={confirmPassword}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                />
-                <button type="submit">Sign up</button>
+                /><br />
+                <button type="submit" class="outline-button">Sign up</button>
+
             </form>
             <div>
-                <p>Already registered? <Link to="/Login">Login</Link></p>
+                <br />
+                <p>Already registered? <Link to="/Login" className="not-transparent-links">Login</Link></p>
             </div>
         </div>
         )

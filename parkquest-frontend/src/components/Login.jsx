@@ -43,7 +43,7 @@ function Login() {
             };
 
     return(
-        <div>
+        <div className="account-forms">
             <script src="https://apis.google.com/js/platform.js" async defer></script>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
@@ -65,7 +65,7 @@ function Login() {
                 />
                 {/* renders error message */}
                 {error && <div className="error">{error}</div>}
-                <button type="submit">Login</button>
+                <button class="outline-button" type="submit">Login</button>
             </form>
         <div>
                 <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">
@@ -74,7 +74,7 @@ function Login() {
         </div>
             <div>
                 <br/>
-                <p>Not Registered? <Link to="/Signup">Register</Link></p>
+                <p>Not Registered? <Link to="/Signup" className="not-transparent-links">Register</Link></p>
             </div>
         </div>
     )

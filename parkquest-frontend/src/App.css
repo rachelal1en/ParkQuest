@@ -1,13 +1,18 @@
+/* ParkQuest Name */
+#website-name {
+  color: white;
+  font-size: 3rem;
+}
 /* Header */
 header {
   /* flex: 0 1 auto;  */
   background: #004d40; /* Example color */
   color: white;
-  height: 70px;
+  height: 4.375rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:  0 35px;
+  padding:  0 2.188rem;
 }
 
 /* First Page */
@@ -23,7 +28,7 @@ header {
 
 /* Parks list */
 .park-list {
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
 }
 
@@ -31,14 +36,14 @@ header {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: .938rem;
 }
 
 .park-list li {
   background: #f4f4f4;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: .938rem;
+  border-radius: .5rem;
+  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);
   text-align:justify;
 }
 
@@ -52,13 +57,13 @@ header {
 
 /* Park Details */
 .park-details {
-  padding: 20px 35px;
+  padding: 1.25rem 2.188rem;
   text-align: center;
 }
 
 .park-details img {
-  width: 400px;
-  padding-top: 20px;
+  width: 25rem;
+  padding-top: 1.25rem;
 }
 
 .park-details p {
@@ -67,7 +72,7 @@ header {
 
 .hours {
   text-align: left;
-  padding-top: 20px;
+  padding-top: 1.25rem;
 }
 
 .hours ul {
@@ -77,15 +82,119 @@ header {
 /* Favorite List */
 .favorite-list {
   text-align: center;
-  padding: 20px 35px;
+  padding: 1.25rem 2.188rem;
 }
 
 .favorite-list li {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 2.5rem;
   background: #f4f4f4;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: .938rem;
+  border-radius: .5rem;
+  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);
+}
+
+
+/* Outline Button */
+.outline-button {
+  background-color: transparent;
+  color: rgba(0, 140, 0, 1);
+  font-size: .875rem;
+  padding: .625rem 1.125rem;
+  border-radius: .313rem;
+  border: .125rem solid rgba(0, 140, 0, 1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.outline-button:hover {
+  background-color: rgba(0, 140, 0, 1);
+  color: white;
+}
+
+.outline-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 .188rem rgba(0, 113, 0, 0.5);
+}
+
+/* Login Signup Logout Button */
+.account-button {
+  background-color: rgba(238, 245, 238, .75);
+  color: rgba(0, 140, 0, 1);
+  font-size: .875rem;
+  padding: .625rem 1.125rem;
+  border-radius: .313rem;
+  border: .125rem solid rgba(0, 140, 0, 1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.account-button:hover {
+  background-color: rgba(0, 140, 0, 1);
+  color: rgba(238, 245, 238, .75);
+}
+
+.account-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 .188rem rgba(0, 113, 0, 0.5);
+}
+
+a {
+  color: darkgreen;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(238, 245, 238, .75);
+}
+
+a:active {
+  color: rgba(238, 245, 238, .75);
+}
+
+input {
+  font-size: .875rem;
+  padding: .625rem 1.125rem;
+  border-radius: .313rem;
+}
+.account-forms {
+  display: flex;
+  flex-direction: column; /* Stack the input elements vertically */
+  align-items: center;      /* Center input fields and button horizontally */
+  padding: 1.25rem;
+  border: .125rem solid #ccc;
+  border-radius: .625rem;
+  width: 18.75rem;             /* Set a width for the form */
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack the input elements vertically */
+  align-items: center;
+}
+
+.not-transparent-links {
+  color: darkgreen;
+  text-decoration: none;
+}
+
+.not-transparent-links:hover {
+  color: black;
+}
+
+.not-transparent-links:active {
+  color: black;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.17rem;
 }
