@@ -12,10 +12,10 @@ public class Park {
     private Long parkId;
 
     @Column(name = "full_name")
-    private String fullName;
+    private Long fullName;
 
     @Column(name = "state_name")
-    private String states;
+    private Long states;
 
     public Park() {}
 
@@ -27,19 +27,19 @@ public class Park {
         this.parkId = parkId;
     }
 
-    public String getFullName() {
+    public Long getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(Long fullName) {
         this.fullName = fullName;
     }
 
-    public String getStates() {
+    public Long getStates() {
         return states;
     }
 
-    public void setStates(String states) {
+    public void setStates(Long states) {
         this.states = states;
     }
 }
