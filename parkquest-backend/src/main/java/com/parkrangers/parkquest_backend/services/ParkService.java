@@ -34,8 +34,8 @@ public class ParkService {
             for (JsonNode parkNode : response.get("data")) {
                 Park park = new Park();
                 park.setParkId(Long.valueOf(parkNode.get("id").asText()));
-                park.setFullName(parkNode.get("fullName").asText());
-                park.setStates(parkNode.get("states").asText());
+                park.setFullName(parkNode.get("fullName").asLong());
+                park.setStates(parkNode.get("states").asLong());
 
                 parkRepository.save(park);
             }
