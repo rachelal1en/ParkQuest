@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ParkRepository extends JpaRepository<Park, Long> {
-public interface ParkRepository {
 }
+
