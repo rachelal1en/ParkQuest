@@ -1,7 +1,7 @@
 package com.parkrangers.parkquest_backend.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.parkrangers.parkquest_backend.models.Park;
+import com.parkrangers.parkquest_backend.models.response.Park;
 import com.parkrangers.parkquest_backend.repositories.ParkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
