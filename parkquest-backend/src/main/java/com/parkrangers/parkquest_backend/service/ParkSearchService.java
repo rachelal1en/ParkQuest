@@ -1,5 +1,6 @@
 package com.parkrangers.parkquest_backend.service;
 
+import com.parkrangers.parkquest_backend.models.response.Park;
 import com.parkrangers.parkquest_backend.models.response.ParkSearchResponse;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ public class ParkSearchService {
 
     private final String API_URL = "https://developer.nps.gov/api/v1/parks";
 
-    public List<com.parkrangers.parkquest_backend.models.response.Park> getParks(String stateCode, String parkCode) {
+    public List<Park> getParks(String stateCode, String parkCode) {
         String url = String.format("%s?stateCode=%s&parkCode=%s&limit=15&start=12&q=%s&api_key=%s",
                 API_URL, stateCode, parkCode, parkCode, apiKey);
 
