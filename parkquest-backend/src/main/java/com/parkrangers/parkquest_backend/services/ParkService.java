@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ParkService {
 
@@ -14,7 +17,6 @@ public class ParkService {
     private static final String API_KEY = "psiKQ0pcuRwnHB779eAfD9G0Ihuf7iyqD0QejP79";
 
     private final RestTemplate restTemplate = new RestTemplate();
-
     private final ParkRepository parkRepository;
 
     @Autowired
@@ -27,18 +29,29 @@ public class ParkService {
         return restTemplate.getForObject(url, JsonNode.class);
     }
 
-    public void fetchAndSaveParks(String stateCode) {
-        JsonNode response = fetchParksByState(stateCode);
+    public void saveFavoritePark(JsonNode parkNode) {
+        if (parkNode != null) {
+            Park park = new Park();
 
-        if (response != null && response.has("data")) {
-            for (JsonNode parkNode : response.get("data")) {
-                Park park = new Park();
-                park.setParkId(Long.valueOf(parkNode.get("id").asText()));
-                park.setFullName(parkNode.get("fullName").asLong());
-                park.setStates(parkNode.get("states").asLong());
+            park.setName(parkNode.has("fullName") ? parkNode.get("fullName").asText() : "Unknown Name");
+            park.setUrl(parkNode.has("url") ? parkNode.get("url").asText() : "No URL");
 
-                parkRepository.save(park);
+            List<String> activities = new ArrayList<>();
+            if (parkNode.has("activities")) {
+                for (JsonNode activity : parkNode.get("activities")) {
+                    activities.add(activity.get("name").asText());
+                }
             }
+            park.setActivities(activities);
+
+
+            if (parkNode.has("images") && parkNode.get("images").isArray() && parkNode.get("images").size() > 0) {
+                park.setImageUrl(parkNode.get("images").get(0).get("url").asText());
+            } else {
+                park.setImageUrl("No image available");
+            }
+
+            parkRepository.save(park);
         }
     }
 }
