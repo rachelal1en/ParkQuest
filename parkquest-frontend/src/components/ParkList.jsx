@@ -6,10 +6,6 @@ const ParksList = () => {
   const [parks, setParks] = useState([]);
   const [error, setError] = useState("");
 
-  const [selectedCampgroundState, setSelectedCampgroundState] = useState("");
-  const [campgrounds, setCampgrounds] = useState([]);
-  const [campgroundError, setCampgroundError] = useState("");
-
   const states = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA",
     "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA",
@@ -34,9 +30,14 @@ const ParksList = () => {
 
     try {
       const stateCode = states[selectedState]; // Convert full name to abbreviation
-      const apiKey = import.meta.env.VITE_PARKS_API_KEY;
+
+      // const apiKey = import.meta.env.VITE_PARKS_API_KEY;
+      // const response = await fetch(
+      //   `https://developer.nps.gov/api/v1/parks?stateCode=${stateCode}&limit=100&api_key=${apiKey}`
+      // );
+
       const response = await fetch(
-        `https://developer.nps.gov/api/v1/parks?stateCode=${stateCode}&limit=100&api_key=${apiKey}`
+        `http://localhost:8080/parks/searches?stateCode=${stateCode}`
       );
 
       if (!response.ok) {
@@ -44,34 +45,10 @@ const ParksList = () => {
       }
 
       const data = await response.json();
-      setParks(data.data);
+      setParks(data);
+      console.log("API Response:", data);
     } catch (err) {
       setError(err.message);
-    }
-  };
-
-  const fetchCampgrounds = async () => {
-    if (!selectedCampgroundState) {
-      setCampgroundError("Please select a state for campgrounds.");
-      return;
-    }
-    setCampgroundError("");
-
-    try {
-      const stateCode = states[selectedCampgroundState];
-      const apiKey = import.meta.env.VITE_PARKS_API_KEY;
-      const response = await fetch(
-        `https://developer.nps.gov/api/v1/campgrounds?stateCode=${stateCode}&limit=100&api_key=${apiKey}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch campgrounds. Please try again.");
-      }
-
-      const data = await response.json();
-      setCampgrounds(data.data);
-    } catch (err) {
-      setCampgroundError(err.message);
     }
   };
 
@@ -101,33 +78,6 @@ const ParksList = () => {
             <p>{park.description}</p>
         </li>
         ))}
-    </ul>
-
-    <br />
-
-    <h2>Find Campgrounds</h2>
-    <select value={selectedCampgroundState} onChange={(e) => setSelectedCampgroundState(e.target.value)}>
-      <option value="">Select a state</option>
-      {Object.keys(states).map((state) => (
-        <option key={state} value={state}>
-          {state}
-        </option>
-      ))}
-    </select>
-    <button onClick={fetchCampgrounds}>Search Campgrounds</button>
-    {campgroundError && <p style={{ color: "red" }}>{campgroundError}</p>}
-    <ul>
-      {campgrounds.map((campground) => (
-        <li key={campground.id}>
-          <h4>
-            <Link to={`/campgrounds/${campground.id}`}>{campground.name}</Link>
-          </h4>
-          <p>{campground.description}</p>
-          <a href={campground.url} target="_blank" rel="noopener noreferrer">
-            More Info
-          </a>
-        </li>
-      ))}
     </ul>
   </div>
   );
