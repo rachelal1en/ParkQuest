@@ -4,6 +4,7 @@ import './App.css'
 import ParksList from './components/ParkList';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Dashboard from './components/Dashboard';
 import ParkDetail from './components/ParkDetail';
 import FavoritesList from './components/FavoritesList';
 import Campgrounds from './components/Campgrounds';
@@ -33,9 +34,15 @@ function App() {
               <br />
               <h3>Plan your trip to national parks with ease!</h3>
               <br /><br />
+              <div>
+                <button className="outline-button">
+                  <Link to="/Dashboard">Dashboard</Link>
+                </button>
+              </div>
             </div>
           }
           />
+          <Route path="/Dashboard" element={<Dashboard/>}/>
           <Route path="/App" element={<App/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/login" element={<Login/>}/>
@@ -43,6 +50,6 @@ function App() {
       </div>
     </div>
   )
-};
+}
 
 export default App;

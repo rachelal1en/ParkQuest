@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {Route, Routes, useLocation, Link, useNavigate} from 'react-router-dom';
-import './App.css'
-import ParksList from './components/ParkList';
-import ParkDetail from './components/ParkDetail';
-import FavoritesList from './components/FavoritesList';
-import Campgrounds from './components/Campgrounds';
-import CampgroundDetail from './components/CampgroundDetail';
+import '../App.css'
+import App from '../App';
+import ParksList from './ParkList';
+import ParkDetail from './ParkDetail';
+import FavoritesList from './FavoritesList';
+import Campgrounds from './Campgrounds';
+import CampgroundDetail from './CampgroundDetail';
 
 
-function App() {
+function Dashboard() {
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
     const location = useLocation(); // Get current route
-    const isHomePage = location.pathname === "/"; // Check if on home page
+    const [error, setError] = useState(null);
 
     const handleLogout = async () => {
         try {
@@ -25,10 +25,10 @@ function App() {
             if (response.ok) {
                 console.log('Logged out successfully');
                 navigate('/App');
-            } else{
+            } else {
                 setError('Failed to log out');
             }
-        } catch(error){
+        } catch (error) {
             console.log('Error logging out', error);
         }
     };
@@ -38,37 +38,37 @@ function App() {
             <header>
                 <h2 id="website-name"><Link to="/" id="website-name">ParkQuest</Link></h2>
                 <div>
-                    <button class="account-button" onclick ={handleLogout}>Logoff</button>
+                    <button className="account-button" onClick={handleLogout}>Logoff</button>
                 </div>
             </header>
-
-            <div >
+            <div>
                 <Routes>
                     <Route path="/" element={
                         <div>
                             <h1>Welcome to ParkQuest!</h1>
-                            <br />
+                            <br/>
                             <h3>Plan your trip to national parks with ease!</h3>
-                            <br /><br />
-                            <button class="outline-button">
-                                <Link to="/parklist">Search Parks/Campgrounds</Link>
-                            </button>
-                            <button class="outline-button">
-                                <Link to="/favorites">My Favorite Parks</Link>
-                            </button>
+                            <br/><br/>
+                            <div>
+                                <button className="outline-button">
+                                    <Link to="/parklist">Search Parks/Campgrounds</Link>
+                                </button>
+                                <button className="outline-button">
+                                    <Link to="/favorites">My Favorite Parks</Link>
+                                </button>
+                            </div>
+                            </div>
+                            }/>
+                            <Route path="/App" element={<App/>}/>
+                            <Route path="/parklist" element={<ParksList/>}/>
+                            <Route path="/parks/:id" element={<ParkDetail/>}/>
+                            <Route path="/park/campgrounds/:id" element={<Campgrounds/>}/>
+                            <Route path="/campgrounds/:campgroundId" element={<CampgroundDetail/>}/>
+                            <Route path="/favorites" element={<FavoritesList/>}/>
+                        </ Routes>
                         </div>
-                    }
-                    />
-                    <Route path="/App" element={<App/>}/>
-                    <Route path="/parklist" element={<ParksList/>}/>
-                    <Route path="/parks/:id" element={<ParkDetail/>}/>
-                    <Route path="/park/campgrounds/:id" element={<Campgrounds/>}/>
-                    <Route path="/campgrounds/:campgroundId" element={<CampgroundDetail/>}/>
-                    <Route path="/favorites" element={<FavoritesList/>}/>
-                </Routes>
-            </div>
-        </div>
-    )
-};
+                        </div>
+                        );
+            }
 
-export default App;
+export default Dashboard;
