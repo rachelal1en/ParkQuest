@@ -31,11 +31,6 @@ const ParksList = () => {
     try {
       const stateCode = states[selectedState]; // Convert full name to abbreviation
 
-      // const apiKey = import.meta.env.VITE_PARKS_API_KEY;
-      // const response = await fetch(
-      //   `https://developer.nps.gov/api/v1/parks?stateCode=${stateCode}&limit=100&api_key=${apiKey}`
-      // );
-
       console.log("Selected State Code:", stateCode);
 
       const response = await fetch(
@@ -75,7 +70,9 @@ const ParksList = () => {
         {parks.map((park) => (
         <li key={park.id}>
             <h4>
-            <Link to={`/parks/${park.parkCode}`}>{park.name}</Link>
+              <Link to={`/parklist/${park.parkCode}`} state={{ park }}>
+                {park.fullName}
+              </Link>
             </h4>
             <p>{park.description}</p>
         </li>

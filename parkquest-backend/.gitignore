@@ -35,4 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Environment Variables ###
 .env
+
+### Spring Boot Configuration Files ###
+application.properties

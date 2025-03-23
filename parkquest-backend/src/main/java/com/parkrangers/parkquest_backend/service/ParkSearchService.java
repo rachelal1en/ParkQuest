@@ -3,6 +3,10 @@ package com.parkrangers.parkquest_backend.service;
 import com.parkrangers.parkquest_backend.models.response.Park;
 import com.parkrangers.parkquest_backend.models.response.ParkSearchResponse;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,9 +21,9 @@ public class ParkSearchService {
 
     private final String API_URL = "https://developer.nps.gov/api/v1/parks";
 
-    public List<Park> getParks(String stateCode, String parkCode) {
-        String url = String.format("%s?stateCode=%s&parkCode=%s&limit=15&start=12&q=%s&api_key=%s",
-                API_URL, stateCode, parkCode, parkCode, apiKey);
+    public List<Park> getParks(String stateCode) throws JSONException {
+        String url = String.format("%s?stateCode=%s&limit=100&api_key=%s",
+                API_URL, stateCode, apiKey);
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<ParkSearchResponse> response = restTemplate.getForEntity(url, ParkSearchResponse.class);
