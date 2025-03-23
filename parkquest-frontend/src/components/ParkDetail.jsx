@@ -63,7 +63,12 @@ export default function ParkDetail() {
       <p>{park.description}</p>
       <p><strong>Location:</strong> {park.states}</p>
       
-      <p><strong>Activities:</strong> {park.activities.map(a => a.name).join(", ")}</p>
+      <p><strong>Activities:</strong> 
+        {park.activities && park.activities.length > 0 ? 
+        park.activities.map(a => a.name).join(", ") : 
+          "No activities available"}
+      </p>
+      
       <p>
         <a href={park.url} target="_blank" rel="noopener noreferrer">
           Visit Official Website

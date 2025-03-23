@@ -36,8 +36,10 @@ const ParksList = () => {
       //   `https://developer.nps.gov/api/v1/parks?stateCode=${stateCode}&limit=100&api_key=${apiKey}`
       // );
 
+      console.log("Selected State Code:", stateCode);
+
       const response = await fetch(
-        `http://localhost:8080/parks/searches?stateCode=${stateCode}`
+        `http://localhost:8081/parks/searches?stateCode=${stateCode}`
       );
 
       if (!response.ok) {
@@ -73,7 +75,7 @@ const ParksList = () => {
         {parks.map((park) => (
         <li key={park.id}>
             <h4>
-            <Link to={`/parks/${park.parkCode}`}>{park.fullName}</Link>
+            <Link to={`/parks/${park.parkCode}`}>{park.name}</Link>
             </h4>
             <p>{park.description}</p>
         </li>
