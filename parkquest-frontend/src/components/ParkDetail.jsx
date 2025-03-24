@@ -1,36 +1,15 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link, useNavigate } from "react-router-dom";
-
-const API_KEY = import.meta.env.VITE_PARKS_API_KEY;
+import { useLocation, useNavigate, Link } from "react-router-dom";
 
 export default function ParkDetail() {
-  const { id } = useParams();
-  const [park, setPark] = useState(null);
-  const [error, setError] = useState(null);
+  const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${id}&api_key=${API_KEY}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch park details");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Fetched data:", data); 
-        if (data.data.length > 0) {
-          setPark(data.data[0]);
-        } else {
-          setError("No park details found.");
-        }
-      })
-      .catch((error) => setError(error.message));
-  }, [id]);
-
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!park) return <p>Loading...</p>;
+  const park = location.state?.park; // Retrieve passed park data
+  console.log("Park detail received:", park);
+  
+  if (!park) {
+    return <p>No park data available.</p>; // Handle case where data is missing
+  }
 
   const saveToFavorites = () => {
     const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -68,7 +47,7 @@ export default function ParkDetail() {
         park.activities.map(a => a.name).join(", ") : 
           "No activities available"}
       </p>
-      
+
       <p>
         <a href={park.url} target="_blank" rel="noopener noreferrer">
           Visit Official Website
