@@ -36,8 +36,19 @@ export default function ParkDetail() {
 
       <h1>{park.fullName}</h1>
 
-      {park.images?.length > 0 && (
+      {/* {park.images?.length > 0 && (
         <img src={park.images[0].url} alt={park.images[0].altText || "Park Image"} />
+      )} */}
+
+      {park.images?.length > 0 && (
+        <figure>
+          <img 
+            src={park.images[0].url} 
+            alt={park.images[0].altText || "Park Image"} 
+            title={park.images[0].title} // Tooltip on hover
+          />
+          {park.images[0].title && <figcaption>{park.images[0].title}</figcaption>} 
+        </figure>
       )}
       <p>{park.description}</p>
       <p><strong>Location:</strong> {park.states}</p>
