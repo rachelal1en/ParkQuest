@@ -1,9 +1,10 @@
 package com.parkrangers.parkquest_backend.models.response;
 
+import com.parkrangers.parkquest_backend.dto.ImageDTO;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Table(name = "favorite_park")
@@ -14,11 +15,8 @@ public class Park {
     @Column(name = "park_id")
     private Long parkId;
 
-    @Column(name = "fullName")
+    @Column(name = "full_name")  // Save only basic info
     private String fullName;
-
-    @Column(name = "parkCode")
-    private String parkCode;
 
     @Column(name = "description")
     private String description;
@@ -26,16 +24,12 @@ public class Park {
     @Column(name = "url")
     private String url;
 
-    @OneToMany(mappedBy = "park", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> images;
+    public Park() {}
 
-//    @ElementCollection
-//    @CollectionTable(name = "park_activities", joinColumns = @JoinColumn(name = "park_id"))
-//    @Column(name = "activity")
-//    private List<String> activities;
-
-
-    public Park() {
+    public Park(String fullName, String description, String url) {
+        this.fullName = fullName;
+        this.description = description;
+        this.url = url;
     }
 
     public Long getParkId() {
@@ -62,35 +56,11 @@ public class Park {
         this.description = description;
     }
 
-    public String getParkCode() {
-        return parkCode;
-    }
-
-    public void setParkCode(String parkCode) {
-        this.parkCode = parkCode;
-    }
-
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-//    public List<String> getActivities() {
-//        return activities;
-//    }
-//
-//    public void setActivities(List<String> activities) {
-//        this.activities = activities;
-//    }
-//
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 }
