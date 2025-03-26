@@ -26,9 +26,9 @@ public class Park {
     @Column(name = "url")
     private String url;
 
-//    @Column(name = "image_url")
-//    private String imageUrl;
-//
+    @OneToMany(mappedBy = "park", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
+
 //    @ElementCollection
 //    @CollectionTable(name = "park_activities", joinColumns = @JoinColumn(name = "park_id"))
 //    @Column(name = "activity")
@@ -86,12 +86,11 @@ public class Park {
 //        this.activities = activities;
 //    }
 //
-//    public String getImageUrl() {
-//        return imageUrl;
-//    }
-//
-//    public void setImageUrl(String imageUrl) {
-//        this.imageUrl = imageUrl;
-//    }
+    public List<Image> getImages() {
+        return images;
+    }
 
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }
