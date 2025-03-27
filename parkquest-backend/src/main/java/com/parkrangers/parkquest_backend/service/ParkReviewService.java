@@ -15,27 +15,27 @@ public class ParkReviewService {
         this.parkReviewRepository = parkReviewRepository;
     }
 
-    // Add a new review
+
     public ParkReview addReview(ParkReview review) {
         return parkReviewRepository.save(review);
     }
 
-    // Get all reviews for a specific park by parkId
+
     public List<ParkReview> getReviewsByPark(String parkId) {
         return parkReviewRepository.findByParkId(parkId);
     }
 
-    // Get a review by its reviewId
+
     public ParkReview getReviewById(Long reviewId) {
         return parkReviewRepository.findById(reviewId).orElseThrow(() -> new RuntimeException("Review not found"));
     }
 
-    // Update an existing review
+
     public ParkReview updateReview(ParkReview review) {
         return parkReviewRepository.save(review);
     }
 
-    // Delete a review by its reviewId
+
     public void deleteReview(Long reviewId) {
         parkReviewRepository.deleteById(reviewId);
     }
