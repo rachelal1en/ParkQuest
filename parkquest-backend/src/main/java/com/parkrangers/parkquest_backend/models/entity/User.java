@@ -35,8 +35,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // You can define roles and permissions if necessary.
-        return Collections.emptyList();  // If you don't use roles, just return an empty list
+
+                return Collections.emptyList();
+
     }
 
     @Override
@@ -51,21 +52,24 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // Assuming the account never expires
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Assuming the account is not locked
+        return true;
+
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Assuming credentials don't expire
+        return true;
+
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // Assuming the account is enabled
+        return true;
+
     }
 }
