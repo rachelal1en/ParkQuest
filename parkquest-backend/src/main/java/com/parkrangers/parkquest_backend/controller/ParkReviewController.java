@@ -22,7 +22,7 @@ public class ParkReviewController {
         this.userService = userService;
     }
 
-    // Create a new review
+
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ParkReview addReview(@RequestBody ParkReviewRequest request) {
@@ -31,19 +31,19 @@ public class ParkReviewController {
         ParkReview review = new ParkReview();
         review.setReviewText(request.getReviewText());
         review.setRating(request.getRating());
-        review.setParkId(request.getParkId());  // Set the parkId from the request
-        review.setUser(user); // Optionally associate the review with the user
+        review.setParkId(request.getParkId());
+        review.setUser(user);
 
         return parkReviewService.addReview(review);
     }
 
-    // Get all reviews for a specific park (by parkId)
+
     @GetMapping("/{parkId}")
     public List<ParkReview> getReviewsByPark(@PathVariable String parkId) {
         return parkReviewService.getReviewsByPark(parkId);
     }
 
-    // Update an existing review
+
     @PutMapping("/{reviewId}")
     public ParkReview updateReview(@PathVariable Long reviewId, @RequestBody ParkReviewRequest request) {
         ParkReview existingReview = parkReviewService.getReviewById(reviewId);
@@ -53,7 +53,7 @@ public class ParkReviewController {
         return parkReviewService.updateReview(existingReview);
     }
 
-    // Delete a review by reviewId
+
     @DeleteMapping("/{reviewId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReview(@PathVariable Long reviewId) {
