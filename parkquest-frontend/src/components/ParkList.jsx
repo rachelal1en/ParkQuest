@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const ParksList = () => {
   const [selectedState, setSelectedState] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [parks, setParks] = useState([]);
   const [error, setError] = useState("");
 
@@ -20,7 +21,7 @@ const ParksList = () => {
     "Wisconsin": "WI", "Wyoming": "WY"
   };
 
-  const fetchParks = async () => {
+  const fetchParksByState = async () => {
     if (!selectedState) {
       setError("Please select a state.");
       return;
@@ -49,10 +50,35 @@ const ParksList = () => {
     }
   };
 
+  const fetchParksByName = async () => {
+    if(!searchQuery.trim()) {
+      setError("please enter a park name.");
+      return;
+    }
+
+    setError("");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8081/parks/searches?parkName=${encodeURIComponent(searchQuery)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch parks. Please try again.");
+      }
+
+      const data = await response.json();
+      setParks(data);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
   <div className="park-list">
     <h2>Find National Parks</h2>
 
+    <label>Search by State:</label>
     <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
         <option value="">Select a state</option>
         {Object.keys(states).map((state) => (
@@ -61,8 +87,20 @@ const ParksList = () => {
         </option>
         ))}page 
     </select>
-
-    <button onClick={fetchParks}>Search</button>
+    <button onClick={fetchParksByState}>Search</button>
+    
+    <br/>
+    <hr />
+    <br/>
+    
+    <label>Search by Park Name:</label>
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      placeholder="Enter park name"
+    />
+    <button onClick={fetchParksByName}>Search by Name</button>
 
     {error && <p style={{ color: "red" }}>{error}</p>}
 
