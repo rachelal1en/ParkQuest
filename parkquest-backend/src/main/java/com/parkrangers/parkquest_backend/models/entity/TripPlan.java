@@ -1,4 +1,4 @@
-package com.parkrangers.parkquest_backend.models;
+package com.parkrangers.parkquest_backend.models.entity;
 
 
 import com.parkrangers.parkquest_backend.models.response.Park;

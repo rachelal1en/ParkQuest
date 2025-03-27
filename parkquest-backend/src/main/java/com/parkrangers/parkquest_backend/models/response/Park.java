@@ -1,10 +1,6 @@
 package com.parkrangers.parkquest_backend.models.response;
 
-import com.parkrangers.parkquest_backend.dto.ImageDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-
-import java.util.List;
 
 @Entity
 @Table(name = "favorite_park")
