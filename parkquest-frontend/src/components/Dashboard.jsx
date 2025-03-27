@@ -51,7 +51,7 @@ function Dashboard() {
                             <br/><br/>
                             <div>
                                 <button className="outline-button">
-                                    <Link to="/parklist">Search Parks/Campgrounds</Link>
+                                    <Link to="/parklist">Search Parks</Link>
                                 </button>
                                 <button className="outline-button">
                                     <Link to="/favorites">My Favorite Parks</Link>
