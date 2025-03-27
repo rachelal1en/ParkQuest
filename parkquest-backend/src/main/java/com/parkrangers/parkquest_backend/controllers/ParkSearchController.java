@@ -17,8 +17,15 @@ public class ParkSearchController {
     private ParkSearchService parkSearchService;
 
     @GetMapping("/parks/searches")
-    public List<Park> getParks(@RequestParam String stateCode) throws JSONException {
-        return parkSearchService.getParks(stateCode);
+    public List<Park> getParks(@RequestParam(required = false) String stateCode,
+                               @RequestParam(required = false) String parkName) throws JSONException {
+        if (parkName != null && !parkName.isEmpty()) {
+            return parkSearchService.getParksByName(parkName);
+        } else if (stateCode != null && !stateCode.isEmpty()) {
+            return parkSearchService.getParks(stateCode);
+        } else {
+            throw new IllegalArgumentException("Either stateCode or parkName must be provided.");
+        }
     }
 }
 
