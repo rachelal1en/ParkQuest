@@ -7,7 +7,8 @@ import lombok.Setter;
 @Setter
 public class ParkReviewRequest {
 
-    private String parkId;      // parkId as a simple string
-    private String reviewText;  // Review content
-    private int rating;         // Rating out of 5
+    private String parkId;
+    private String reviewText;
+    private int rating;
+
 }
