@@ -1,4 +1,4 @@
-package com.parkrangers.parkquest_backend.services;
+package com.parkrangers.parkquest_backend.service;
 
 import com.parkrangers.parkquest_backend.models.response.Park;
 import com.parkrangers.parkquest_backend.models.response.ParkSearchResponse;
