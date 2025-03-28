@@ -15,8 +15,11 @@ public class Park {
     @Column(name = "park_id")
     private Long parkId;
 
-    @Column(name = "full_name")  // Save only basic info
+    @Column(name = "fullName")
     private String fullName;
+
+    @Column(name = "parkCode")
+    private String parkCode;
 
     @Column(name = "description")
     private String description;
@@ -24,12 +27,15 @@ public class Park {
     @Column(name = "url")
     private String url;
 
-    public Park() {}
+    @Transient // This means images won't be stored in the database
+    private List<Image> images;
 
-    public Park(String fullName, String description, String url) {
-        this.fullName = fullName;
-        this.description = description;
-        this.url = url;
+//    @ElementCollection
+//    @CollectionTable(name = "park_activities", joinColumns = @JoinColumn(name = "park_id"))
+//    @Column(name = "activity")
+//    private List<String> activities;
+
+    public Park() {
     }
 
     public Long getParkId() {
@@ -56,6 +62,14 @@ public class Park {
         this.description = description;
     }
 
+    public String getParkCode() {
+        return parkCode;
+    }
+
+    public void setParkCode(String parkCode) {
+        this.parkCode = parkCode;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -63,4 +77,25 @@ public class Park {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    // Get the first image URL if available
+    public String getFirstImageUrl() {
+        return (images != null && !images.isEmpty()) ? images.get(0).getUrl() : null;
+    }
+
+    //    public List<String> getActivities() {
+//        return activities;
+//    }
+//
+//    public void setActivities(List<String> activities) {
+//        this.activities = activities;
+//    }
 }
