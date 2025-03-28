@@ -1,6 +1,6 @@
 package com.parkrangers.parkquest_backend.service;
 
-import com.parkrangers.parkquest_backend.models.dto.ImageDTO;
+import com.parkrangers.parkquest_backend.dto.ImageDTO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
