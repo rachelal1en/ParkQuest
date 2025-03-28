@@ -1,4 +1,4 @@
-package com.parkrangers.parkquest_backend.models.dto;
+package com.parkrangers.parkquest_backend.dto;
 
 public class ImageDTO {
 

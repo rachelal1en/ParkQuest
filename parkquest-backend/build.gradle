@@ -37,9 +37,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.json:json:20210307' // Ensure to use the latest stable version
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
-
 
 tasks.named('test') {
 	useJUnitPlatform()
