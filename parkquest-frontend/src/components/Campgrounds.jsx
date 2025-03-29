@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CampgroundInfo from "./CampgroundInfo";
+import CampgroundInfo from "./CampgroundInfo/CampgroundInfo";
 
 const API_KEY = import.meta.env.VITE_PARKS_API_KEY;
 const API_BASE_URL = "https://developer.nps.gov/api/v1/campgrounds";

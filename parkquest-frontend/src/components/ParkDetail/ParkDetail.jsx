@@ -1,4 +1,5 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import style from "./ParkDetail.module.css";
 
 export default function ParkDetail() {
   const location = useLocation();
@@ -25,7 +26,7 @@ export default function ParkDetail() {
   };
 
   return (
-    <div className="park-details">
+    <div className={style.parkDetails}>
       <button onClick={saveToFavorites}>Save to My List</button>
       
       <button>
@@ -70,7 +71,7 @@ export default function ParkDetail() {
       </button>
       
       {park.operatingHours?.length > 0 && (
-        <div className="hours">
+        <div className={style.hours}>
           <h3>Operating Hours:</h3>
           <ul>
             {park.operatingHours[0].standardHours && (

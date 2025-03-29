@@ -1,0 +1,22 @@
+.parksDetails {
+  padding: 1.25rem 2.188rem;
+  text-align: center;
+}
+
+.parksDetails img {
+  width: 25rem;
+  padding-top: 1.25rem;
+}
+
+.parksDetails p {
+  text-align: justify;
+}
+
+.hours {
+  text-align: left;
+  padding-top: 1.25rem;
+}
+
+.hours ul {
+  list-style: none;
+}

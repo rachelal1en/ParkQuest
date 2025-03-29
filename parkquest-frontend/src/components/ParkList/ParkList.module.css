@@ -1,0 +1,27 @@
+.parksList {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.parksList ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .938rem;
+}
+
+.parksList li {
+  background: #f4f4f4;
+  padding: .938rem;
+  border-radius: .5rem;
+  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);
+  text-align:justify;
+}
+
+.parksList a {
+  color: #004d40;
+}
+
+.parksList a:hover {
+  color: #149f88;
+}

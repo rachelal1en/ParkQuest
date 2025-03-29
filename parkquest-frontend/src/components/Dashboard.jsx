@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Route, Routes, useLocation, Link, useNavigate} from 'react-router-dom';
 import '../App.css'
 import App from '../App';
-import ParksList from './ParkList';
-import ParkDetail from './ParkDetail';
-import FavoritesList from './FavoritesList';
+import ParksList from './ParkList/ParkList';
+import ParkDetail from './ParkDetail/ParkDetail';
+import FavoritesList from './FavoritesList/FavoritesList';
 import Campgrounds from './Campgrounds';
 import CampgroundDetail from './CampgroundDetail';
 

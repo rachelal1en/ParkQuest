@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import style from "./ParkList.module.css";
 
 const ParksList = () => {
   const [selectedState, setSelectedState] = useState("");
@@ -75,7 +76,7 @@ const ParksList = () => {
   };
 
   return (
-  <div className="park-list">
+  <div className={style.parksList}>
     <h2>Find National Parks</h2>
 
     <label>Search by State:</label>
