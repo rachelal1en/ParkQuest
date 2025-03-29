@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import style from "./FavoritesList.module.css";
 
 const FavoritesList = () => {
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
@@ -11,7 +12,7 @@ const FavoritesList = () => {
   };
 
   return (
-    <div className="favorite-list">
+    <div className={style.favoriteList}>
         <button>
         <Link to="/parklist">Go to Parks List</Link>
       </button>

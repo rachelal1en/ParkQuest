@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes, useLocation, Link } from 'react-router-dom';
 import './App.css'
-import ParksList from './components/ParkList';
+import ParksList from './components/ParkList/ParkList';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
-import ParkDetail from './components/ParkDetail';
-import FavoritesList from './components/FavoritesList';
+import ParkDetail from './components/ParkDetail/ParkDetail';
+import FavoritesList from './components/FavoritesList/FavoritesList';
 import Campgrounds from './components/Campgrounds';
 import CampgroundDetail from './components/CampgroundDetail';
 

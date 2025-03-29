@@ -1,0 +1,14 @@
+.favoriteList {
+  text-align: center;
+  padding: 1.25rem 2.188rem;
+}
+
+.favoriteList li {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  background: #f4f4f4;
+  padding: .938rem;
+  border-radius: .5rem;
+  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);
+}

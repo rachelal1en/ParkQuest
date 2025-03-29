@@ -1,8 +1,10 @@
+import style from "./CampgroundInfo.module.css";
+
 export default function CampgroundInfo({ campground }) {
   if (!campground) return null;
 
   return (
-    <div>
+    <div className={style.container}>
       <h2>{campground.name}</h2>
 
       {campground.images?.length > 0 && (
