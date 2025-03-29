@@ -1,6 +1,5 @@
 package com.parkrangers.parkquest_backend.models.response;
 
-import com.parkrangers.parkquest_backend.dto.ImageDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -30,10 +29,6 @@ public class Park {
     @Transient // This means images won't be stored in the database
     private List<Image> images;
 
-//    @ElementCollection
-//    @CollectionTable(name = "park_activities", joinColumns = @JoinColumn(name = "park_id"))
-//    @Column(name = "activity")
-//    private List<String> activities;
 
     public Park() {
     }
@@ -90,12 +85,4 @@ public class Park {
     public String getFirstImageUrl() {
         return (images != null && !images.isEmpty()) ? images.get(0).getUrl() : null;
     }
-
-    //    public List<String> getActivities() {
-//        return activities;
-//    }
-//
-//    public void setActivities(List<String> activities) {
-//        this.activities = activities;
-//    }
 }
