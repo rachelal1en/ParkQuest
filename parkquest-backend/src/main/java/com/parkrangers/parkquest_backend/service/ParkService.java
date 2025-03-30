@@ -1,7 +1,7 @@
 package com.parkrangers.parkquest_backend.service;
 
-import com.parkrangers.parkquest_backend.models.response.Park;
-import com.parkrangers.parkquest_backend.models.response.Image;
+import com.parkrangers.parkquest_backend.model.response.Park;
+import com.parkrangers.parkquest_backend.model.response.Image;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
