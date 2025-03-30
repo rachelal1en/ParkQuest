@@ -1,0 +1,60 @@
+.campground {
+  padding: 1.25rem 2.188rem;
+  text-align: center;
+  background-color: rgba(238, 245, 238, .75);
+}
+
+.campgroundBtn {
+  margin: 0 5px 30px 5px;
+  background-color: #004d40;
+  font-size: .875rem;
+  padding: .5rem 1rem;
+  border-radius: .313rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.campgroundBtn:hover {
+  background-color: #017e69;
+}
+
+.campground img {
+  width: 30rem;
+  padding-top: 1.25rem;
+}
+
+.description {
+  margin-top: 20px;
+  text-align: justify;
+  line-height: 150%;
+}
+
+.url {
+  color: #004d40;
+  font-weight: bold;
+}
+
+.url:hover {
+  color: #149f88;
+}
+
+.extra {
+  text-align: left;
+}
+
+.extra h3 {
+  padding-top: 30px;
+}
+
+.amenitiesList {
+  list-style: none;
+  line-height: 150%;
+  padding-bottom: 30px;
+}
+
+.reservation {
+  text-align: justify;
+  line-height: 150%;
+}
