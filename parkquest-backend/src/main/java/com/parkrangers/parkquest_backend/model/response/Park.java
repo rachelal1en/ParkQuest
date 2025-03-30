@@ -34,6 +34,9 @@ public class Park {
     public Park() {
     }
 
+    public Park(Long parkId) {
+    }
+
     public Long getParkId() {
         return parkId;
     }
