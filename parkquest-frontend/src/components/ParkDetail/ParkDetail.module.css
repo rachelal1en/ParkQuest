@@ -1,15 +1,42 @@
-.parksDetails {
+.parkDetails {
   padding: 1.25rem 2.188rem;
   text-align: center;
+  background-color: rgba(238, 245, 238, .75);
 }
 
-.parksDetails img {
-  width: 25rem;
+.parkBtn {
+  margin: 0 5px 30px 5px;
+  background-color: #004d40;
+  font-size: .875rem;
+  padding: .5rem 1rem;
+  border-radius: .313rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.parkBtn:hover{
+  background-color: #017e69;
+}
+
+.linkBtn {
+  color: white;
+}
+
+.parkDetails img {
+  width: 30rem;
   padding-top: 1.25rem;
 }
 
-.parksDetails p {
+figcaption {
+  font-style: italic;
+}
+
+.description {
+  margin-top: 20px;
   text-align: justify;
+  line-height: 150%;
 }
 
 .hours {
@@ -17,6 +44,27 @@
   padding-top: 1.25rem;
 }
 
+.activities {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.parkUrl {
+  text-align: left;
+  margin-top: 20px;
+  color: #004d40;
+}
+
+.parkUrl a {
+  color: #004d40;
+  font-weight: bold;
+}
+
+.parkUrl a:hover {
+  color: #149f88;
+}
+
 .hours ul {
   list-style: none;
 }
+
