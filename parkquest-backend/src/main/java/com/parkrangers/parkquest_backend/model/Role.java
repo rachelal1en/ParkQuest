@@ -1,4 +1,5 @@
-package com.parkrangers.parkquest_backend.models;
+package com.parkrangers.parkquest_backend.model;
+
 
 public class Role {
 }
