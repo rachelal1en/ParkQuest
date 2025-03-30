@@ -31,7 +31,6 @@ public class Park {
     @Transient  // Do NOT persist activities in the database
     private List<Activity> activities;
 
-
     public Park() {
     }
 
