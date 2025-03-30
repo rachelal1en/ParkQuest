@@ -34,7 +34,7 @@ export default function ParkDetail() {
         <Link to="/favorites" className={style.linkBtn}>My Favorite Parks</Link>
       </button>
 
-      <button className={style.parkBtn} onClick={goBack}>Back</button>
+      <button className={style.parkBtn} onClick={goBack}>Back to Search</button>
 
       <h1>{park.fullName}</h1>
 
@@ -69,7 +69,13 @@ export default function ParkDetail() {
       </p>
 
       <button className={style.parkBtn}>
-        <Link to={`/park/campgrounds/${park.parkCode}`} className={style.linkBtn}>Find Campgrounds</Link>
+        <Link 
+          to={`/park/campgrounds/${park.parkCode}`} 
+          className={style.linkBtn}
+          state={{ parkName: park.fullName }}
+        >
+          Find Campgrounds
+        </Link>
       </button>
       
       {park.operatingHours?.length > 0 && (
