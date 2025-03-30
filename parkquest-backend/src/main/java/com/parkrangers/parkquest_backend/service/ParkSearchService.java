@@ -1,10 +1,12 @@
 package com.parkrangers.parkquest_backend.service;
 
-import com.parkrangers.parkquest_backend.model.response.Park;
-import com.parkrangers.parkquest_backend.model.response.ParkSearchResponse;
+import com.parkrangers.parkquest_backend.models.response.Park;
+import com.parkrangers.parkquest_backend.models.response.ParkSearchResponse;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
