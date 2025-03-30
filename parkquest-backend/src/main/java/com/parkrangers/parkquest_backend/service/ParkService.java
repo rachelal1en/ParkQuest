@@ -1,12 +1,12 @@
 package com.parkrangers.parkquest_backend.service;
 
-import com.parkrangers.parkquest_backend.models.response.Park;
-import com.parkrangers.parkquest_backend.models.response.Image;
+import com.parkrangers.parkquest_backend.model.response.Activity;
+import com.parkrangers.parkquest_backend.model.response.Park;
+import com.parkrangers.parkquest_backend.model.response.Image;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,21 @@ public class ParkService {
 
             park.setImages(images);
         }
+
+        if (parkJson.has("activities")) {
+            JSONArray activitiesArray = parkJson.getJSONArray("activities");
+            List<Activity> activities = new ArrayList<>();
+            for (int i = 0; i < activitiesArray.length(); i++) {
+                JSONObject activityJson = activitiesArray.getJSONObject(i);
+                Activity activity = new Activity();
+                activity.setId(activityJson.getString("id"));
+                activity.setName(activityJson.getString("name"));
+                activity.setUrl(activityJson.optString("url", ""));  // Use `optString` to avoid missing URL errors
+                activities.add(activity);
+            }
+            park.setActivities(activities);
+        }
+
         return park;
     }
 }

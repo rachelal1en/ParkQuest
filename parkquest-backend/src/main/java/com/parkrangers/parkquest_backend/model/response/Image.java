@@ -1,4 +1,4 @@
-package com.parkrangers.parkquest_backend.models.response;
+package com.parkrangers.parkquest_backend.model.response;
 
 public class Image {
     private String url;

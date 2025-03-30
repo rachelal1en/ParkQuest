@@ -1,7 +1,6 @@
-package com.parkrangers.parkquest_backend.models.response;
+package com.parkrangers.parkquest_backend.model.response;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 import java.util.List;
 
@@ -28,6 +27,9 @@ public class Park {
 
     @Transient // This means images won't be stored in the database
     private List<Image> images;
+
+    @Transient  // Do NOT persist activities in the database
+    private List<Activity> activities;
 
 
     public Park() {
@@ -79,6 +81,14 @@ public class Park {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
     // Get the first image URL if available
