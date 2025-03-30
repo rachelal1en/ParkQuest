@@ -1,7 +1,14 @@
+park-activities
 package com.parkrangers.parkquest_backend.model;
 
 
 import com.parkrangers.parkquest_backend.model.response.Park;
+
+package com.parkrangers.parkquest_backend.models;
+
+
+import com.parkrangers.parkquest_backend.models.response.Park;
+main
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
