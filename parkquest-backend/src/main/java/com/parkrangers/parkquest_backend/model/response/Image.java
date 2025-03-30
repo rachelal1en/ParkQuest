@@ -1,8 +1,5 @@
-park-activities
 package com.parkrangers.parkquest_backend.model.response;
 
-package com.parkrangers.parkquest_backend.models.response;
- main
 
 public class Image {
     private String url;
