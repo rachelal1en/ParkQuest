@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Signup () {
+function Signup() {
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
+    const navigate = useNavigate();
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -15,43 +17,50 @@ function Signup () {
         e.preventDefault();
         setError("");
 
-        try{
-            //prevents blanks
-            if (!email || ! password || !confirmPassword){
+        try {
+            // Prevent blank fields
+            if (!email || !username || !password || !confirmPassword) {
                 setError('Please fill in all fields.');
                 return;
-                }
-            //password matches
-            if (password !== confirmPassword){
-                throw new Error("Passwords do not match.");
-                }
-            //is an actual email
-             if (!isValidEmail(email)) {
-                    setError("Please enter a valid email address");
-                    return;
-                }
+            }
 
-//             const response = await axios.post('//TOTO: Add in Database, {
-//                 email,
-//                 password
-//                 });
-                //Handle successful signup
-                console.log(response.data);
-                history('/App');
-            } catch (error){
-                //handles errors
-                console.error('Signup failed:', error.response ? error.response.data : error.message);
-                setError(error.response ? error.response.data : error.message);
-                }
-            };
+            // Password confirmation check
+            if (password !== confirmPassword) {
+                setError("Passwords do not match.");
+                return;
+            }
+
+            // Validate email format
+            if (!isValidEmail(email)) {
+                setError("Please enter a valid email address.");
+                return;
+            }
+
+            // Post signup request to the backend
+            const response = await axios.post('http://localhost:8081/api/auth/signup', {
+                email,
+                username,
+                password
+            }, { withCredentials: true });
+
+            // Handle successful signup (navigate to login or dashboard)
+            console.log('Signup successful:', response.data);
+            navigate('/login');
+        } catch (error) {
+            // Handle errors returned from the backend
+            console.error('Signup failed:', error.response ? error.response.data : error.message);
+            setError(
+                error.response?.data?.message || "Something went wrong during registration. Please try again."
+            );
+        }
+    };
 
     return (
         <div className="account-forms">
             <h2>Sign up</h2>
             <br />
             <form onSubmit={handleSignup}>
-                {/* renders error message */}
-                {error && <div className="error">{error}</div>}
+                {error && <div className="error">{error}</div>} {/* Render error message */}
                 <input
                     id="email"
                     type="email"
@@ -59,7 +68,17 @@ function Signup () {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                /><br />
+                />
+                <br />
+                <input
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <br />
                 <input
                     id="password"
                     type="password"
@@ -67,24 +86,25 @@ function Signup () {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                /><br />
+                />
+                <br />
                 <input
                     id="confirmPassword"
                     type="password"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                /><br />
-                <button type="submit" class="outline-button">Sign up</button>
-
+                />
+                <br />
+                <button type="submit" className="outline-button">Sign up</button>
             </form>
             <div>
                 <br />
                 <p>Already registered? <Link to="/Login" className="not-transparent-links">Login</Link></p>
             </div>
         </div>
-        )
-    }
+    );
+}
 
 export default Signup;
