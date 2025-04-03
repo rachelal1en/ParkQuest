@@ -9,6 +9,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -27,15 +28,16 @@ function Login() {
                     setError("Please enter a valid email address");
                     return;
                 }
-//             const response = await axios.post('//TOTO: Add in Database, {
-//                 email,
-//                 password
-//                 });
+            const response = await axios.post("http://localhost:8081/api/auth/login", {
+                email,
+                password
+                });
                 //Handle successful login
-                console.log('Login successful:', response.data);
-                history('/App');
+            console.log('Login successful:', response.data);
+            navigate('/Dashboard'); //
 
-        } catch (error){
+
+     } catch (error){
                 //handles errors
                 console.error('Login failed:', error.response ? error.response.data : error.message);
                 setError(error.response ? error.response.data : error.message);
