@@ -40,6 +40,11 @@
   color: #149f88;
 }
 
+.attractions {
+  text-align: justify;
+  line-height: 150%;
+}
+
 .extra {
   text-align: left;
 }
@@ -51,10 +56,14 @@
 .amenitiesList {
   list-style: none;
   line-height: 150%;
-  padding-bottom: 30px;
 }
 
 .reservation {
   text-align: justify;
   line-height: 150%;
+  
+}
+
+.reservation strong {
+  font-size: 18.72px;
 }

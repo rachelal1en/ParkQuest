@@ -16,7 +16,7 @@ export default function CampgroundDetail() {
       <button className={style.campgroundBtn} onClick={() => navigate(-1)}>
         Back to Campgrounds List
       </button>
-
+      
       <h1>Campground at {parkName}: {campground.name}</h1>
       {campground.images?.length > 0 && (
         <img
@@ -31,6 +31,13 @@ export default function CampgroundDetail() {
           More Info
         </a>
 
+        <h3>Nearby Attractions</h3>
+        {campground.audioDescription ? (
+          <p className={style.attractions}>{campground.audioDescription}</p>
+          ) : (
+          <p>No specific attractions listed for this campground.</p>
+        )}
+
         <h3>Amenities</h3>
         <ul className={style.amenitiesList}>
           <li><strong>Camp Store:</strong> {campground.amenities?.campStore || "N/A"}</li>
@@ -40,7 +47,10 @@ export default function CampgroundDetail() {
           <li><strong>Toilets:</strong> {campground.amenities?.toilets?.join(", ") || "N/A"}</li>
         </ul>
 
-        <p className={style.reservation}><strong>Reservation Info: </strong>{campground.reservationInfo || "N/A"}</p>
+        <h3>Reservation Info</h3>
+        <p className={style.reservation}>
+          {campground.reservationInfo || "N/A"}
+        </p>
         
         <a href={campground.reservationUrl} className={style.url} target="_blank" rel="noopener noreferrer">
           Reservation link
