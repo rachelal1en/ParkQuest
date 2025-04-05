@@ -38,10 +38,6 @@ export default function ParkDetail() {
 
       <h1>{park.fullName}</h1>
 
-      {/* {park.images?.length > 0 && (
-        <img src={park.images[0].url} alt={park.images[0].altText || "Park Image"} />
-      )} */}
-
       {park.images?.length > 0 && (
         <figure>
           <img 
@@ -54,18 +50,26 @@ export default function ParkDetail() {
       )}
       <p className={style.description}>{park.description}</p>
 
-      {/* <p><strong>Location:</strong> {park.states}</p> */}
+      <p className={style.parkUrl}>
+        <a href={park.url} target="_blank" rel="noopener noreferrer">
+          Visit Official Website
+        </a>
+      </p>
       
-      <p className={style.activities}><strong>Activities:</strong> 
+      <h3>Activities:</h3>
+      <p className={style.activities}> 
         {park.activities && park.activities.length > 0 ? 
         park.activities.map(a => a.name).join(", ") : 
           "No activities available"}
       </p>
 
       <p className={style.parkUrl}>
-        <a href={park.url} target="_blank" rel="noopener noreferrer">
-          Visit Official Website
-        </a>
+        <Link 
+          to={`/park/hiking/${park.parkCode}`} 
+          state={{ parkName: park.fullName }}
+        >
+          See hiking trails in {park.fullName}
+        </Link>
       </p>
 
       <button className={style.parkBtn}>

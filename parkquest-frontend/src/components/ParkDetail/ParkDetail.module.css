@@ -39,24 +39,14 @@ figcaption {
   line-height: 150%;
 }
 
-.hours {
-  text-align: left;
-  padding-top: 1.25rem;
-}
-
-.activities {
-  text-align: left;
-  margin-top: 20px;
-}
-
 .parkUrl {
   text-align: left;
-  margin-top: 20px;
-  color: #004d40;
+  margin: 5px 0 30px 0;
+  color: #015f4f;
 }
 
 .parkUrl a {
-  color: #004d40;
+  color: #015f4f;
   font-weight: bold;
 }
 
@@ -64,7 +54,24 @@ figcaption {
   color: #149f88;
 }
 
+.parkDetails h3 {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.activities {
+  text-align: justify;
+  line-height: 150%;
+}
+
+.hours {
+  text-align: left;
+  padding-top: 1.25rem;
+}
+
 .hours ul {
   list-style: none;
 }
+
+
 

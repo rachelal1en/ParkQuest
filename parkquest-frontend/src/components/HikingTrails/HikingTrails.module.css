@@ -1,33 +1,39 @@
-.campgroundsList {
+.trailsList {
   padding: 1.25rem;
   text-align: center;
   background-color: rgba(238, 245, 238, .75);
   height: 100vh;
 }
 
-.campgroundsList h1 {
+.trailsList h1{
   margin-bottom: 15px;
 }
 
-.campgroundsList ul {
+.trailsList h2{
+  padding-bottom: 5px;
+}
+
+.trailsList ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: .938rem;
   text-align: justify;
+  line-height: 150%;
 }
 
-.campgroundsList li {
+.trailsList li {
   background: #f4f4f4;
   padding: .938rem;
   border-radius: .5rem;
   box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.15);
 }
 
-.campgroundsList a {
+.trailsList a {
   color: #015f4f;
+  font-weight: bold;
 }
 
-.campgroundsList a:hover {
+.trailsList a:hover {
   color: #149f88;
 }
