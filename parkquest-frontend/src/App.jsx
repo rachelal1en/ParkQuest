@@ -9,6 +9,7 @@ import ParkDetail from './components/ParkDetail/ParkDetail';
 import FavoritesList from './components/FavoritesList/FavoritesList';
 import CampgroundDetail from './components/CampgroundDetail/CampgroundDetail';
 import CampgroundsList from './components/CampgroundsList/CampgroundsList';
+import HikingTrails from './components/HikingTrails/HikingTrails';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/parklist" element={<ParksList/>}/>
           <Route path="/parklist/:id" element={<ParkDetail/>}/>
+          <Route path="/park/hiking/:id" element={<HikingTrails/>}/>
           <Route path="/park/campgrounds/:id" element={<CampgroundsList/>}/>
           <Route path="/campgrounds/:campgroundId" element={<CampgroundDetail/>}/>
           <Route path="/favorites" element={<FavoritesList/>}/>

@@ -109,11 +109,11 @@ const ParksList = () => {
     <ul>
         {parks.map((park) => (
         <li key={park.id}>
-            <h4>
+            <h3>
               <Link to={`/parklist/${park.parkCode}`} state={{ park }}>
                 {park.fullName}
               </Link>
-            </h4>
+            </h3>
             <p>{park.description}</p>
         </li>
         ))}

@@ -43,13 +43,13 @@ export default function CampgroundsList() {
       <ul>
         {campgrounds.map((campground) => (
           <li key={campground.id}>
-            <h4>
+            <h3>
               <Link 
                 to={`/campgrounds/${campground.id}`} 
                 state={{ parkCode, parkName, campground }}>
                   {campground.name}
               </Link>
-            </h4>
+            </h3>
             <p>{campground.description}</p>
           </li>
         ))}
