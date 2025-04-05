@@ -64,7 +64,7 @@ const HikingTrails = () => {
             )}
 
             {trail.durationDescription && (
-              <p><strong>Description</strong>{trail.durationDescription}</p>
+              <p><strong>Description: </strong>{trail.durationDescription}</p>
             )}
 
             {trail.url && (
