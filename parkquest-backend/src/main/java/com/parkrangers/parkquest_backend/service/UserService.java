@@ -1,12 +1,15 @@
 package com.parkrangers.parkquest_backend.service;
 
+import com.parkrangers.parkquest_backend.model.Role;
 import com.parkrangers.parkquest_backend.model.User;
+import com.parkrangers.parkquest_backend.repository.RoleRepository;
 import com.parkrangers.parkquest_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -17,22 +20,26 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public User registerOrLoginUser(String email, String username, String password) {
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public User loginUser(String email, String password) {
+        // Find existing user by email
         Optional<User> existingUser = userRepository.findByEmail(email);
 
-        if (existingUser.isPresent()) {
-            User user = existingUser.get();
-            if (!passwordEncoder.matches(password, user.getPassword())) {
-                throw new IllegalArgumentException("Invalid password");
-            }
-            return user;
+        if (existingUser.isEmpty()) {
+            throw new IllegalArgumentException("User with the given email does not exist.");
         }
 
-        User newUser = new User();
-        newUser.setEmail(email);
-        newUser.setUsername(username);
-        newUser.setPassword(passwordEncoder.encode(password));
-        return userRepository.save(newUser);
+        User user = existingUser.get();
+
+        // Validate the given password
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid password");
+        }
+
+        // Return the logged-in user's details
+        return user;
     }
 
     public User registerUser(String email, String username, String password) {
@@ -50,6 +57,14 @@ public class UserService {
         newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setPassword(passwordEncoder.encode(password));
+
+        // Assign default role
+        Role userRole = roleRepository.findByName("ROLE_USER");
+        if (userRole == null) {
+            throw new IllegalStateException("Default role not found. Please seed roles in the database.");
+        }
+        newUser.setRoles(Set.of(userRole));
+
         return userRepository.save(newUser);
     }
 }
