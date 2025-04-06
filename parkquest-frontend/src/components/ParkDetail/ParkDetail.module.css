@@ -64,14 +64,7 @@ figcaption {
   line-height: 150%;
 }
 
-.hours {
+.address {
   text-align: left;
-  padding-top: 1.25rem;
+  line-height: 150%;
 }
-
-.hours ul {
-  list-style: none;
-}
-
-
-
