@@ -1,20 +1,20 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import style from "./ParkDetail.module.css";
+import { useRef } from "react";
 
 export default function ParkDetail() {
   const location = useLocation();
   const navigate = useNavigate();
+  const carouselRef = useRef(null);
 
   const park = location.state?.park; // Retrieve passed park data
-  console.log("Park detail received:", park);
-  
+
   if (!park) {
     return <p>No park data available.</p>; // Handle case where data is missing
   }
 
   const saveToFavorites = () => {
     const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    
     if (!existingFavorites.some(fav => fav.id === park.id)) {
       const updatedFavorites = [...existingFavorites, park];
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
@@ -23,6 +23,14 @@ export default function ParkDetail() {
 
   const goBack = () => {
     navigate(-1);
+  };
+
+  const scrollLeft = () => {
+    carouselRef.current.scrollBy({ left: -320, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    carouselRef.current.scrollBy({ left: 320, behavior: "smooth" });
   };
 
   return (
@@ -38,16 +46,25 @@ export default function ParkDetail() {
 
       <h1>{park.fullName}</h1>
 
-      {park.images?.length > 0 && (
-        <figure>
-          <img 
-            src={park.images[0].url} 
-            alt={park.images[0].altText || "Park Image"} 
-            title={park.images[0].title} // Tooltip on hover
-          />
-          {park.images[0].title && <figcaption>{park.images[0].title}</figcaption>} 
-        </figure>
-      )}
+      <div className={style.carouselWrapper}>
+      <button className={style.arrow} onClick={scrollLeft}>◀</button>
+      
+      <div className={style.carousel} ref={carouselRef}>
+        {park.images.map((img, index) => (
+          <figure key={index} className={style.carouselItem}>
+            <img
+              src={img.url} 
+              alt={img.altText || "Park Image"} 
+              title={img.title} 
+            />
+            {img.title && <figcaption>{img.title}</figcaption>}
+          </figure>
+        ))}
+      </div>
+      
+      <button className={style.arrow} onClick={scrollRight}>▶</button>
+    </div>
+
       <p className={style.description}>{park.description}</p>
 
       <p className={style.parkUrl}>
