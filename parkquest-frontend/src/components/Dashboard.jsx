@@ -16,6 +16,7 @@ function Dashboard() {
 
     return (
         <div>
+            {/*header from header file in app*/}
             <div>
                 <Routes>
                     <Route path="/" element={
