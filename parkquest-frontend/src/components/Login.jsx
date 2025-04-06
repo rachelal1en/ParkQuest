@@ -1,50 +1,74 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import GoogleLoginButton from "./GoogleLoginButton.jsx";
 
-function Login() {
+function Login({ setIsAuthenticated }) { // Accept setIsAuthenticated as a prop
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
+    //email validation helper function
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+    //handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
 
-     try{
+        try {
             //prevents blanks
-            if (!email || ! password){
+            if (!email || !password) {
                 setError('Please fill in all fields.');
                 return;
-                }
+            }
             //is an actual email
-             if (!isValidEmail(email)) {
-                    setError("Please enter a valid email address");
-                    return;
-                }
+            if (!isValidEmail(email)) {
+                setError("Please enter a valid email address");
+                return;
+            }
+            //make login request to the backend
             const response = await axios.post("http://localhost:8081/api/auth/login", {
                 email,
                 password
-                });
-                //Handle successful login
-            console.log('Login successful:', response.data);
-            navigate('/Dashboard'); //
+            });
+            // Assuming the backend responds with a token
+            const {token} = response.data;
+
+            if (token) {
+                console.log("Token received from backend:", token);
+                localStorage.setItem("authToken", token); // Save the token
+                setIsAuthenticated(true); // Call the setIsAuthenticated function passed via props
+                navigate("/Dashboard"); // Redirect to dashboard
+            } else {
+                setError("Token missing in backend response.");
+            }
+        } catch (error) {
+            console.error("Login request failed:", error.response?.data || error.message);
+            setError(error.response?.data?.message || "An error occurred while logging in. Please try again.");
+        }
+    };
 
 
-     } catch (error){
-                //handles errors
-                console.error('Login failed:', error.response ? error.response.data : error.message);
-                setError(error.response ? error.response.data : error.message);
-                }
-            };
+    // Save authentication token in localStorage
+    //         localStorage.setItem("authToken", token);
+    //
+    //         // Redirect user to the Dashboard
+    //         navigate("/Dashboard");
+    //     } catch (error) {
+    //         // Handle error responses from the backend
+    //         console.error("Login failed:", error.response ? error.response.data : error.message);
+    //         setError(
+    //             error.response?.data?.message || "An error occurred while logging in. Please try again."
+    //         );
+    //     }
+    // };
 
-    return(
+
+    return (
         <div className="account-forms">
             <script src="https://apis.google.com/js/platform.js" async defer></script>
             <h2>Login</h2>
@@ -69,11 +93,12 @@ function Login() {
                 {error && <div className="error">{error}</div>}
                 <button class="outline-button" type="submit">Login</button>
             </form>
-        <div>
-                <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">
-                    <GoogleLoginButton />
+            <div>
+                <GoogleOAuthProvider
+                    clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">
+                    <GoogleLoginButton/>
                 </GoogleOAuthProvider>
-        </div>
+            </div>
             <div>
                 <br/>
                 <p>Not Registered? <Link to="/Signup" className="not-transparent-links">Register</Link></p>
