@@ -31,6 +31,9 @@ public class Park {
     @Transient  // Do NOT persist activities in the database
     private List<Activity> activities;
 
+    @Transient
+    private List<Address> addresses;
+
     public Park() {
     }
 
@@ -94,6 +97,13 @@ public class Park {
         this.activities = activities;
     }
 
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
 
     // Get the first image URL if available
     public String getFirstImageUrl() {

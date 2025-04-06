@@ -88,6 +88,16 @@ export default function ParkDetail() {
           See hiking trails in {park.fullName}
         </Link>
       </p>
+      
+      {park.addresses?.length > 0 && (
+        <div>
+          <h3>Address:</h3>
+          <p className={style.address}>
+            {park.addresses[0].line1}<br />
+            {park.addresses[0].city}, {park.addresses[0].stateCode} {park.addresses[0].postalCode}
+          </p>
+        </div>
+      )}
 
       <button className={style.parkBtn}>
         <Link 
@@ -99,25 +109,6 @@ export default function ParkDetail() {
         </Link>
       </button>
       
-      {park.operatingHours?.length > 0 && (
-        <div className={style.hours}>
-          <h3>Operating Hours:</h3>
-          <ul>
-            {park.operatingHours[0].standardHours && (
-              <li>
-                <strong>Standard Hours:</strong>
-                <ul>
-                  {Object.entries(park.operatingHours[0].standardHours).map(([day, hours]) => (
-                    <li key={day}>
-                      {day}: {hours}
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

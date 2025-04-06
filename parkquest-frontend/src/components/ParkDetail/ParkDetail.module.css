@@ -103,3 +103,8 @@ figcaption {
   text-align: justify;
   line-height: 150%;
 }
+
+.address {
+  text-align: left;
+  line-height: 150%;
+}
