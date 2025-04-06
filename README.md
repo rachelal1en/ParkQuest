@@ -18,19 +18,29 @@ ParkQuest is a user-friendly web application designed to help users explore and 
 ## Setup/Installation Requirements
 1. Clone the repository
    
-    git clone https://github.com/yourusername/symptoscan-frontend.git
-    cd symptoscan-frontend
-2. Install dependencies
+    git clone https://github.com/W-PTWD-April-2024-Liftoff/group-9
+    cd backend-frontend
+2. Set up environment variables
+   
+   In application.properties file in the resources directory and add the following:
+    
+    api.key=your_national_parks_service_api_key
+3. Run ParkquestBackendApplication by pressing "Run" button
+    
+    The app will start on http://localhost:8081
+4. Clone the repository
+   
+    git clone https://github.com/W-PTWD-April-2024-Liftoff/group-9
+    cd parkquest-frontend
+5. Install frontend dependencies
    
     npm install
-3. Set up environment variables
+6. Set up environment variables
    
    Create a .env file in the root directory and add the following:
     
-    VITE_BACKEND_URL=https://symptoscan.onrender.com
-    
-    VITE_GOOGLE_API_KEY=your_google_maps_api_key
-4. Run the development server
+    VITE_PARKS_API_KEY=your_national_parks_service_api_key
+7. Run the development server
    
     npm run dev
     
