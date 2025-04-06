@@ -42,8 +42,15 @@ const HikingTrails = () => {
         });
     }, [parkCode]);
   
-    if (loading) return <p>Loading hiking trails...</p>;
-    if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (loading) return <p>Loading hiking trails...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+
+  const stripHtmlTags = (html) => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+    
+    return tempDiv.textContent || tempDiv.innerText || '';
+  };
 
   return (
     <div className={style.trailsList}>
@@ -56,15 +63,15 @@ const HikingTrails = () => {
             <p>{trail.shortDescription}</p>
 
             {trail.activityDescription && (
-              <p><strong>Difficulty Level:</strong> {trail.activityDescription}</p>
+              <p><strong>Difficulty Level:</strong> {stripHtmlTags(trail.activityDescription)}</p>
             )}
 
             {trail.duration && (
-              <p><strong>Duration:</strong> {trail.duration}</p>
+              <p><strong>Duration:</strong> {stripHtmlTags(trail.duration)}</p>
             )}
 
             {trail.durationDescription && (
-              <p><strong>Description: </strong>{trail.durationDescription}</p>
+              <p><strong>Description: </strong>{stripHtmlTags(trail.durationDescription)}</p>
             )}
 
             {trail.url && (
