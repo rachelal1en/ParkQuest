@@ -24,13 +24,53 @@
   color: white;
 }
 
-.parkDetails img {
+.carouselWrapper {
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35rem;
+  margin: 0 auto;
+  height: 25rem;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+}
+
+.carouselItem {
+  scroll-snap-align: start;
+  height: 350px
+}
+
+.carouselItem img {
   width: 30rem;
-  padding-top: 1.25rem;
+  height:20rem;
+  object-fit: cover;
 }
 
 figcaption {
   font-style: italic;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  user-select: none;
+  color: #9c9b9b;
+}
+
+.arrow:hover {
+  color: #444343;
 }
 
 .description {
