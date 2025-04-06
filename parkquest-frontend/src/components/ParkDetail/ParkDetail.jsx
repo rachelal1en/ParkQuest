@@ -55,7 +55,10 @@ export default function ParkDetail() {
             <img
               src={img.url} 
               alt={img.altText || "Park Image"} 
-              title={img.title} 
+              title={img.title}
+              onError={(e) => {
+              e.target.closest("figure").style.display = "none";
+              }}
             />
             {img.title && <figcaption>{img.title}</figcaption>}
           </figure>
