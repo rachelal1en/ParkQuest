@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { Route, Routes, useLocation, Link } from 'react-router-dom';
+import React, {useEffect, useState, } from 'react';
+import { Route, Routes, useLocation, Link, useNavigate } from 'react-router-dom';
 import './App.css'
 import ParksList from './components/ParkList/ParksList';
 import Login from './components/Login';
@@ -17,6 +17,8 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation(); // Get current route
   const isHomePage = location.pathname === "/"; // Check if on home page
+   const navigate = useNavigate();
+
 
     // Check user's authentication status
     useEffect(() => {

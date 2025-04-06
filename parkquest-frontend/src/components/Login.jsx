@@ -91,7 +91,7 @@ function Login({ setIsAuthenticated }) { // Accept setIsAuthenticated as a prop
                 />
                 {/* renders error message */}
                 {error && <div className="error">{error}</div>}
-                <button class="outline-button" type="submit">Login</button>
+                <button className="outline-button" type="submit">Login</button>
             </form>
             <div>
                 <GoogleOAuthProvider
