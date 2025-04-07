@@ -23,8 +23,9 @@ ParkQuest is a user-friendly web application designed to help users explore and 
 1. Clone the repository
    
     git clone https://github.com/W-PTWD-April-2024-Liftoff/group-9
+   
     cd parkquest-backend
-2. Set up environment variables
+3. Set up environment variables
    * In src/main/resources/application.properties, add:
     
     api.key=your_national_parks_service_api_key
