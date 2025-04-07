@@ -35,37 +35,28 @@ function Login({ setIsAuthenticated }) { // Accept setIsAuthenticated as a prop
                 email,
                 password
             });
-            // Assuming the backend responds with a token
-            const {token} = response.data;
+            // Assuming the backend responds with token and userId
+            const { token, userId } = response.data;
 
-            if (token) {
+            if (token && userId) {
                 console.log("Token received from backend:", token);
+                console.log("UserId received from backend:", userId);
+
                 localStorage.setItem("authToken", token); // Save the token
-                setIsAuthenticated(true); // Call the setIsAuthenticated function passed via props
+                localStorage.setItem("userId", userId); // Save the userId to local storage
+                setIsAuthenticated(true); // Update authentication state
                 navigate("/Dashboard"); // Redirect to dashboard
             } else {
-                setError("Token missing in backend response.");
+                setError("Token or userId missing in backend response.");
             }
         } catch (error) {
             console.error("Login request failed:", error.response?.data || error.message);
-            setError(error.response?.data?.message || "An error occurred while logging in. Please try again.");
+            setError(
+                error.response?.data?.message ||
+                "An error occurred while logging in. Please try again."
+            );
         }
     };
-
-
-    // Save authentication token in localStorage
-    //         localStorage.setItem("authToken", token);
-    //
-    //         // Redirect user to the Dashboard
-    //         navigate("/Dashboard");
-    //     } catch (error) {
-    //         // Handle error responses from the backend
-    //         console.error("Login failed:", error.response ? error.response.data : error.message);
-    //         setError(
-    //             error.response?.data?.message || "An error occurred while logging in. Please try again."
-    //         );
-    //     }
-    // };
 
 
     return (

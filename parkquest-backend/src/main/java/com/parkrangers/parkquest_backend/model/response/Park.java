@@ -37,7 +37,7 @@ public class Park {
     public Park() {
     }
 
-    public Park(Long parkId) {
+    public Park(String parkCode) {
     }
 
     public Long getParkId() {
