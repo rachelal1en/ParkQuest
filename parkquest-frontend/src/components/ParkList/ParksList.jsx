@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./ParkList.module.css";
+import FavoriteButton from "./FavoriteButton";
 
-const ParksList = () => {
+const ParksList = ({userId}) => {
   const [selectedState, setSelectedState] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [parks, setParks] = useState([]);
   const [error, setError] = useState("");
+
+  const storedUserId = localStorage.getItem("userId");
 
   const states = {
     "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA",
@@ -21,6 +24,7 @@ const ParksList = () => {
     "Vermont": "VT", "Virginia": "VA", "Washington": "WA", "West Virginia": "WV",
     "Wisconsin": "WI", "Wyoming": "WY"
   };
+
 
   const fetchParksByState = async () => {
     if (!selectedState) {
@@ -108,13 +112,14 @@ const ParksList = () => {
 
     <ul>
         {parks.map((park) => (
-        <li key={park.id}>
+        <li key={park.parkCode}>
             <h3>
               <Link to={`/parklist/${park.parkCode}`} state={{ park }}>
                 {park.fullName}
               </Link>
             </h3>
             <p>{park.description}</p>
+          <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName}/>
         </li>
         ))}
     </ul>

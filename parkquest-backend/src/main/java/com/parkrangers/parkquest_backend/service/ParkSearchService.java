@@ -2,15 +2,13 @@ package com.parkrangers.parkquest_backend.service;
 
 import com.parkrangers.parkquest_backend.model.response.Park;
 import com.parkrangers.parkquest_backend.model.response.ParkSearchResponse;
-import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 
 @Service
@@ -29,6 +27,18 @@ public class ParkSearchService {
         ResponseEntity<ParkSearchResponse> response = restTemplate.getForEntity(url, ParkSearchResponse.class);
 
         return response.getBody().getData();
+    }
+    public List<Park> getParksByCode(String parkCode) throws JSONException {
+        String url = String.format("%s?stateCode=%s&limit=100&api_key=%s",
+                API_URL, parkCode, apiKey);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<ParkSearchResponse> response = restTemplate.getForEntity(url, ParkSearchResponse.class);
+
+        // Filter the results to include only exact matches in the parkCode field
+        return response.getBody().getData().stream()
+                .filter(park -> park.getParkCode().toLowerCase().contains(parkCode.toLowerCase()))
+                .toList();
     }
 
     public List<Park> getParksByName(String parkName) throws JSONException {

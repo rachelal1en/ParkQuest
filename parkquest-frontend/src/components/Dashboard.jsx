@@ -14,6 +14,8 @@ function Dashboard() {
     const location = useLocation(); // Get current route
     const [error, setError] = useState(null);
 
+    const userId = localStorage.getItem("userId");
+
     return (
         <div>
             {/*header from header file in app*/}
@@ -35,7 +37,12 @@ function Dashboard() {
                             </div>
                             </div>
                             }/>
-                        </ Routes>
+                    <Route
+                        path="/favorites"
+                        element={<FavoritesList userId={userId} />}
+                    />
+
+                </ Routes>
                         </div>
                         </div>
                         );

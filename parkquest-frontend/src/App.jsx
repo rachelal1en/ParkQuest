@@ -85,7 +85,7 @@ function App() {
               path="/parklist/:id"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <ParkDetail />
+                  <ParkDetail userId={localStorage.getItem("userId")} />/>
                 </ProtectedRoute>
               }
           />
@@ -93,7 +93,7 @@ function App() {
               path="/favorites"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <FavoritesList />
+                    <FavoritesList userId={localStorage.getItem("userId")} />
                 </ProtectedRoute>
               }
           />
