@@ -79,7 +79,7 @@ const FavoritesList = ({userId}) => {
           {favorites.map((favorite) => (
             <li key={favorite.id}>
                 <h3>{favorite.fullName}</h3>
-              <button onClick={() => removeFavorite(favorite.id)}>Remove</button>
+              <button onClick={() => removeFavorite(favorite.parkCode)}>Remove</button>
             </li>
           ))}
         </ul>
