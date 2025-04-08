@@ -52,7 +52,7 @@ public class AuthController {
             // Return token and user details as response
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
-            response.put("userId", user.getId());
+            response.put("userId", user.getUserId());
             response.put("user", user);
 
             return ResponseEntity.ok().body(response); // Send token and user data

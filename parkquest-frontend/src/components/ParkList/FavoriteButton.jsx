@@ -34,7 +34,7 @@ const FavoriteButton = ({ userId, parkCode, fullName }) => {
             console.log({ userId, parkCode, fullName });
             console.log(userId, parkCode, fullName);
             await axios.post(`http://localhost:8081/favorites`, null, {
-                params: { userId, parkCode, fullName }, // Use parkCode
+                params: { userId, parkCode, fullName }, // Use parkCodeA
             });
             setIsFavorited(true);
         } catch (err) {
