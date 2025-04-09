@@ -45,9 +45,7 @@ function App() {
           <Route path="/" element={
             <div>
               <h1>Welcome to ParkQuest!</h1>
-              <br />
-              <h3>Plan your trip to national parks with ease!</h3>
-              <br /><br />
+              <h2>Plan your trip to national parks with ease!</h2>
               <div>
                 {/*<button className="outline-button">*/}
                 {/*  <Link to="/Dashboard">Dashboard</Link>*/}

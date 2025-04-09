@@ -21,6 +21,17 @@ header {
   align-items: center; 
   justify-content: center; 
   height: calc(100vh - 70px);
+  background-image: url('./assets/app-bg-img.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+}
+
+.first-page h2 {
+  margin-top: 20px;
+  letter-spacing: 1px;
 }
 
 .outline-button {
@@ -32,6 +43,7 @@ header {
   border: .125rem solid rgba(0, 140, 0, 1);
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .outline-button:hover {
@@ -44,20 +56,37 @@ header {
   box-shadow: 0 0 0 .188rem rgba(0, 113, 0, 0.5);
 }
 
+.login-page, .signup-page {
+  background-image: url('./assets/dash-bg-img.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: calc(100vh - 70px);
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.login-page h2, .signup-page h2{
+  margin-bottom: 10px;
+}
+
 .account-forms {
   display: flex;
   flex-direction: column; /* Stack the input elements vertically */
   align-items: center;      /* Center input fields and button horizontally */
   padding: 1.25rem;
   border: .125rem solid #ccc;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: .625rem;
-  width: 18.75rem;             /* Set a width for the form */
+  width: 18.75rem;            /* Set a width for the form */
 }
 
 form {
   display: flex;
   flex-direction: column; /* Stack the input elements vertically */
   align-items: center;
+  gap: 15px;
 }
 
 input {
