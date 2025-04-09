@@ -114,12 +114,12 @@ const ParksList = ({userId}) => {
         {parks.map((park) => (
         <li key={park.parkCode}>
             <h3>
-              <Link to={`/parklist/${park.parkCode}`} state={{ park }}>
+              <Link to={`/parklist/${park.parkCode}`} state={{ park }} userId={localStorage.getItem("userId")}>
                 {park.fullName}
               </Link>
             </h3>
-            <p>{park.description}</p>
-          <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName}/>
+            <p>{park.description}</p><br />
+          <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} parkDescription={park.description} />
         </li>
         ))}
     </ul>

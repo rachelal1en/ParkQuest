@@ -16,6 +16,18 @@
   color: white;
 }
 
+#parkBtn {
+  margin: 0 5px 30px 5px;
+  background-color: #004d40;
+  font-size: .875rem;
+  padding: .5rem 1rem;
+  border-radius: .313rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
 .parkBtn:hover{
   background-color: #017e69;
 }

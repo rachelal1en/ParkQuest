@@ -75,7 +75,7 @@ function App() {
               path="/parklist"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
-                  <ParksList />
+                  <ParksList userId={localStorage.getItem("userId")}/>
                 </ProtectedRoute>
               }
           />

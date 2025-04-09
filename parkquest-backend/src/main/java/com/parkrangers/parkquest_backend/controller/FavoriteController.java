@@ -23,9 +23,10 @@ public class FavoriteController {
     public ResponseEntity<Favorite> addFavorite(
             @RequestParam Long userId,
             @RequestParam String parkCode,
-            @RequestParam String fullName
+            @RequestParam String fullName,
+            @RequestParam String parkDescription
     ){
-        Favorite favorite = favoriteService.addFavorite(userId, parkCode, fullName);
+        Favorite favorite = favoriteService.addFavorite(userId, parkCode, fullName, parkDescription);
         return ResponseEntity.ok(favorite); // Return success
     }
 
