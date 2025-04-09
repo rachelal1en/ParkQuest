@@ -43,7 +43,7 @@ const HikingTrails = () => {
     }, [parkCode]);
   
   if (loading) return <p>Loading hiking trails...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{error}</p>;
 
   const stripHtmlTags = (html) => {
     const tempDiv = document.createElement('div');

@@ -35,7 +35,7 @@ export default function CampgroundsList() {
   }, [parkCode]);
 
   if (loading) return <p>Loading campgrounds...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p style={{ color: "red", textAlign: "center", marginTop: "20px" }}>{error}</p>;
 
   return (
     <div className={style.campgroundsList}>
