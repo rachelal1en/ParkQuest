@@ -112,7 +112,7 @@ function App() {
               }
           />
           <Route
-              path="/hiking/:id"
+              path="park/hiking/:id"
               element={
                 <ProtectedRoute isAuthenticated={isAuthenticated}>
                   <HikingTrails />

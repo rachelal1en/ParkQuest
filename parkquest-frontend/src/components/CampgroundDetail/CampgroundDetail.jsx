@@ -8,7 +8,7 @@ export default function CampgroundDetail() {
   const parkName = location.state?.parkName;
 
   if (!campground) {
-    return <p style={{ color: "red" }}>Campground details are missing.</p>;
+    return <p style={{ color: "red", textAlign: "center", marginTop: "20px" }}>Campground details are missing.</p>;
   }
 
   return (
