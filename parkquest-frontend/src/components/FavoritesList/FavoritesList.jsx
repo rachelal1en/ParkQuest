@@ -4,9 +4,12 @@ import style from "./FavoritesList.module.css";
 
 const FavoritesList = ({userId}) => {
   const [favorites, setFavorites] = useState([]);
-    const [error, setError] = useState("");
+  const [error, setError] = useState("");
+  const [hoveredPark, setHoveredPark] = useState(null);
 
-    const storedUserId = localStorage.getItem("userId");
+    const [park, setPark] = useState([]);
+
+  const storedUserId = localStorage.getItem("userId");
 
     // Fetch favorites for the user when the component mounts or `userId` changes
     useEffect(() => {
@@ -63,14 +66,37 @@ const FavoritesList = ({userId}) => {
         }
     };
 
+    // Function to fetch a park's details by its parkCode
+    const fetchParkByParkCode = async (parkCode) => {
+        try {
+            setError(""); // Clear any existing error
+
+            const response = await fetch(
+                `http://localhost:8081/lookup?parkCode=${encodeURIComponent(parkCode)}`
+            );
+            console.log("Fetching park with parkCode:", parkCode);
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch park details. Please try again.");
+                console.error("Error fetching park:", err);
+
+            }
+
+            const data = await response.json();
+            setHoveredPark(data); // Update the `hoveredPark` state with fetched data
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
 
     return (
     <div className={style.favoriteList}>
-        <button>
+        <button className={style.outlineButton}>
         <Link to="/parklist">Go to Parks List</Link>
       </button>
       <h1>My Favorite Parks</h1>
+        <br />
         {/* Display error if any */}
         {error && <p className={style.error}>{error}</p>}
 
@@ -78,8 +104,23 @@ const FavoritesList = ({userId}) => {
         <ul>
           {favorites.map((favorite) => (
             <li key={favorite.id}>
-                <h3>{favorite.fullName}</h3>
-              <button onClick={() => removeFavorite(favorite.parkCode)}>Remove</button>
+                {/* Park Name */}
+                <h3
+                    onMouseEnter={() => fetchParkByParkCode(favorite.parkCode)} // Trigger fetching park data on hover
+                >
+                    <Link
+                        to={`/parklist/${favorite.parkCode}`} // Pass the parkCode in the link
+                        state={{
+                            park: hoveredPark || {}, // Pass hover data if available
+                        }}
+                        userId={storedUserId}
+                    >
+                        {favorite.fullName}
+                    </Link>
+                </h3>
+                <p>{favorite.parkDescription}</p>
+                <br />
+              <button onClick={() => removeFavorite(favorite.parkCode)} className={style.parkBtn}>Remove</button>
             </li>
           ))}
         </ul>

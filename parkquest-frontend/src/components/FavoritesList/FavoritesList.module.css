@@ -3,12 +3,69 @@
   padding: 1.25rem 2.188rem;
 }
 
-.favoriteList li {
+/*.favoriteList li {*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  margin-top: 2.5rem;*/
+/*  background: #f4f4f4;*/
+/*  padding: .938rem;*/
+/*  border-radius: .5rem;*/
+/*  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+.parkBtn {
+  margin: 0 5px 30px 5px;
+  background-color: #004d40;
+  font-size: .875rem;
+  padding: .5rem 1rem;
+  border-radius: .313rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.outlineButton {
+  background-color: transparent;
+  color: rgba(0, 140, 0, 1);
+  font-size: .875rem;
+  padding: .625rem 1.125rem;
+  border-radius: .313rem;
+  border: .125rem solid rgba(0, 140, 0, 1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.outlineButton:hover {
+  background-color: rgba(0, 140, 0, 1);
+  color: white;
+}
+
+.outlineButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 .188rem rgba(0, 113, 0, 0.5);
+}
+
+.favoriteList ul {
+  list-style: none;
   display: flex;
-  justify-content: space-between;
-  margin-top: 2.5rem;
+  flex-direction: column;
+  gap: .938rem;
+}
+
+.favoriteList li {
   background: #f4f4f4;
   padding: .938rem;
   border-radius: .5rem;
-  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.1);
+  box-shadow: .125rem .125rem .313rem rgba(0, 0, 0, 0.15);
+  text-align:justify;
+}
+
+.favoriteList a {
+  color: #015f4f;
+}
+
+.favoriteList a:hover {
+  color: #149f88;
 }

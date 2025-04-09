@@ -20,16 +20,16 @@ public class FavoriteService {
         return favoriteRepository.findByUserId(userId);
     }
 
-    public Favorite addFavorite(Long userId, String parkCode, String fullName) {
+    public Favorite addFavorite(Long userId, String parkCode, String fullName, String parkDescription) {
         if (favoriteRepository.findByUserIdAndParkCode(userId, parkCode).isPresent()) {
             throw new RuntimeException("Favorite already exists");
         }
 
         Favorite favorite = new Favorite();
-
-        favorite.setUserId(userId); //assuming user exists
+        favorite.setUserId(userId);
         favorite.setParkCode(parkCode);
         favorite.setFullName(fullName);
+        favorite.setParkDescription(parkDescription);
         return favoriteRepository.save(favorite);
     }
 
