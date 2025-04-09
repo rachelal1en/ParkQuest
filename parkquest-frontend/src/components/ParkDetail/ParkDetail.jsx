@@ -8,6 +8,7 @@ export default function ParkDetail() {
   const carouselRef = useRef(null);
 
   const park = location.state?.park; // Retrieve passed park data
+  console.log('Park data:', park); // Log the whole park object to inspect its content
 
   if (!park) {
     return <p>No park data available.</p>; // Handle case where data is missing
@@ -48,13 +49,13 @@ export default function ParkDetail() {
 
       <div className={style.carouselWrapper}>
       <button className={style.arrow} onClick={scrollLeft}>◀</button>
-      
+
       <div className={style.carousel} ref={carouselRef}>
         {park.images.map((img, index) => (
           <figure key={index} className={style.carouselItem}>
             <img
-              src={img.url} 
-              alt={img.altText || "Park Image"} 
+              src={img.url}
+              alt={img.altText || "Park Image"}
               title={img.title}
               onError={(e) => {
               e.target.closest("figure").style.display = "none";
@@ -64,7 +65,7 @@ export default function ParkDetail() {
           </figure>
         ))}
       </div>
-      
+
       <button className={style.arrow} onClick={scrollRight}>▶</button>
     </div>
 
@@ -75,23 +76,23 @@ export default function ParkDetail() {
           Visit Official Website
         </a>
       </p>
-      
+
       <h3>Activities:</h3>
-      <p className={style.activities}> 
-        {park.activities && park.activities.length > 0 ? 
-        park.activities.map(a => a.name).join(", ") : 
+      <p className={style.activities}>
+        {park.activities && park.activities.length > 0 ?
+        park.activities.map(a => a.name).join(", ") :
           "No activities available"}
       </p>
 
       <p className={style.parkUrl}>
-        <Link 
-          to={`/park/hiking/${park.parkCode}`} 
+        <Link
+          to={`/park/hiking/${park.parkCode}`}
           state={{ parkName: park.fullName }}
         >
           See hiking trails in {park.fullName}
         </Link>
       </p>
-      
+
       {park.addresses?.length > 0 && (
         <div>
           <h3>Address:</h3>
@@ -103,15 +104,27 @@ export default function ParkDetail() {
       )}
 
       <button className={style.parkBtn}>
-        <Link 
-          to={`/park/campgrounds/${park.parkCode}`} 
+        <Link
+          to={`/park/campgrounds/${park.parkCode}`}
           className={style.linkBtn}
           state={{ parkName: park.fullName }}
         >
           Find Campgrounds
         </Link>
       </button>
-      
+
+      {/* Add Review Button */}
+             <button className={style.parkBtn}>
+               <Link
+                 to="/ParkReview"  // Navigate to the reviews page
+                 className={style.linkBtn}
+                 state={{ park }} // Pass the whole park object as state
+               >
+                 View & Write Reviews
+               </Link>
+             </button>
+
+
     </div>
   );
 }

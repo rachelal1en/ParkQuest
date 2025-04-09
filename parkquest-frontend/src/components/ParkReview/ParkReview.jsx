@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ParkReview.module.css'; // Import the CSS module
 
-const ParkReview = ({ parkId }) => {
+const ParkReview = ({ park }) => {
     const [reviews, setReviews] = useState([]);
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState(0);
@@ -35,7 +35,7 @@ const ParkReview = ({ parkId }) => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/parks/reviews/', {
+            const response = await fetch('http://localhost:8081/parks/ParkReview/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const ParkReview = ({ parkId }) => {
     // Delete a review
     const handleDeleteReview = async (reviewId) => {
         try {
-            const response = await fetch(`http://localhost:8080/parks/reviews/${reviewId}`, {
+            const response = await fetch(`http://localhost:8081/parks/ParkReview/${reviewId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
