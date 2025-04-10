@@ -38,7 +38,6 @@ function App() {
         {/* Render Header dynamically */}
         <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
 
-
         <div className={isHomePage ? 'first-page' : ''}>
 
         <Routes>
@@ -46,14 +45,10 @@ function App() {
             <div>
               <h1>Welcome to ParkQuest!</h1>
               <h2>Plan your trip to national parks with ease!</h2>
-              <div>
-                {/*<button className="outline-button">*/}
-                {/*  <Link to="/Dashboard">Dashboard</Link>*/}
-                {/*</button>*/}
-              </div>
             </div>
           }
           />
+          
           {/*Public Routes*/}
           <Route path="/signup" element={<Signup/>}/>
             <Route
