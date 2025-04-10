@@ -60,6 +60,7 @@ function Login({ setIsAuthenticated }) { // Accept setIsAuthenticated as a prop
 
 
     return (
+      <div className="login-page">
         <div className="account-forms">
             <script src="https://apis.google.com/js/platform.js" async defer></script>
             <h2>Login</h2>
@@ -95,6 +96,7 @@ function Login({ setIsAuthenticated }) { // Accept setIsAuthenticated as a prop
                 <p>Not Registered? <Link to="/Signup" className="not-transparent-links">Register</Link></p>
             </div>
         </div>
+      </div>
     )
 }
 

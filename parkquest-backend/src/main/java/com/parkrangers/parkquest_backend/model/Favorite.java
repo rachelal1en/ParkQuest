@@ -14,19 +14,33 @@ public class Favorite {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "parkCode")
+    @Column(name = "park_code")
     private String parkCode;
 
     @Column(name = "full_Name")
     private String fullName;
 
-    public Favorite(Long id, Long userId, String parkCode, String fullName) {
+    @Column(name = "park_description")
+    private String parkDescription;
+
+
+    public Favorite(Long id, Long userId, String parkCode, String fullName, String parkDescription) {
         this.id = id;
         this.userId = userId;
         this.parkCode = parkCode;
         this.fullName = fullName;
+        this.parkDescription = parkDescription;
     }
+
     public Favorite() {}
+
+    public String getParkDescription() {
+        return parkDescription;
+    }
+
+    public void setParkDescription(String parkDescription) {
+        this.parkDescription = parkDescription;
+    }
 
     public Long getId() {
         return id;

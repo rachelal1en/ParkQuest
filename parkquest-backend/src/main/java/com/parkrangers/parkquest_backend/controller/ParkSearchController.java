@@ -29,5 +29,14 @@ public class ParkSearchController {
             throw new IllegalArgumentException("Either stateCode or parkName must be provided.");
         }
     }
+
+    @GetMapping("/lookup")
+    public Park getParksByCode(@RequestParam(required = true) String parkCode) throws JSONException {
+        if (parkCode == null || parkCode.isBlank()) {
+            throw new IllegalArgumentException("parkCode must be provided.");
+        }
+        return parkSearchService.getParkByCode(parkCode);
+    }
+
 }
 

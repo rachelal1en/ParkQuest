@@ -10,109 +10,132 @@ import FavoritesList from './components/FavoritesList/FavoritesList';
 import CampgroundDetail from './components/CampgroundDetail/CampgroundDetail';
 import CampgroundsList from './components/CampgroundsList/CampgroundsList';
 import HikingTrails from './components/HikingTrails/HikingTrails';
+import Trips from './components/Trips/Trips';
+import TripDetails from './components/Trips/TripDetails';
 import Header from './components/Header';
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const location = useLocation();
+  const location = useLocation(); // Get current route
+  const isHomePage = location.pathname === "/"; // Check if on home page
   const navigate = useNavigate();
-  const isHomePage = location.pathname === "/";
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    setIsAuthenticated(!!token);
-  }, []);
 
+    // Check user's authentication status
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+        setIsAuthenticated(!!token); // Set authentication based on token presence
+    }, []);
+
+    // Log the user out when the token becomes invalid
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    setIsAuthenticated(false);
-    navigate("/");
+    setIsAuthenticated(false); // Update auth state
+    navigate("/App");
   };
 
   return (
-    <div className="App">
-      <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+    <div className='App'>
+        {/* Render Header dynamically */}
+        <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
 
-      <div className={isHomePage ? 'first-page' : ''}>
+        <div className={isHomePage ? 'first-page' : ''}>
+
         <Routes>
-          {/* Public Home Page */}
-          <Route
-            path="/"
-            element={
-              <div>
-                <h1>Welcome to ParkQuest!</h1>
-                <br />
-                <h3>Plan your trip to national parks with ease!</h3>
-              </div>
-            }
+          <Route path="/" element={
+            <div>
+              <h1>Welcome to ParkQuest!</h1>
+              <h2>Plan your trip to national parks with ease!</h2>
+            </div>
+          }
           />
-
-          {/* Public Routes */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          
+          {/*Public Routes*/}
+          <Route path="/signup" element={<Signup/>}/>
+            <Route
+                path="/login"
+                element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route path="/App" element={<App/>}/>
 
           {/* Protected Routes */}
           <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
+              path="/dashboard"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/parklist"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <ParksList />
-              </ProtectedRoute>
-            }
+              path="/parklist"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <ParksList userId={localStorage.getItem("userId")}/>
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/parklist/:id"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <ParkDetail userId={localStorage.getItem("userId")} />
-              </ProtectedRoute>
-            }
+              path="/parklist/:id"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <ParkDetail userId={localStorage.getItem("userId")} />
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/favorites"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <FavoritesList userId={localStorage.getItem("userId")} />
-              </ProtectedRoute>
-            }
+              path="/favorites"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                    <FavoritesList userId={localStorage.getItem("userId")} />
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/park/campgrounds/:id"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <CampgroundsList />
-              </ProtectedRoute>
-            }
+              path="/park/campgrounds/:id"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <CampgroundsList />
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/campgrounds/:campgroundId"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <CampgroundDetail />
-              </ProtectedRoute>
-            }
+              path="/campgrounds/:campgroundId"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <CampgroundDetail />
+                </ProtectedRoute>
+              }
           />
           <Route
-            path="/hiking/:id"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <HikingTrails />
-              </ProtectedRoute>
-            }
+              path="park/hiking/:id"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <HikingTrails />
+                </ProtectedRoute>
+              }
           />
+            <Route
+                path="/trips"
+                element={
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                        <Trips userId={localStorage.getItem("userId")} />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/tripdetails/:id"
+                element={
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                        <TripDetails />
+                    </ProtectedRoute>
+                }
+            />
         </Routes>
       </div>
     </div>
-  );
+  )
 }
 
 export default App;

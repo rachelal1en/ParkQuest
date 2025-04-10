@@ -28,18 +28,22 @@ public class ParkSearchService {
 
         return response.getBody().getData();
     }
-    public List<Park> getParksByCode(String parkCode) throws JSONException {
-        String url = String.format("%s?stateCode=%s&limit=100&api_key=%s",
+
+    public Park getParkByCode(String parkCode) throws JSONException {
+        String url = String.format("%s?parkCode=%s&limit=100&api_key=%s",
                 API_URL, parkCode, apiKey);
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<ParkSearchResponse> response = restTemplate.getForEntity(url, ParkSearchResponse.class);
 
-        // Filter the results to include only exact matches in the parkCode field
-        return response.getBody().getData().stream()
-                .filter(park -> park.getParkCode().toLowerCase().contains(parkCode.toLowerCase()))
-                .toList();
+        if (response.getBody() != null && !response.getBody().getData().isEmpty()) {
+            return response.getBody().getData().get(0);
+        } else {
+            throw new IllegalArgumentException("No park found with the given parkCode: " + parkCode);
+        }
     }
+
+
 
     public List<Park> getParksByName(String parkName) throws JSONException {
         String url = String.format("%s?q=%s&limit=100&api_key=%s",

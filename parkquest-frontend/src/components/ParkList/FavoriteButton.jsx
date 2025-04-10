@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import style from "../ParkDetail/ParkDetail.module.css"
 
-const FavoriteButton = ({ userId, parkCode, fullName }) => {
+const FavoriteButton = ({ userId, parkCode, fullName, parkDescription }) => {
     const [isFavorited, setIsFavorited] = useState(false);
 
     const storedUserId = localStorage.getItem("userId");
@@ -31,10 +32,14 @@ const FavoriteButton = ({ userId, parkCode, fullName }) => {
 
     const handleAddToFavorites = async () => {
         try {
-            console.log({ userId, parkCode, fullName });
-            console.log(userId, parkCode, fullName);
-            await axios.post(`http://localhost:8081/favorites`, null, {
-                params: { userId, parkCode, fullName }, // Use parkCodeA
+            console.log({ userId, parkCode, fullName, parkDescription });
+            await axios.post("http://localhost:8081/favorites", null, {
+                params: {
+                    userId,
+                    parkCode,
+                    fullName,
+                    parkDescription
+                },
             });
             setIsFavorited(true);
         } catch (err) {
@@ -57,7 +62,7 @@ const FavoriteButton = ({ userId, parkCode, fullName }) => {
     return (
         <button
             onClick={isFavorited ? handleRemoveFromFavorites : handleAddToFavorites}
-            className={`favorite-button ${isFavorited ? "favorited" : ""}`}
+            className={`favorite-button ${isFavorited ? "favorited" : ""}`} id={style.parkBtn}
         >
             {isFavorited ? "Favorited" : "Add to Favorites"}
         </button>
