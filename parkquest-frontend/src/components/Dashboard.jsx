@@ -20,6 +20,11 @@ function Dashboard() {
                     <button className="outline-button dashboard-btn">
                       <Link to="/favorites">My Favorite Parks</Link>
                     </button>
+
+                    <button className="outline-button dashboard-btn">
+                      <Link to="/trips">My Trips</Link>
+                    </button>
+
                   </div>
               </div>
           }/>
