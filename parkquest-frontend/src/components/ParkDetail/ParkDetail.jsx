@@ -1,6 +1,8 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import style from "./ParkDetail.module.css";
 import { useRef } from "react";
+import ParkReview from "../ParkReview/ParkReview";
+
 
 export default function ParkDetail() {
   const location = useLocation();
@@ -113,17 +115,17 @@ export default function ParkDetail() {
         </Link>
       </button>
 
-      {/* Add Review Button */}
-             <button className={style.parkBtn}>
-               <Link
-                 to="/ParkReview"  // Navigate to the reviews page
-                 className={style.linkBtn}
-                 state={{ park }} // Pass the whole park object as state
-               >
-                 View & Write Reviews
-               </Link>
-             </button>
-
+{/*        */}{/* Add Review Button */}
+{/*              <button className={style.parkBtn}> */}
+{/*                <Link */}
+{/*                  to="/ParkReview"  // Navigate to the reviews page */}
+{/*                  className={style.linkBtn} */}
+{/*                  state={{ park }} // Pass the whole park object as state */}
+{/*                > */}
+{/*                  View & Write Reviews */}
+{/*                </Link> */}
+{/*              </button> */}
+        <ParkReview parkCode = {park.parkCode} />
 
     </div>
   );

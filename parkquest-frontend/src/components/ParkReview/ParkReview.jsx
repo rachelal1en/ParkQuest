@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ParkReview.module.css'; // Import the CSS module
 
-const ParkReview = ({ park }) => {
+const ParkReview = ({ parkCode }) => {
     const [reviews, setReviews] = useState([]);
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState(0);
@@ -10,12 +10,12 @@ const ParkReview = ({ park }) => {
     // Fetch reviews for a specific park when the component loads
     useEffect(() => {
         fetchReviews();
-    }, [parkId]);
+    }, [parkCode]);
 
     // Fetch all reviews for the specified park
     const fetchReviews = async () => {
         try {
-            const response = await fetch(`http://localhost:8081/parks/reviews/${parkId}`);
+            const response = await fetch(`http://localhost:8081/parks/reviews/${parkCode}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch reviews');
             }
@@ -29,13 +29,13 @@ const ParkReview = ({ park }) => {
     // Submit a new review
     const handleSubmitReview = async () => {
         const userReview = {
-            parkId,
+            parkCode,
             reviewText,
             rating,
         };
 
         try {
-            const response = await fetch('http://localhost:8081/parks/ParkReview/', {
+            const response = await fetch('http://localhost:8081/park-reviews/{parkCode}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const ParkReview = ({ park }) => {
     // Delete a review
     const handleDeleteReview = async (reviewId) => {
         try {
-            const response = await fetch(`http://localhost:8081/parks/ParkReview/${reviewId}`, {
+            const response = await fetch(`http://localhost:8081/park-reviews/${reviewId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
