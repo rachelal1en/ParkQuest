@@ -2,8 +2,9 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import style from "./ParkDetail.module.css";
 import { useRef } from "react";
 import FavoriteButton from "../ParkList/FavoriteButton.jsx";
+import ParkReview from "../ParkReview/ParkReview.jsx";
 
-export default function ParkDetail() {
+export default function ParkDetail({ userId }) {
   const location = useLocation();
   const navigate = useNavigate();
   const carouselRef = useRef(null);
@@ -113,6 +114,8 @@ export default function ParkDetail() {
           Find Campgrounds
         </Link>
       </button>
+
+      <ParkReview parkCode={park.parkCode} userId={userId}/>
       
     </div>
   );

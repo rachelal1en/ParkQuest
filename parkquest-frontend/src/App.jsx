@@ -20,7 +20,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation(); // Get current route
   const isHomePage = location.pathname === "/"; // Check if on home page
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
     // Check user's authentication status
