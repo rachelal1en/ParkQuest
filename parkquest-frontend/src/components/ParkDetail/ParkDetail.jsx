@@ -38,7 +38,7 @@ export default function ParkDetail() {
     <div className={style.parkDetails}>
 
       {/*<button className={style.parkBtn} onClick={saveToFavorites}>Save to My List</button>*/}
-      <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} parkDescription={park.description} />
+      <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} description={park.description} />
       
       <button className={style.parkBtn}>
         <Link to="/favorites" className={style.linkBtn}>My Favorite Parks</Link>
