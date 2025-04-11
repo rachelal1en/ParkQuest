@@ -36,11 +36,11 @@ public class ParkReviewController {
         return ResponseEntity.ok(review);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteReview(@RequestParam Long userId, @RequestParam String parkCode) {
-        parkService.deleteFavorite(userId, parkCode);
-        return ResponseEntity.ok().build();
-    }
+//    @DeleteMapping
+//    public ResponseEntity<Void> deleteReview(@RequestParam Long userId, @RequestParam String parkCode) {
+//        parkService.deleteFavorite(userId, parkCode);
+//        return ResponseEntity.ok().build();
+//    }
     // Edit an existing park review (only the review owner can edit it)
     @PutMapping
     public ResponseEntity<ParkReview> editReview(
