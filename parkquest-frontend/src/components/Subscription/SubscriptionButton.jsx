@@ -11,6 +11,8 @@ const SubscriptionButton = ({ userId, parkCode }) => {
 
     try {
       await axios.post("http://localhost:8081/subscriptions/subscribe", payload, {
+            userId,
+            parkCode,
         headers: { "Content-Type": "application/json" },
       });
 
