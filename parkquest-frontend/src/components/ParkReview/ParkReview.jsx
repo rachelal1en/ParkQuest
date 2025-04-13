@@ -29,6 +29,10 @@ const ParkReview = ({ parkCode, userId }) => {
     };
 
     const handleSubmitReview = async () => {
+        if (!reviewText.trim()) {
+            setError("Review cannot be empty");
+            return;
+        }
         if (rating < 1 || rating > 5) {
             setError("Rating must be between 1 and 5");
             return;
@@ -46,6 +50,7 @@ const ParkReview = ({ parkCode, userId }) => {
             if (!response.ok) {
                 throw new Error('Failed to submit review');
             }
+
             fetchReviews();
             setReviewText('');
             setRating(0);
@@ -68,7 +73,6 @@ const ParkReview = ({ parkCode, userId }) => {
                 throw new Error('Failed to delete review');
             }
 
-            // Refresh the reviews list after successful deletion
             fetchReviews();
         } catch (err) {
             setError('Error deleting review');
@@ -79,9 +83,14 @@ const ParkReview = ({ parkCode, userId }) => {
         setEditingReviewId(reviewId);
         setEditingReviewText(reviewContent);
         setEditingRating(reviewRating);
+        setError('');
     };
 
     const handleSaveEditReview = async () => {
+        if (!editingReviewText.trim()) {
+            setError("Review cannot be empty");
+            return;
+        }
         if (editingRating < 1 || editingRating > 5) {
             setError("Rating must be between 1 and 5");
             return;
@@ -99,6 +108,7 @@ const ParkReview = ({ parkCode, userId }) => {
             if (!response.ok) {
                 throw new Error('Failed to save edited review');
             }
+
             fetchReviews();
             setEditingReviewId(null);
             setEditingReviewText('');
@@ -110,6 +120,7 @@ const ParkReview = ({ parkCode, userId }) => {
     };
 
     const handleStarClick = (starRating) => {
+        setError('');
         if (editingReviewId) {
             setEditingRating(starRating);
         } else {
@@ -125,15 +136,15 @@ const ParkReview = ({ parkCode, userId }) => {
         const stars = [];
 
         for (let i = 0; i < fullStars; i++) {
-            stars.push(<FaStar key={i} className={styles.star} />);
+            stars.push(<FaStar key={`full-${i}`} className={styles.star} />);
         }
 
         if (halfStar) {
-            stars.push(<FaStarHalfAlt key={fullStars} className={styles.star} />);
+            stars.push(<FaStarHalfAlt key={`half`} className={styles.star} />);
         }
 
         for (let i = 0; i < emptyStars; i++) {
-            stars.push(<FaRegStar key={fullStars + halfStar + i} className={styles.star} />);
+            stars.push(<FaRegStar key={`empty-${i}`} className={styles.star} />);
         }
 
         return stars;
@@ -168,12 +179,19 @@ const ParkReview = ({ parkCode, userId }) => {
             <div className={styles.reviewForm}>
                 <textarea
                     value={editingReviewId ? editingReviewText : reviewText}
-                    onChange={(e) => editingReviewId ? setEditingReviewText(e.target.value) : setReviewText(e.target.value)}
+                    onChange={(e) => {
+                        setError('');
+                        if (editingReviewId) {
+                            setEditingReviewText(e.target.value);
+                        } else {
+                            setReviewText(e.target.value);
+                        }
+                    }}
                     placeholder="Write your review..."
                     className={styles.reviewTextarea}
                 />
                 <div className={styles.ratingContainer}>
-                    {renderStarRating(rating).map((star, index) => (
+                    {(editingReviewId ? renderStarRating(editingRating) : renderStarRating(rating)).map((star, index) => (
                         <div key={index} onClick={() => handleStarClick(index + 1)}>
                             {star}
                         </div>
