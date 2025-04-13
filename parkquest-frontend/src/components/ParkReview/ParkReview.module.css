@@ -1,11 +1,16 @@
 .parkReviewContainer {
-    padding: 20px;
+    padding: 1.25rem 2.188rem; /* Same padding as parkDetails */
     max-width: 600px;
     margin: 0 auto;
+    background-color: rgba(238, 245, 238, .75); /* Match the background color */
+    border-radius: 8px; /* Rounded corners for consistency */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
 h1 {
     text-align: center;
+    font-size: 1.75rem; /* Adjust the font size for consistency */
+    margin-bottom: 20px;
 }
 
 .reviewForm {
@@ -17,11 +22,13 @@ h1 {
     height: 150px;
     padding: 10px;
     font-size: 16px;
-    resize: vertical; /* Allows vertical resizing */
-    overflow-y: auto; /* Adds scroll when content overflows */
-    box-sizing: border-box; /* Ensures padding is included in height calculation */
-    word-wrap: break-word; /* Makes sure words wrap to the next line */
-    white-space: pre-wrap; /* Makes sure the text is wrapped properly and spaces/newlines are preserved */
+    resize: vertical;
+    overflow-y: auto;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    border-radius: 4px; /* Match the input field style */
+    border: 1px solid #ccc;
 }
 
 .ratingInput {
@@ -33,16 +40,18 @@ h1 {
 }
 
 .submitBtn {
-    background-color: #4CAF50;
+    background-color: #004d40; /* Matching park button color */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto; /* Keep the width to auto to preserve original size */
 }
 
 .submitBtn:hover {
-    background-color: #45a049;
+    background-color: #017e69; /* Slightly lighter green on hover */
 }
 
 .reviews {
@@ -65,7 +74,7 @@ h1 {
 }
 
 .userId {
-    font-size: 12px;
+    font-size: 14px; /* Slightly larger font size for user ID */
     color: gray;
 }
 
@@ -79,12 +88,12 @@ h1 {
     border: none;
     cursor: pointer;
     margin-left: 10px;
-    color: #4CAF50;
+    color: #004d40; /* Matching park button color */
     font-size: 18px;
 }
 
 .editBtn:hover {
-    color: #45a049;
+    color: #017e69; /* Lighter green on hover */
 }
 
 .deleteBtn {
@@ -121,4 +130,3 @@ h1 {
 .star:hover {
     color: #d7a000; /* Slightly darker gold on hover */
 }
-
