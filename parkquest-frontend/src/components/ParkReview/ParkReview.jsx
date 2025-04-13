@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ParkReview.module.css';
-import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaTrashAlt, FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 const ParkReview = ({ parkCode, userId }) => {
     const [reviews, setReviews] = useState([]);
@@ -75,7 +75,6 @@ const ParkReview = ({ parkCode, userId }) => {
         }
     };
 
-
     const handleEditReview = (reviewId, reviewContent, reviewRating) => {
         setEditingReviewId(reviewId);
         setEditingReviewText(reviewContent);
@@ -110,6 +109,36 @@ const ParkReview = ({ parkCode, userId }) => {
         }
     };
 
+    const handleStarClick = (starRating) => {
+        if (editingReviewId) {
+            setEditingRating(starRating);
+        } else {
+            setRating(starRating);
+        }
+    };
+
+    const renderStarRating = (currentRating) => {
+        const fullStars = Math.floor(currentRating);
+        const halfStar = currentRating % 1 !== 0;
+        const emptyStars = 5 - Math.ceil(currentRating);
+
+        const stars = [];
+
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<FaStar key={i} className={styles.star} />);
+        }
+
+        if (halfStar) {
+            stars.push(<FaStarHalfAlt key={fullStars} className={styles.star} />);
+        }
+
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<FaRegStar key={fullStars + halfStar + i} className={styles.star} />);
+        }
+
+        return stars;
+    };
+
     const renderReviews = () => {
         return reviews.map((review) => (
             <div key={review.reviewId} className={styles.review}>
@@ -127,7 +156,7 @@ const ParkReview = ({ parkCode, userId }) => {
                     )}
                 </div>
                 <p>{review.content}</p>
-                <p><strong>Rating:</strong> {review.rating}</p>
+                <p><strong>Rating:</strong> {renderStarRating(review.rating)}</p>
             </div>
         ));
     };
@@ -143,15 +172,13 @@ const ParkReview = ({ parkCode, userId }) => {
                     placeholder="Write your review..."
                     className={styles.reviewTextarea}
                 />
-                <input
-                    type="number"
-                    value={editingReviewId ? editingRating : rating}
-                    onChange={(e) => editingReviewId ? setEditingRating(Number(e.target.value)) : setRating(Number(e.target.value))}
-                    min="1"
-                    max="5"
-                    placeholder="Rating (1-5)"
-                    className={styles.ratingInput}
-                />
+                <div className={styles.ratingContainer}>
+                    {renderStarRating(rating).map((star, index) => (
+                        <div key={index} onClick={() => handleStarClick(index + 1)}>
+                            {star}
+                        </div>
+                    ))}
+                </div>
                 <button
                     onClick={editingReviewId ? handleSaveEditReview : handleSubmitReview}
                     className={styles.submitBtn}

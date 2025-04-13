@@ -106,3 +106,19 @@ h1 {
     padding: 20px;
     border-radius: 8px;
 }
+
+.ratingContainer {
+    display: flex; /* Align the stars horizontally */
+    justify-content: center; /* Center the stars */
+    gap: 5px; /* Add space between the stars */
+}
+
+.star {
+    color: #f5b301; /* Golden color */
+    cursor: pointer;
+}
+
+.star:hover {
+    color: #d7a000; /* Slightly darker gold on hover */
+}
+
