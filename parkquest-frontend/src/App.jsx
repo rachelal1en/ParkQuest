@@ -134,6 +134,22 @@ function App() {
                 }
             />
             <Route
+                path="/trips/:tripId"
+                element={
+                    <ProtectedRoute isAuthenticated={isAuthenticated}>
+                        <TripDetails />
+                    </ProtectedRoute>
+                }
+            />
+            {/*<Route*/}
+            {/*    path="/parkDetails/:parkCode"*/}
+            {/*    element={*/}
+            {/*        <ProtectedRoute isAuthenticated={isAuthenticated}>*/}
+            {/*            <TripDetails />*/}
+            {/*        </ProtectedRoute>*/}
+            {/*    }*/}
+            {/*/>*/}
+            <Route
                 path="/profile"
                 element={
                     <ProtectedRoute isAuthenticated={isAuthenticated}>
