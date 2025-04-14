@@ -1,6 +1,6 @@
 package com.parkrangers.parkquest_backend.controller;
 
-import com.parkrangers.parkquest_backend.model.response.ApiResponse;
+import com.parkrangers.parkquest_backend.model.ApiResponse;
 import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.service.UserService;
 import io.jsonwebtoken.Jwts;

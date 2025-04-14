@@ -67,8 +67,8 @@ public class UserService {
         }
 
         // Fetch the associated role (default is ROLE_USER)
-        Role userRole = roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+        Role userRole = roleRepository.findByName(roleName);
+
 
         // Create and save the new user
         User newUser = new User();
@@ -115,8 +115,8 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
         if (roleName != null) {
-            Role newRole = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found."));
+            Role newRole = roleRepository.findByName(roleName);
+
             Set<Role> roles = new HashSet<>();
             roles.add(newRole);
             user.setRoles(roles);
@@ -165,8 +165,7 @@ public class UserService {
 
             // Fetch the role based on isAdmin flag
             String roleName = isAdmin ? "ROLE_ADMIN" : "ROLE_USER";
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+            Role role = roleRepository.findByName(roleName);
 
             // Update roles while preserving existing relationships
             Set<Role> roles = new HashSet<>(user.getRoles());
