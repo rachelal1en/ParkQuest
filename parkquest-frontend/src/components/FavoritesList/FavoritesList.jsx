@@ -4,10 +4,10 @@ import style from "./FavoritesList.module.css";
 import TripButton from "../Trips/Buttons/TripButton";
 
 const FavoritesList = ({userId}) => {
-  const [favorites, setFavorites] = useState([]);
-  const [error, setError] = useState("");
-  const [hoveredPark, setHoveredPark] = useState(null);
-  const [editingNote, setEditingNote] = useState(null); // Holds the park currently being edited
+    const [favorites, setFavorites] = useState([]);
+    const [error, setError] = useState("");
+    const [hoveredPark, setHoveredPark] = useState(null);
+    const [editingNote, setEditingNote] = useState(null); // Holds the park currently being edited
     const [newNote, setNewNote] = useState(""); // Holds the new note while editing
 
 
@@ -137,90 +137,90 @@ const FavoritesList = ({userId}) => {
 
 
     return (
-    <div className={style.favoriteList}>
-        <button className={style.outlineButton}>
-            <Link to="/trips" className={style.linkBtn}>My Trips</Link>
-        </button>
-        <button className={style.outlineButton}>
-        <Link to="/parklist">Go to Parks List</Link>
-      </button>
-      <h1>My Favorite Parks</h1>
-        <br />
-        {/* Display error if any */}
-        {error && <p className={style.error}>{error}</p>}
+        <div className={style.favoriteList}>
+            <button className={style.outlineButton}>
+                <Link to="/trips" className={style.linkBtn}>My Trips</Link>
+            </button>
+            <button className={style.outlineButton}>
+                <Link to="/parklist">Go to Parks List</Link>
+            </button>
+            <h1>My Favorite Parks</h1>
+            <br />
+            {/* Display error if any */}
+            {error && <p className={style.error}>{error}</p>}
 
-        {/* Render favorite parks or show a message if there are no favorites */}
-        {favorites.length === 0 ? <p>No favorites yet!</p> : (
-        <ul>
-          {favorites.map((park) => (
-            <li key={park.parkId}>
-                {/* Park Name */}
-                <h3
-                    onMouseEnter={() => fetchParkByParkCode(park.parkCode)} // Trigger fetching park data on hover
-                >
-                    <Link
-                        to={`/parklist/${park.parkCode}`} // Pass the parkCode in the link
-                        state={{
-                            park: hoveredPark || {}, // Pass hover data if available
-                        }}
-                        userId={storedUserId}
-                    >
-                        {park.fullName}
-                    </Link>
-                </h3>
-                <p>{park.description}</p>
-                <br />
+            {/* Render favorite parks or show a message if there are no favorites */}
+            {favorites.length === 0 ? <p>No favorites yet!</p> : (
+                <ul>
+                    {favorites.map((park) => (
+                        <li key={park.parkId}>
+                            {/* Park Name */}
+                            <h3
+                                onMouseEnter={() => fetchParkByParkCode(park.parkCode)} // Trigger fetching park data on hover
+                            >
+                                <Link
+                                    to={`/parklist/${park.parkCode}`} // Pass the parkCode in the link
+                                    state={{
+                                        park: hoveredPark || {}, // Pass hover data if available
+                                    }}
+                                    userId={storedUserId}
+                                >
+                                    {park.fullName}
+                                </Link>
+                            </h3>
+                            <p>{park.description}</p>
+                            <br />
 
-                {/* Display note with edit option */}
-                {editingNote === park.parkId ? (
-                    <div className={style.editNoteContainer}>
+                            {/* Display note with edit option */}
+                            {editingNote === park.parkId ? (
+                                <div className={style.editNoteContainer}>
                   <textarea
                       className={style.editNoteTextarea}
                       value={newNote}
                       onChange={(e) => setNewNote(e.target.value)}
                       placeholder="Add a note..."
                   />
-                        <div className={style.editNoteButtons}>
-                            <button
-                                className={`${style.editNoteButton} ${style.saveButton}`}
-                                onClick={() => updateNote(park.parkId)}
-                            >
-                                Save
-                            </button>
-                            <button
-                                className={`${style.editNoteButton} ${style.cancelButton}`}
-                                onClick={() => setEditingNote(null)}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                ) : (
-                    <div className={style.noteDisplay}>
-                        <p>Note: {park.noteToSelf || "No note added yet."}</p>
-                        <button className={style.editNoteButton}
-                            onClick={() => startEditing(park.parkId, park.noteToSelf)}
-                        >
-                            Edit Note
-                        </button>
-                    </div>
-                )}
+                                    <div className={style.editNoteButtons}>
+                                        <button
+                                            className={`${style.editNoteButton} ${style.saveButton}`}
+                                            onClick={() => updateNote(park.parkId)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className={`${style.editNoteButton} ${style.cancelButton}`}
+                                            onClick={() => setEditingNote(null)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className={style.noteDisplay}>
+                                    <p>Note: {park.noteToSelf || "No note added yet."}</p>
+                                    <button className={style.editNoteButton}
+                                            onClick={() => startEditing(park.parkId, park.noteToSelf)}
+                                    >
+                                        Edit Note
+                                    </button>
+                                </div>
+                            )}
 
-                <br />
-                <TripButton
-                    userId={localStorage.getItem("userId")}
-                    parkCode={park.parkCode}
-                    fullName={park.fullName}
-                    description={park.description}
-                />
-                {/* Button to remove the park as a favorite */}
-                <button onClick={() => removeFavorite(favorite.parkCode)} className={style.parkBtn}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+                            <br />
+                            <TripButton
+                                userId={localStorage.getItem("userId")}
+                                parkCode={park.parkCode}
+                                fullName={park.fullName}
+                                description={park.description}
+                            />
+                            {/* Button to remove the park as a favorite */}
+                            <button onClick={() => removeFavorite(favorite.parkCode)} className={style.parkBtn}>Remove</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
 };
 
 export default FavoritesList;

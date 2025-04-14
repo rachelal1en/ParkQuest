@@ -4,6 +4,8 @@ import { useRef } from "react";
 import FavoriteButton from "../ParkList/FavoriteButton.jsx";
 import ParkReview from "../ParkReview/ParkReview.jsx";
 import TripButton from "../Trips/Buttons/TripButton.jsx";
+import SubscriptionButton from "../Subscription/SubscriptionButton.jsx";
+
 
 export default function ParkDetail({ userId }) {
   const location = useLocation();
@@ -30,6 +32,7 @@ export default function ParkDetail({ userId }) {
 
   return (
     <div className={style.parkDetails}>
+        <SubscriptionButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} />
 
       <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} description={park.description} />
       
