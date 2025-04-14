@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Trips.module.css";
+import axios from "axios";
 
 const Trips = ({userId}) => {
     const [trips, setTrips] = useState([]);
@@ -38,32 +39,22 @@ const Trips = ({userId}) => {
     }, [userId, storedUserId]);
 
     // Function to remove a trip
-    const removeTrip = async (parkCode) => {
+    const removeTrip = async (tripId) => {
         try {
-            const id = userId || storedUserId;
-
-            if (!id) {
-                throw new Error("User ID is missing. Please log in again.");
+            if (!tripId) {
+                throw new Error("Trip ID is missing.");
             }
 
-            const response = await fetch(
-                `http://localhost:8081/trips?userId=${id}&parkCode=${parkCode}`,
-                { method: "DELETE" }
-            );
+            await axios.delete(`http://localhost:8081/trips/${tripId}`);
 
-            if (!response.ok) {
-                throw new Error("Failed to remove the favorite. Please try again.");
-            }
-
-            // Update state after removing the favorite
-            const updatedTrips = trips.filter(
-                (trip) => trip.parkCode !== parkCode
-            );
+            // Update state after removing the trip
+            const updatedTrips = trips.filter((trip) => trip.tripId !== tripId);
             setTrips(updatedTrips);
         } catch (err) {
             setError(err.message);
         }
     };
+
 
     // Navigate to TripDetails for editing
     const handleEdit = (trip) => {
@@ -134,7 +125,7 @@ const Trips = ({userId}) => {
                                   Edit
                               </button>
                               <button
-                                  onClick={() => removeTrip(trip.parkCode)}
+                                  onClick={() => removeTrip(trip.tripId)}
                                   className={`${style.tripBtn} ${style.deleteBtn}`}
                               >
                                   Delete
