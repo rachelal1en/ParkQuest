@@ -12,7 +12,18 @@ export default function ParkDetail({ userId }) {
   const navigate = useNavigate();
   const carouselRef = useRef(null);
 
-  const park = location.state?.park; // Retrieve passed park data
+    // Utility function to safely extract and convert `zipcode` to a long
+    const extractZipCodeAsLong = (code) => {
+        const parsedCode = Number(code); // Convert string to a number
+        return isNaN(parsedCode) ? null : Math.trunc(parsedCode); // Return null if invalid, truncate decimals
+    };
+
+    // Safely retrieve and convert the zipcode from park data
+    const zipcodeAsLong = park.addresses?.[0]?.postalCode
+        ? extractZipCodeAsLong(park.addresses[0].postalCode)
+        : null; // Fallback to null if postalCode is unavailable
+
+    const park = location.state?.park; // Retrieve passed park data
 
   if (!park) {
     return <p>No park data available.</p>; // Handle case where data is missing
@@ -45,6 +56,7 @@ export default function ParkDetail({ userId }) {
           parkCode={park.parkCode}
           fullName={park.fullName}
           description={park.description}
+          zipcode={zipcodeAsLong}
       />
         <button className={style.parkBtn}>
             <Link to="/trips" className={style.linkBtn}>My Trips</Link>

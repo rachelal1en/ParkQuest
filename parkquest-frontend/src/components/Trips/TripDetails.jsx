@@ -135,7 +135,7 @@ export default function TripDetails() {
             {/* Trip Details */}
             <h1>{trip.parkName}</h1>
             <p className={style.description}>{trip.parkDescription || "No description available"}</p>
-
+            <p>Zip Code: {trip.zipcode || "No zipcode available"}</p>
             <h2>Trip Details</h2>
             <p>
                 <strong>Start Date:</strong> {trip.startDate || "Not set"}
