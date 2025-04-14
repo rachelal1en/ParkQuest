@@ -3,6 +3,7 @@ package com.parkrangers.parkquest_backend.controller;
 import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,4 +52,40 @@ public class UserController {
             return ResponseEntity.status(500).body(Map.of("message", "Internal server error: " + e.getMessage()));
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllUsers(@RequestParam Long adminId) {
+        if (!userService.isAdmin(adminId)) {
+            return ResponseEntity.status(403).body("Unauthorized");
+        }
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PutMapping("/update-role")
+    public ResponseEntity<?> updateRole(@RequestBody Map<String, String> payload) {
+        Long adminId = Long.valueOf(payload.get("adminId"));
+        Long targetUserId = Long.valueOf(payload.get("userId"));
+        boolean isAdmin = Boolean.parseBoolean(payload.get("isAdmin"));
+
+        if (!userService.isAdmin(adminId)) {
+            return ResponseEntity.status(403).body("Only admins can change roles.");
+        }
+
+        userService.setAdminRole(targetUserId, isAdmin);
+        return ResponseEntity.ok("User role updated.");
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(
+            @PathVariable Long userId,
+            @RequestParam Long adminId) {
+
+        if (!userService.isAdmin(adminId)) {
+            return ResponseEntity.status(403).body("Only admins can delete users.");
+        }
+
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User deleted.");
+    }
+
 }

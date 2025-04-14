@@ -15,6 +15,7 @@ import TripDetails from './components/Trips/TripDetails';
 import Header from './components/Header';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import AdminPanel from './components/AdminPanel.jsx'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -162,6 +163,15 @@ function App() {
                         <ProfilePage />
                     </ProtectedRoute>
                 }
+            />
+
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <AdminPanel />
+                </ProtectedRoute>
+              }
             />
 
         </Routes>

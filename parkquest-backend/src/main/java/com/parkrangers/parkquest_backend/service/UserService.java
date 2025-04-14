@@ -7,8 +7,10 @@ import com.parkrangers.parkquest_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -124,5 +126,47 @@ public class UserService {
             throw e; // Re-throw for proper handling in the controller
         }
 
+    }
+
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public boolean isAdmin(Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> user.getRoles().stream()
+                        .anyMatch(role -> "ROLE_ADMIN".equals(role.getName())))
+                .orElse(false);
+    }
+
+    @Transactional
+    public void setAdminRole(Long userId, boolean isAdmin) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        if (adminRole == null) {
+            throw new IllegalStateException("ROLE_ADMIN role not found in DB");
+        }
+
+        if (isAdmin) {
+            user.getRoles().add(adminRole);
+        } else {
+            user.getRoles().removeIf(role -> "ROLE_ADMIN".equals(role.getName()));
+        }
+
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Break the relationship with roles first
+        user.getRoles().clear();
+        userRepository.save(user); // Optional: update before delete
+        userRepository.deleteById(userId);
     }
 }
