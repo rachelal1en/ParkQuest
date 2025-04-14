@@ -3,6 +3,7 @@ import style from "./ParkDetail.module.css";
 import { useRef } from "react";
 import FavoriteButton from "../ParkList/FavoriteButton.jsx";
 import ParkReview from "../ParkReview/ParkReview.jsx";
+import TripButton from "../Trips/Buttons/TripButton.jsx";
 
 export default function ParkDetail({ userId }) {
   const location = useLocation();
@@ -14,14 +15,6 @@ export default function ParkDetail({ userId }) {
   if (!park) {
     return <p>No park data available.</p>; // Handle case where data is missing
   }
-
-  // const saveToFavorites = () => {
-  //   const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  //   if (!existingFavorites.some(fav => fav.id === park.id)) {
-  //     const updatedFavorites = [...existingFavorites, park];
-  //     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-  //   }
-  // };
 
   const goBack = () => {
     navigate(-1);
@@ -38,13 +31,21 @@ export default function ParkDetail({ userId }) {
   return (
     <div className={style.parkDetails}>
 
-      {/*<button className={style.parkBtn} onClick={saveToFavorites}>Save to My List</button>*/}
       <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} description={park.description} />
       
       <button className={style.parkBtn}>
         <Link to="/favorites" className={style.linkBtn}>My Favorite Parks</Link>
       </button>
 
+      <TripButton
+          userId={localStorage.getItem("userId")}
+          parkCode={park.parkCode}
+          fullName={park.fullName}
+          description={park.description}
+      />
+        <button className={style.parkBtn}>
+            <Link to="/trips" className={style.linkBtn}>My Trips</Link>
+        </button>
       <button className={style.parkBtn} onClick={goBack}>Back to Search</button>
 
       <h1>{park.fullName}</h1>
