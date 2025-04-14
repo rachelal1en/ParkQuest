@@ -1,0 +1,39 @@
+.admin-panel {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.admin-panel h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.admin-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.admin-panel th, .admin-panel td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.admin-panel th {
+  background-color: #f2f2f2;
+}
+
+.admin-panel button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: red;
+}
+
+.admin-panel button:disabled {
+  color: grey;
+  cursor: not-allowed;
+}

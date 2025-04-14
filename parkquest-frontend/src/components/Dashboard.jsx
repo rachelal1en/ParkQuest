@@ -1,38 +1,44 @@
-import {Route, Routes, Link} from 'react-router-dom';
-import '../App.css'
+import { Route, Routes, Link } from 'react-router-dom';
+import '../App.css';
 import FavoritesList from './FavoritesList/FavoritesList';
 
 function Dashboard() {
   const userId = localStorage.getItem("userId");
+  const isAdmin = localStorage.getItem("isAdmin") === "true"; // assumes it's stored as string "true"/"false"
 
   return (
     <div className='dashboard'>
-        <Routes>
-          <Route path="/" element={
+      <Routes>
+        <Route
+          path="/"
+          element={
             <div>
               <h1>Welcome to ParkQuest!</h1>
-                <h2>Plan your trip to national parks with ease!</h2>
-                  <div className='buttons'>
-                    <button className="outline-button dashboard-btn">
-                      <Link to="/parklist">Search Parks</Link>
-                    </button>
-                    
-                    <button className="outline-button dashboard-btn">
-                      <Link to="/favorites">My Favorite Parks</Link>
-                    </button>
+              <h2>Plan your trip to national parks with ease!</h2>
+              <div className='buttons'>
+                <button className="outline-button dashboard-btn">
+                  <Link to="/parklist">Search Parks</Link>
+                </button>
 
-                    <button className="outline-button dashboard-btn">
-                      <Link to="/trips">My Trips</Link>
-                    </button>
+                <button className="outline-button dashboard-btn">
+                  <Link to="/favorites">My Favorite Parks</Link>
+                </button>
 
-                  </div>
+                <button className="outline-button dashboard-btn">
+                  <Link to="/trips">My Trips</Link>
+                </button>
+
+                {isAdmin && (
+                  <button className="outline-button dashboard-btn">
+                    <Link to="/admin">Admin Panel</Link>
+                  </button>
+                )}
               </div>
-          }/>
-          <Route
-            path="/favorites"
-            element={<FavoritesList userId={userId} />}
-          />
-        </ Routes>
+            </div>
+          }
+        />
+        <Route path="/favorites" element={<FavoritesList userId={userId} />} />
+      </Routes>
     </div>
   );
 }

@@ -51,4 +51,58 @@ public class UserController {
             return ResponseEntity.status(500).body(Map.of("message", "Internal server error: " + e.getMessage()));
         }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllUsers(@RequestParam Long adminId) {
+        if (!userService.isAdmin(adminId)) {
+            return ResponseEntity.status(403).body("Unauthorized");
+        }
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PutMapping("/update-role")
+    public ResponseEntity<?> updateRole(@RequestBody Map<String, String> payload) {
+        try {
+            Long adminId = Long.valueOf(payload.get("adminId"));
+            Long targetUserId = Long.valueOf(payload.get("userId"));
+            boolean isAdmin = Boolean.parseBoolean(payload.get("isAdmin"));
+
+            // Debug logs to track payload and roles
+            System.out.println("Admin ID: " + adminId);
+            System.out.println("Target User ID: " + targetUserId);
+            System.out.println("Set Admin: " + isAdmin);
+
+            if (!userService.isAdmin(adminId)) {
+                return ResponseEntity.status(403).body("Only admins can change roles.");
+            }
+
+            userService.setAdminRole(targetUserId, isAdmin);
+
+            return ResponseEntity.ok("User role updated.");
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid Number Format: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid input values. Check IDs and try again.");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Illegal Argument: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid data: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unknown Error: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(
+            @PathVariable Long userId,
+            @RequestParam Long adminId) {
+
+        if (!userService.isAdmin(adminId)) {
+            return ResponseEntity.status(403).body("Only admins can delete users.");
+        }
+
+        userService.deleteUser(userId);
+        return ResponseEntity.ok("User deleted.");
+    }
+
 }
