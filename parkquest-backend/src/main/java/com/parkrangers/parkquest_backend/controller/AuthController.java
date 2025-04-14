@@ -36,8 +36,13 @@ public class AuthController {
             if (email == null || password == null) {
                 throw new IllegalArgumentException("Email and password must be provided.");
             }
+
             // Validate user credentials
             User user = userService.loginUser(email, password);
+
+            // Determine if the user is an admin by checking the roles
+            boolean isAdmin = user.getRoles().stream()
+                    .anyMatch(role -> role.getName().equals("ROLE_ADMIN")); // assuming role is a String
 
             // Generate JWT token
             String token = Jwts.builder()
@@ -49,10 +54,11 @@ public class AuthController {
                     .signWith(secretKey) // Sign the token with the secret key
                     .compact();
 
-            // Return token and user details as response
+            // Return token, user details, and isAdmin flag as response
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("userId", user.getUserId());
+            response.put("isAdmin", isAdmin); // Add isAdmin field to the response
             response.put("user", user);
 
             return ResponseEntity.ok().body(response); // Send token and user data
@@ -63,7 +69,8 @@ public class AuthController {
 
 
 
-@PostMapping("/signup")
+
+    @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody Map<String, String> body) {
         try {
             String email = body.get("email");

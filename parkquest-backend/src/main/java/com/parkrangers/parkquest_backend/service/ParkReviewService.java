@@ -1,6 +1,7 @@
 package com.parkrangers.parkquest_backend.service;
 
 import com.parkrangers.parkquest_backend.model.ParkReview;
+import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.repository.ParkReviewRepository;
 import com.parkrangers.parkquest_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,15 +55,21 @@ public class ParkReviewService {
     }
 
     public boolean deleteReview(Long reviewId, Long userId) {
-        Optional<ParkReview> reviewOptional = parkReviewRepository.findById(reviewId);
-        if (reviewOptional.isPresent()) {
-            ParkReview review = reviewOptional.get();
-            // Check if the user is the owner of the review
-            if (review.getUserId().equals(userId)) {
-                parkReviewRepository.delete(review);
-                return true;
-            }
+        ParkReview review = parkReviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        boolean isAdmin = user.getRoles().stream().anyMatch(role -> role.getRoleid() == 2);
+        boolean isReviewOwner = review.getUserId().equals(userId);
+
+        if (isAdmin || isReviewOwner) {
+            parkReviewRepository.delete(review);
+            return true;
         }
-        return false;  // Either review not found or user is not the owner
+
+        throw new RuntimeException("Unauthorized to delete this review");
     }
+
 }

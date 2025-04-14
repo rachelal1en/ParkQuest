@@ -11,6 +11,8 @@ const ParkReview = ({ parkCode, userId }) => {
     const [editingReviewText, setEditingReviewText] = useState('');
     const [editingRating, setEditingRating] = useState(0);
 
+    const isAdmin = localStorage.getItem("isAdmin") === "true"; // Retrieve isAdmin from localStorage
+
     useEffect(() => {
         fetchReviews();
     }, [parkCode]);
@@ -155,14 +157,21 @@ const ParkReview = ({ parkCode, userId }) => {
             <div key={review.reviewId} className={styles.review}>
                 <div className={styles.reviewHeader}>
                     <span className={styles.userId}>{`user ${review.userId}`}</span>
-                    {String(review.userId) === String(userId) && (
+                    {/* Only show edit button if the user is the review owner or an admin */}
+                    {(String(review.userId) === String(userId) || isAdmin) && (
                         <div className={styles.reviewActions}>
-                            <button onClick={() => handleEditReview(review.reviewId, review.content, review.rating)} className={styles.editBtn}>
-                                <FaEdit />
-                            </button>
-                            <button onClick={() => handleDeleteReview(review.reviewId)} className={styles.deleteBtn}>
-                                <FaTrashAlt />
-                            </button>
+                            {/* Admins can only edit their own reviews */}
+                            {String(review.userId) === String(userId) && (
+                                <button onClick={() => handleEditReview(review.reviewId, review.content, review.rating)} className={styles.editBtn}>
+                                    <FaEdit />
+                                </button>
+                            )}
+                            {/* Admins can delete any review, regular users can only delete their own review */}
+                            {(String(review.userId) === String(userId) || isAdmin) && (
+                                <button onClick={() => handleDeleteReview(review.reviewId)} className={styles.deleteBtn}>
+                                    <FaTrashAlt />
+                                </button>
+                            )}
                         </div>
                     )}
                 </div>
@@ -201,7 +210,7 @@ const ParkReview = ({ parkCode, userId }) => {
                     onClick={editingReviewId ? handleSaveEditReview : handleSubmitReview}
                     className={styles.submitBtn}
                 >
-                    {editingReviewId ? 'Edit Review' : 'Submit Review'}
+                    {editingReviewId ? 'Save Edit' : 'Submit Review'}
                 </button>
             </div>
 
