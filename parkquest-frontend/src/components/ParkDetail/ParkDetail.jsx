@@ -49,6 +49,15 @@ export default function ParkDetail({ userId }) {
                 <Link to="/trips" className={style.linkBtn}>My Trips</Link>
             </button>
 
+          userId={localStorage.getItem("userId")}
+          parkCode={park.parkCode}
+          fullName={park.fullName}
+          description={park.description}
+      />
+        <button className={style.parkBtn}>
+            <Link to="/trips" className={style.linkBtn}>My Trips</Link>
+        </button>
+
       <button className={style.parkBtn} onClick={goBack}>Back to Search</button>
 
       <h1>{park.fullName}</h1>
