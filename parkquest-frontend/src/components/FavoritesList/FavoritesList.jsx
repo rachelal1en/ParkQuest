@@ -214,7 +214,7 @@ const FavoritesList = ({userId}) => {
                                 description={park.description}
                             />
                             {/* Button to remove the park as a favorite */}
-                            <button onClick={() => removeFavorite(favorite.parkCode)} className={style.parkBtn}>Remove</button>
+                            <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
                         </li>
                     ))}
                 </ul>

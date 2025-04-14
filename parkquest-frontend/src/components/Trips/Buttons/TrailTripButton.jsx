@@ -9,7 +9,7 @@ const TrailTripButton = ({userId, tripId, title, shortDescription}) => {
     const storedUserId = localStorage.getItem("userId");
     if (userId === null) userId = storedUserId;
 
-    //check if the trail is favorited
+    //check if the trail is saved
     useEffect(() => {
         const checkIfSaved = async () => {
             if (!userId || !tripId) {

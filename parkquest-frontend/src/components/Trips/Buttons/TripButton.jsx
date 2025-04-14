@@ -51,8 +51,15 @@ const TripButton = ({ userId, parkCode, fullName, description }) => {
 
     const handleCancelTrip = async () => {
         try {
-            await axios.delete(`http://localhost:8081/trips/${parkCode}`);
-            setIsTripPlanned(false);
+            const tripResponse = await axios.get(`http://localhost:8081/trips/user/${userId}`);
+            const tripToDelete = tripResponse.data.find((trip) => trip.parkCode === parkCode);
+
+            if (tripToDelete) {
+                await axios.delete(`http://localhost:8081/trips/${tripToDelete.tripId}`);
+                setIsTripPlanned(false);
+            } else {
+                console.error("Trip not found to delete.");
+            }
         } catch (err) {
             console.error("Error canceling the trip:", err);
         }

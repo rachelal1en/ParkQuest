@@ -37,6 +37,7 @@
   color: white;
 }
 
+.outlineButton,
 .tripButton {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
@@ -46,6 +47,16 @@
   transition: all 0.3s ease;
 }
 
+.outlineButton {
+  background-color: transparent;
+  color: rgba(0, 140, 0, 1);
+  border: 0.125rem solid rgba(0, 140, 0, 1);
+}
+
+.outlineButton:hover {
+  background-color: rgba(0, 140, 0, 1);
+  color: white;
+}
 .tripButton {
   background-color: #004d40;
   color: white;
