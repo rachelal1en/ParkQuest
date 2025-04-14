@@ -3,7 +3,6 @@ package com.parkrangers.parkquest_backend.controller;
 import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,16 +62,34 @@ public class UserController {
 
     @PutMapping("/update-role")
     public ResponseEntity<?> updateRole(@RequestBody Map<String, String> payload) {
-        Long adminId = Long.valueOf(payload.get("adminId"));
-        Long targetUserId = Long.valueOf(payload.get("userId"));
-        boolean isAdmin = Boolean.parseBoolean(payload.get("isAdmin"));
+        try {
+            Long adminId = Long.valueOf(payload.get("adminId"));
+            Long targetUserId = Long.valueOf(payload.get("userId"));
+            boolean isAdmin = Boolean.parseBoolean(payload.get("isAdmin"));
 
-        if (!userService.isAdmin(adminId)) {
-            return ResponseEntity.status(403).body("Only admins can change roles.");
+            // Debug logs to track payload and roles
+            System.out.println("Admin ID: " + adminId);
+            System.out.println("Target User ID: " + targetUserId);
+            System.out.println("Set Admin: " + isAdmin);
+
+            if (!userService.isAdmin(adminId)) {
+                return ResponseEntity.status(403).body("Only admins can change roles.");
+            }
+
+            userService.setAdminRole(targetUserId, isAdmin);
+
+            return ResponseEntity.ok("User role updated.");
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid Number Format: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid input values. Check IDs and try again.");
+        } catch (IllegalArgumentException e) {
+            System.err.println("Illegal Argument: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid data: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unknown Error: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error: " + e.getMessage());
         }
-
-        userService.setAdminRole(targetUserId, isAdmin);
-        return ResponseEntity.ok("User role updated.");
     }
 
     @DeleteMapping("/delete/{userId}")

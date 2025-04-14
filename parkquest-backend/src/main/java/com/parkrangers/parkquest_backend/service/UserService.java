@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -21,152 +20,180 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    /**
+     * Login a user by validating their credentials.
+     *
+     * @param email    The email of the user
+     * @param password The raw password provided by the user
+     * @return User object if authentication succeeds
+     * @throws RuntimeException if authentication fails
+     */
     public User loginUser(String email, String password) {
-        // Find existing user by email
-        Optional<User> existingUser = userRepository.findByEmail(email);
+        // Check if the user exists
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Invalid email or password."));
 
-        if (existingUser.isEmpty()) {
-            throw new IllegalArgumentException("User with the given email does not exist.");
-        }
-
-        User user = existingUser.get();
-
-        // Validate the given password
+        // Match the provided password with the encoded password
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("Invalid password");
+            throw new RuntimeException("Invalid email or password.");
         }
 
-        // Return the logged-in user's details
         return user;
     }
 
-    public User registerUser(String email, String username, String password, String role) {
-        //check if email already exists
+    /**
+     * Register a new user in the system.
+     *
+     * @param email    The email of the new user
+     * @param username The username of the new user
+     * @param password The raw password of the new user
+     * @param roleName The role to assign to the user
+     * @return The newly created User object
+     * @throws RuntimeException if the email or username already exists
+     */
+    @Transactional
+    public User registerUser(String email, String username, String password, String roleName) {
+        // Validate if email or username is already in use
         if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email is already taken.");
+            throw new RuntimeException("Email is already registered.");
+        }
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("Username is already taken.");
         }
 
-        if (userRepository.existsByUsername(username)) {
-            throw new IllegalArgumentException("Username is already taken.");
-        }
-        // Register new user
+        // Fetch the associated role (default is ROLE_USER)
+        Role userRole = roleRepository.findByName(roleName)
+                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+
+        // Create and save the new user
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setPassword(passwordEncoder.encode(password));
 
-        // Assign role to the user
-        Role assignedRole = roleRepository.findByName(role);
-        if (assignedRole == null) {
-            throw new IllegalStateException("Role not found.");
-        }
-        newUser.setRoles(Set.of(assignedRole));
+        // Add roles to the new user
+        Set<Role> roles = new HashSet<>();
+        roles.add(userRole);
+        newUser.setRoles(roles);
 
         return userRepository.save(newUser);
     }
 
-    public User updateProfileWithRole(Long userId, String email, String currentPassword, String newPassword, String role) {
-        System.out.println("Finding user with ID: " + userId);
+    /**
+     * Update user profile with optional role modification.
+     *
+     * @param userId           The ID of the user
+     * @param email            The new email of the user
+     * @param currentPassword  Current raw password for verification
+     * @param newPassword      Optional new password (if updating)
+     * @param roleName         Role modification (admin/user)
+     * @return Updated User object
+     */
+    @Transactional
+    public User updateProfileWithRole(Long userId, String email, String currentPassword, String newPassword, String roleName) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found for ID: " + userId));
+                .orElseThrow(() -> new RuntimeException("User not found."));
 
-        // Email Update
-        if (email == null || email.isBlank()) {
-            System.out.println("Email provided is null or blank; skipping update.");
-        } else if (!email.equals(user.getEmail())) {
-            if (userRepository.existsByEmail(email)) {
-                throw new IllegalArgumentException("Email is already in use: " + email);
+        // Verify current password
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Incorrect current password.");
+        }
+
+        // Update fields
+        if (email != null && !email.isEmpty()) {
+            if (userRepository.existsByEmail(email) && !user.getEmail().equals(email)) {
+                throw new RuntimeException("Email is already in use.");
             }
-            System.out.println("Updating email to: " + email);
             user.setEmail(email);
         }
-
-        // Password Update
-        if (newPassword != null && !newPassword.isBlank()) {
-            if (currentPassword == null || currentPassword.isBlank()) {
-                throw new IllegalArgumentException("Current password is missing for password update.");
-            }
-            if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-                throw new IllegalArgumentException("Current password is incorrect.");
-            }
-            System.out.println("Updating password for user.");
+        if (newPassword != null && !newPassword.isEmpty()) {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
-
-        // Role Update
-        if (role != null) {
-            System.out.println("Looking up role: " + role);
-            Role roleToUpdate = roleRepository.findByName(role);
-            if (roleToUpdate == null) {
-                throw new IllegalStateException("Role not found: " + role);
-            }
-            System.out.println("Assigning role: " + roleToUpdate.getName());
-
-            // Use HashSet to create a modifiable collection
-            Set<Role> modifiableRoles = new HashSet<>();
-            modifiableRoles.add(roleToUpdate);
-            user.setRoles(modifiableRoles);
+        if (roleName != null) {
+            Role newRole = roleRepository.findByName(roleName)
+                    .orElseThrow(() -> new RuntimeException("Role not found."));
+            Set<Role> roles = new HashSet<>();
+            roles.add(newRole);
+            user.setRoles(roles);
         }
 
-
-        System.out.println("Attempting to save updated user: " + user);
-        try {
-            System.out.println("Saving user with roles: " + user.getRoles());
-            User updatedUser = userRepository.save(user);
-            System.out.println("User saved successfully: " + updatedUser);
-            return updatedUser;
-        } catch (Exception e) {
-            System.err.println("Error occurred while saving user: " + e.getMessage());
-            e.printStackTrace();
-            throw e; // Re-throw for proper handling in the controller
-        }
-
+        return userRepository.save(user);
     }
 
+    /**
+     * Check if a user is an admin.
+     *
+     * @param userId The ID of the user to check
+     * @return true if the user is an admin, otherwise false
+     */
+    public boolean isAdmin(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found."));
+        return user.getRoles().stream()
+                .anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
+    }
 
+    /**
+     * Fetch all users.
+     *
+     * @return List of all users
+     */
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public boolean isAdmin(Long userId) {
-        return userRepository.findById(userId)
-                .map(user -> user.getRoles().stream()
-                        .anyMatch(role -> "ROLE_ADMIN".equals(role.getName())))
-                .orElse(false);
-    }
-
+    /**
+     * Update a user's role (set to admin or remove admin).
+     *
+     * @param targetUserId ID of the target user
+     * @param isAdmin      Whether to assign admin role or remove it
+     */
     @Transactional
-    public void setAdminRole(Long userId, boolean isAdmin) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public void setAdminRole(Long targetUserId, boolean isAdmin) {
+        try {
+            // Fetch the target user
+            User user = userRepository.findById(targetUserId)
+                    .orElseThrow(() -> new RuntimeException("User not found: " + targetUserId));
 
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-        if (adminRole == null) {
-            throw new IllegalStateException("ROLE_ADMIN role not found in DB");
+            // Log current roles for debugging
+            System.out.println("Current roles of user " + targetUserId + ": " + user.getRoles());
+
+            // Fetch the role based on isAdmin flag
+            String roleName = isAdmin ? "ROLE_ADMIN" : "ROLE_USER";
+            Role role = roleRepository.findByName(roleName)
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+
+            // Update roles while preserving existing relationships
+            Set<Role> roles = new HashSet<>(user.getRoles());
+            roles.removeIf(r -> r.getName().startsWith("ROLE_")); // Remove existing ROLE_
+            roles.add(role); // Add the new role
+
+            user.setRoles(roles);
+
+            // Save updated user
+            userRepository.save(user);
+            System.out.println("Roles updated for user " + targetUserId + ": " + user.getRoles());
+        } catch (Exception e) {
+            System.err.println("Error updating roles for user " + targetUserId + ": " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-throw exception to ensure it's logged and handled
         }
-
-        if (isAdmin) {
-            user.getRoles().add(adminRole);
-        } else {
-            user.getRoles().removeIf(role -> "ROLE_ADMIN".equals(role.getName()));
-        }
-
-        userRepository.save(user);
     }
 
+    /**
+     * Delete a user account.
+     *
+     * @param userId ID of the user to delete
+     */
     @Transactional
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        // Break the relationship with roles first
-        user.getRoles().clear();
-        userRepository.save(user); // Optional: update before delete
-        userRepository.deleteById(userId);
+                .orElseThrow(() -> new RuntimeException("User not found."));
+        userRepository.delete(user);
     }
 }
