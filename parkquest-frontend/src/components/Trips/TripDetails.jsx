@@ -163,19 +163,26 @@ export default function TripDetails() {
 
             {/* Hiking Trails Section */}
             <h3>Hiking Trails</h3>
-            <p>
+            <div className={style.hikingContainer}>
+                <p>
                 <strong>Trail:</strong> {trip?.hikingTrail || "No hiking trail information available."}
-                <br />
-                <strong>Description:</strong> {trip?.trailDescription || "No trail description available."}
-            </p>
+                </p>
+                <p>
+                    <strong>Description:</strong> {trip?.trailDescription || "No trail description available."}
+                </p>
+            </div>
 
             {/* Campground Section */}
             <h3>Campground</h3>
-            <p>
+            <div className={style.campgroundContainer}>
+                <p>
                 <strong>Campground:</strong> {trip?.campground || "No campground information available."}
-                <br />
-                <strong>Description:</strong> {trip?.campgroundDescription || "No campground description available."}
-            </p>
+                </p>
+                <p>
+                    <strong>Description:</strong> {trip?.campgroundDescription || "No campground description available."}
+                </p>
+            </div>
+            
 
             <div className={style.additionalBtns}>
                 <button className={style.tripBtn}>

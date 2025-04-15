@@ -124,8 +124,6 @@ const FavoritesList = ({userId}) => {
 
             if (!response.ok) {
                 throw new Error("Failed to fetch park details. Please try again.");
-                console.error("Error fetching park:", err);
-
             }
 
             const data = await response.json();
@@ -169,7 +167,6 @@ const FavoritesList = ({userId}) => {
                                 </Link>
                             </h3>
                             <p>{park.description}</p>
-                            <br />
 
                             {/* Display note with edit option */}
                             {editingNote === park.parkId ? (
@@ -206,15 +203,17 @@ const FavoritesList = ({userId}) => {
                                 </div>
                             )}
 
-                            <br />
-                            <TripButton
+                            <div className={style.favoriteListBtn}>
+                                <TripButton
                                 userId={localStorage.getItem("userId")}
                                 parkCode={park.parkCode}
                                 fullName={park.fullName}
                                 description={park.description}
-                            />
-                            {/* Button to remove the park as a favorite */}
-                            <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
+                                />
+                                {/* Button to remove the park as a favorite */}
+                                <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
+                            </div>
+                            
                         </li>
                     ))}
                 </ul>

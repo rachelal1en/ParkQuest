@@ -32,6 +32,7 @@
 .trailsList a {
   color: #015f4f;
   font-weight: bold;
+  padding-bottom: 20px;
 }
 
 .trailsList a:hover {
