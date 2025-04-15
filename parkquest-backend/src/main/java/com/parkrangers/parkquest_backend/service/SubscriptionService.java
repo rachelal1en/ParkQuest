@@ -1,5 +1,6 @@
 package com.parkrangers.parkquest_backend.service;
 
+import com.parkrangers.parkquest_backend.model.response.Event;
 import com.parkrangers.parkquest_backend.model.response.Subscription;
 import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.repository.SubscriptionRepository;
@@ -19,13 +20,19 @@ public class SubscriptionService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private EventService eventService;
+
 
     public List<String> getSubscriptionsForUser(Long userId) {
         return userRepository.findById(userId)
                 .map(user -> subscriptionRepository.findByUser(user).stream()
-                        .map(Subscription::getParkCode) // Retrieve the park codes only
+                        .map(Subscription::getParkCode)
                         .toList())
-                .orElse(null); // Return null if no subscriptions exist for the user
+                .orElse(null);
     }
 
 
@@ -42,7 +49,7 @@ public class SubscriptionService {
         Optional<Subscription> existing = subscriptionRepository.findByUserAndParkCode(user, parkCode);
         if (existing.isPresent()) {
             System.out.println("Subscription already exists for user: " + userId + " to park: " + parkCode);
-            return null; // Return null if the user is already subscribed to the park
+            return null;
         }
 
         // Create a new subscription
@@ -51,8 +58,15 @@ public class SubscriptionService {
         subscription.setParkCode(parkCode);
 
         // Save the subscription to the database
-        return subscriptionRepository.save(subscription);
+        subscriptionRepository.save(subscription);
+        List<Event> events = eventService.fetchEventsByParkCode(parkCode);
+        notificationService.sendSubscriptionEmail(user.getEmail(), parkCode, events);
+
+        System.out.println("Email sent to " + user.getEmail() + " for park " + parkCode);
+
+        return subscription;
     }
+
 
 
     public boolean deleteSubscription(Long userId, String parkCode) {
