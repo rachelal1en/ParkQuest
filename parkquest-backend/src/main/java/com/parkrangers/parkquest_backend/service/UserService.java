@@ -25,14 +25,7 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    /**
-     * Login a user by validating their credentials.
-     *
-     * @param email    The email of the user
-     * @param password The raw password provided by the user
-     * @return User object if authentication succeeds
-     * @throws RuntimeException if authentication fails
-     */
+
     public User loginUser(String email, String password) {
         // Check if the user exists
         User user = userRepository.findByEmail(email)
@@ -46,16 +39,6 @@ public class UserService {
         return user;
     }
 
-    /**
-     * Register a new user in the system.
-     *
-     * @param email    The email of the new user
-     * @param username The username of the new user
-     * @param password The raw password of the new user
-     * @param roleName The role to assign to the user
-     * @return The newly created User object
-     * @throws RuntimeException if the email or username already exists
-     */
     @Transactional
     public User registerUser(String email, String username, String password, String roleName) {
         // Validate if email or username is already in use
@@ -67,8 +50,7 @@ public class UserService {
         }
 
         // Fetch the associated role (default is ROLE_USER)
-        Role userRole = roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+        Role userRole = roleRepository.findByName(roleName);
 
         // Create and save the new user
         User newUser = new User();
@@ -84,16 +66,7 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    /**
-     * Update user profile with optional role modification.
-     *
-     * @param userId           The ID of the user
-     * @param email            The new email of the user
-     * @param currentPassword  Current raw password for verification
-     * @param newPassword      Optional new password (if updating)
-     * @param roleName         Role modification (admin/user)
-     * @return Updated User object
-     */
+
     @Transactional
     public User updateProfileWithRole(Long userId, String email, String currentPassword, String newPassword, String roleName) {
         User user = userRepository.findById(userId)
@@ -115,8 +88,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
         if (roleName != null) {
-            Role newRole = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found."));
+            Role newRole = roleRepository.findByName(roleName);
             Set<Role> roles = new HashSet<>();
             roles.add(newRole);
             user.setRoles(roles);
@@ -125,12 +97,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    /**
-     * Check if a user is an admin.
-     *
-     * @param userId The ID of the user to check
-     * @return true if the user is an admin, otherwise false
-     */
+
     public boolean isAdmin(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found."));
@@ -138,21 +105,12 @@ public class UserService {
                 .anyMatch(role -> "ROLE_ADMIN".equals(role.getName()));
     }
 
-    /**
-     * Fetch all users.
-     *
-     * @return List of all users
-     */
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    /**
-     * Update a user's role (set to admin or remove admin).
-     *
-     * @param targetUserId ID of the target user
-     * @param isAdmin      Whether to assign admin role or remove it
-     */
+
     @Transactional
     public void setAdminRole(Long targetUserId, boolean isAdmin) {
         try {
@@ -165,8 +123,7 @@ public class UserService {
 
             // Fetch the role based on isAdmin flag
             String roleName = isAdmin ? "ROLE_ADMIN" : "ROLE_USER";
-            Role role = roleRepository.findByName(roleName)
-                    .orElseThrow(() -> new RuntimeException("Role not found: " + roleName));
+            Role role = roleRepository.findByName(roleName);
 
             // Update roles while preserving existing relationships
             Set<Role> roles = new HashSet<>(user.getRoles());
@@ -185,11 +142,7 @@ public class UserService {
         }
     }
 
-    /**
-     * Delete a user account.
-     *
-     * @param userId ID of the user to delete
-     */
+
     @Transactional
     public void deleteUser(Long userId) {
         User user = userRepository.findById(userId)

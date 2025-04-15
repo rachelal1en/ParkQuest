@@ -3,6 +3,7 @@ package com.parkrangers.parkquest_backend.controller;
 import com.parkrangers.parkquest_backend.model.User;
 import com.parkrangers.parkquest_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,55 +55,48 @@ public class UserController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers(@RequestParam Long adminId) {
-        if (!userService.isAdmin(adminId)) {
-            return ResponseEntity.status(403).body("Unauthorized");
-        }
-        return ResponseEntity.ok(userService.getAllUsers());
+        return userService.isAdmin(adminId)
+                ? ResponseEntity.ok(userService.getAllUsers())
+                : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
     }
 
+
     @PutMapping("/update-role")
-    public ResponseEntity<?> updateRole(@RequestBody Map<String, String> payload) {
+    public ResponseEntity<String> updateRole(@RequestBody Map<String, String> payload) {
         try {
-            Long adminId = Long.valueOf(payload.get("adminId"));
-            Long targetUserId = Long.valueOf(payload.get("userId"));
+            Long adminId = Long.parseLong(payload.get("adminId"));
+            Long targetUserId = Long.parseLong(payload.get("userId"));
             boolean isAdmin = Boolean.parseBoolean(payload.get("isAdmin"));
 
-            // Debug logs to track payload and roles
-            System.out.println("Admin ID: " + adminId);
-            System.out.println("Target User ID: " + targetUserId);
-            System.out.println("Set Admin: " + isAdmin);
-
             if (!userService.isAdmin(adminId)) {
-                return ResponseEntity.status(403).body("Only admins can change roles.");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Only admins can change roles.");
             }
 
             userService.setAdminRole(targetUserId, isAdmin);
-
             return ResponseEntity.ok("User role updated.");
         } catch (NumberFormatException e) {
-            System.err.println("Invalid Number Format: " + e.getMessage());
-            return ResponseEntity.badRequest().body("Invalid input values. Check IDs and try again.");
+            return ResponseEntity.badRequest().body("Invalid input: ID must be a number.");
         } catch (IllegalArgumentException e) {
-            System.err.println("Illegal Argument: " + e.getMessage());
             return ResponseEntity.badRequest().body("Invalid data: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Unknown Error: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Internal server error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server error: " + e.getMessage());
         }
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<?> deleteUser(
+    public ResponseEntity<String> deleteUser(
             @PathVariable Long userId,
             @RequestParam Long adminId) {
 
         if (!userService.isAdmin(adminId)) {
-            return ResponseEntity.status(403).body("Only admins can delete users.");
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Only admins can delete users.");
         }
 
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted.");
     }
+
 
 }
