@@ -22,7 +22,7 @@ public class Park {
     @Column(name = "parkCode")
     private String parkCode;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 2000)
     private String description;
 
     @Column(name = "url")
