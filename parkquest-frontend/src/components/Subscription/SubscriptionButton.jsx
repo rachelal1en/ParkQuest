@@ -1,41 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import style from "../ParkDetail/ParkDetail.module.css" // Adjust if your CSS module name is different
+import style from "../Subscription/SubscriptionButton.module.css";
 
 const SubscriptionButton = ({ userId, parkCode }) => {
-    const [subscribed, setSubscribed] = useState(false);
-    const [error, setError] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-    const handleSubscribe = async () => {
-        const payload = { userId, parkCode };
+  const storedUserId = localStorage.getItem("userId");
+  if (!userId) userId = storedUserId;
 
-        try {
-            await axios.post("http://localhost:8081/subscriptions/subscribe", payload, {
-                userId,
-                parkCode,
-                headers: { "Content-Type": "application/json" },
-            });
-
-            setSubscribed(true);
-            setError("");
-        } catch (err) {
-            console.error("Subscription error:", err);
-            setError("Subscription failed.");
-        }
+  useEffect(() => {
+    const checkIfSubscribed = async () => {
+      try {
+        const response = await axios.get("http://localhost:8081/subscriptions/check", {
+          params: { userId, parkCode },
+        });
+        setIsSubscribed(response.data.subscribed);
+      } catch (error) {
+        console.error("Error checking subscription status:", error);
+      }
     };
 
-    return (
-        <>
-            <button
-                onClick={handleSubscribe}
-                className={style.parkBtn}
-                disabled={subscribed}
-            >
-                {subscribed ? "Subscribed!" : "Subscribe"}
-            </button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-        </>
-    );
+    checkIfSubscribed();
+  }, [userId, parkCode]);
+
+  const handleSubscribe = async () => {
+    try {
+      const response = await axios.post("http://localhost:8081/subscriptions/subscribe", {
+        userId,
+        parkCode,
+      });
+      setIsSubscribed(true);
+    } catch (error) {
+      console.error("Subscription failed:", error);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleSubscribe}
+      disabled={isSubscribed}
+      className={`${style["subscription-button"]} ${isSubscribed ? style["subscribed"] : ""}`} // Apply the dynamic class
+      id={style.parkBtn} // Use the custom id for styling if needed
+    >
+      {isSubscribed ? "Subscribed" : "Subscribe"}
+    </button>
+  );
 };
 
 export default SubscriptionButton;
