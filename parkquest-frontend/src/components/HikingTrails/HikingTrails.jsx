@@ -82,6 +82,8 @@ const HikingTrails = () => {
                 Learn more
               </a>
             )}
+            
+            <div>
               {/* Conditionally render TrailTripButton */}
               {fromTripDetails && tripId && (
                   <TrailTripButton
@@ -91,6 +93,7 @@ const HikingTrails = () => {
                       userId={localStorage.getItem("userId")}
                   />
               )}
+            </div>
           </li>
         ))}
       </ul>

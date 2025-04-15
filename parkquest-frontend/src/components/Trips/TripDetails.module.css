@@ -57,6 +57,14 @@
     color: #004d40;
 }
 
+.hikingContainer, .campgroundContainer {
+    text-align: justify;
+}
+
+.hikingContainer p, .campgroundContainer p {
+    margin-top: 5px;
+}
+
 /* For the additional buttons at the bottom */
 .additionalBtns {
     margin-top: 20px;

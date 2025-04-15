@@ -206,15 +206,17 @@ const FavoritesList = ({userId}) => {
                                 </div>
                             )}
 
-                            <br />
-                            {/*<TripButton*/}
-                            {/*    userId={localStorage.getItem("userId")}*/}
-                            {/*    parkCode={park.parkCode}*/}
-                            {/*    fullName={park.fullName}*/}
-                            {/*    description={park.description}*/}
-                            {/*/>*/}
-                            {/* Button to remove the park as a favorite */}
-                            <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
+                            <div className={style.favoriteListBtn}>
+                                <TripButton
+                                userId={localStorage.getItem("userId")}
+                                parkCode={park.parkCode}
+                                fullName={park.fullName}
+                                description={park.description}
+                                />
+                                {/* Button to remove the park as a favorite */}
+                                <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
+                            </div>
+
                         </li>
                     ))}
                 </ul>

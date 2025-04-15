@@ -43,7 +43,7 @@ export default function ParkDetail({ userId }) {
 
   return (
     <div className={style.parkDetails}>
-        <SubscriptionButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} />
+      <SubscriptionButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} />
 
       <FavoriteButton userId={localStorage.getItem("userId")} parkCode={park.parkCode} fullName={park.fullName} description={park.description} />
       
@@ -58,9 +58,11 @@ export default function ParkDetail({ userId }) {
           description={park.description}
           postalCode={zipcodeAsLong}
       />
-        <button className={style.parkBtn}>
-            <Link to="/trips" className={style.linkBtn}>My Trips</Link>
-        </button>
+      
+      <button className={style.parkBtn}>
+        <Link to="/trips" className={style.linkBtn}>My Trips</Link>
+      </button>
+      
       <button className={style.parkBtn} onClick={goBack}>Back to Search</button>
 
       <h1>{park.fullName}</h1>

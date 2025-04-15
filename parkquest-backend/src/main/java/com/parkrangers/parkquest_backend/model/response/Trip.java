@@ -24,7 +24,7 @@ public class Trip {
     @Column(name = "park_name", nullable = false)
     private String parkName;
 
-    @Column(name = "park_description")
+    @Column(name = "park_description", length = 2000)
     private String parkDescription;
 
     @Column(name = "zipcode")
@@ -39,13 +39,13 @@ public class Trip {
     @Column(name = "hiking_trail")
     private String hikingTrail;
 
-    @Column(name = "trail_description")
+    @Column(name = "trail_description", length = 2000)
     private String trailDescription;
 
     @Column(name = "campground")
     private String campground;
 
-    @Column(name = "campground_description")
+    @Column(name = "campground_description", length = 2000)
     private String campgroundDescription;
 
     // Constructors, getters, and setters
