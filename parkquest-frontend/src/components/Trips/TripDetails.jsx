@@ -1,9 +1,11 @@
 import {useNavigate, useParams, Link} from "react-router-dom";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import style from "./TripDetails.module.css";
 import TrailTripButton from "./Buttons/TrailTripButton.jsx";
 import CampTripButton from "./Buttons/CampTripButton.jsx";
+import TemperatureChart from "./TemperatureChart";
+
 
 export default function TripDetails() {
     const {tripId} = useParams();
@@ -13,11 +15,11 @@ export default function TripDetails() {
     const [trip, setTrip] = useState(location.state?.trip); // Local copy of trip data
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [park, setPark] = useState(null);
 
-    // Fetch trip details when the component mounts
+    // Fetch trip details
     useEffect(() => {
         const fetchTrip = async () => {
+
             setLoading(true); // Start loading
             setError(null); // Clear any previous errors
 
@@ -54,7 +56,7 @@ export default function TripDetails() {
         try {
             const response = await axios.put(
                 `http://localhost:8081/trips/${tripId}/dates`,
-                { startDate, endDate }
+                {startDate, endDate}
             );
             console.log("Dates updated successfully:", response.data);
 
@@ -70,11 +72,11 @@ export default function TripDetails() {
 
         try {
             await axios.delete(`http://localhost:8081/trips/${tripId}/dates`, {
-                params: { clearStartDate: true, clearEndDate: true },
+                params: {clearStartDate: true, clearEndDate: true},
             });
             console.log("Dates cleared successfully.");
 
-            setTrip({ ...trip, startDate: null, endDate: null }); // Clear dates in the local trip state
+            setTrip({...trip, startDate: null, endDate: null}); // Clear dates in the local trip state
         } catch (err) {
             console.error("Error clearing trip dates:", err);
         }
@@ -137,12 +139,35 @@ export default function TripDetails() {
             <p className={style.description}>{trip.parkDescription || "No description available"}</p>
 
             <h2>Trip Details</h2>
-            <p>
-                <strong>Start Date:</strong> {trip.startDate || "Not set"}
-            </p>
-            <p>
-                <strong>End Date:</strong> {trip.endDate || "Not set"}
-            </p>
+            {trip.zipcode && trip.startDate && trip.endDate ?
+                (
+                <>
+                    <h3 className={style.chartTitle}>Temperature Data From the Previous Year for the Selected Date Range</h3>
+                <TemperatureChart
+                    zipcode={trip.zipcode}
+                    startDate={trip.startDate || null}
+                    endDate={trip.endDate || null}
+                />
+                    <br/>
+                    <p>
+                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                    </p>
+                    <p>
+                        <strong>End Date:</strong> {trip.endDate || "Not set"}
+                    </p>
+                    </>
+            ) : (
+                <>
+                    <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the Park from the Previous Year</p>
+                    <br/>
+                    <p>
+                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                    </p>
+                    <p>
+                        <strong>End Date:</strong> {trip.endDate || "Not set"}
+                    </p>
+                </>
+            )}
 
             {/* Buttons for managing dates */}
             <div className={style.dateBtns}>
@@ -161,66 +186,69 @@ export default function TripDetails() {
                 </button>
             </div>
 
-            {/* Hiking Trails Section */}
+            {/* Hiking Trails Section */
+            }
             <h3>Hiking Trails</h3>
             <div className={style.hikingContainer}>
                 <p>
-                <strong>Trail:</strong> {trip?.hikingTrail || "No hiking trail information available."}
+                    <strong>Trail:</strong> {trip?.hikingTrail || "No hiking trail information available."}
                 </p>
                 <p>
                     <strong>Description:</strong> {trip?.trailDescription || "No trail description available."}
                 </p>
             </div>
 
-            {/* Campground Section */}
+            {/* Campground Section */
+            }
             <h3>Campground</h3>
             <div className={style.campgroundContainer}>
                 <p>
-                <strong>Campground:</strong> {trip?.campground || "No campground information available."}
+                    <strong>Campground:</strong> {trip?.campground || "No campground information available."}
                 </p>
                 <p>
                     <strong>Description:</strong> {trip?.campgroundDescription || "No campground description available."}
                 </p>
             </div>
-            
+
 
             <div className={style.additionalBtns}>
                 <button className={style.tripBtn}>
                     <Link
                         to={`/park/hiking/${trip.parkCode}`}// Assuming this route leads to HikingTrails
-                        state={{ fromTripDetails: true, tripId: trip.tripId, parkName: trip.parkName }} // Pass state
+                        state={{fromTripDetails: true, tripId: trip.tripId, parkName: trip.parkName}} // Pass state
                     >
-                    See Hiking Trails in {trip.parkName}
+                        See Hiking Trails in {trip.parkName}
                     </Link>
                 </button>
                 <button className={style.tripBtn}>
                     <Link
                         to={`/park/campgrounds/${trip.parkCode}`}
-                        state={{ fromTripDetails: true, tripId: trip.tripId, parkName: trip.parkName }}// Pass state
+                        state={{fromTripDetails: true, tripId: trip.tripId, parkName: trip.parkName}}// Pass state
                     >
                         Find Campgrounds in {trip.parkName}
                     </Link>
                 </button>
                 <button
-                className={style.tripBtn}
-                onClick={async () => {
-                if (!trip) return; // Ensure trip data exists
-                try {
-                    const parkData = await fetchParkByParkCode(trip.parkCode); // Fetch park data
-                    if (parkData) {
-                        navigate(`/parklist/${trip.parkCode}`, { state: { park: parkData } }); // Pass park data
-                    }
-                } catch (err) {
-                    console.error("Failed to fetch park data or navigate:", err);
-                }
-            }}
+                    className={style.tripBtn}
+                    onClick={async () => {
+                        if (!trip) return; // Ensure trip data exists
+                        try {
+                            const parkData = await fetchParkByParkCode(trip.parkCode); // Fetch park data
+                            if (parkData) {
+                                navigate(`/parklist/${trip.parkCode}`, {state: {park: parkData}}); // Pass park data
+                            }
+                        } catch (err) {
+                            console.error("Failed to fetch park data or navigate:", err);
+                        }
+                    }}
                 >
-                View Park Details
-            </button>
+                    View Park Details
+                </button>
 
-        </div>
+            </div>
 
-            {/* Delete Trip Button */}
+            {/* Delete Trip Button */
+            }
             <button className={style.deleteTripBtn} onClick={handleTripDelete}>
                 Delete Trip
             </button>

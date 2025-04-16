@@ -135,3 +135,22 @@
         width: 100%;
     }
 }
+
+.chartTitle {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+}
+
+.chartContainer {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.giveMeDataButton {
+    font-style: italic;
+}

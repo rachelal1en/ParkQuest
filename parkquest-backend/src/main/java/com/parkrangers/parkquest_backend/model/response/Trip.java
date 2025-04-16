@@ -27,6 +27,9 @@ public class Trip {
     @Column(name = "park_description", length = 2000)
     private String parkDescription;
 
+    @Column(name = "zipcode")
+    private Long zipcode;
+
     @Column(name = "start_date")
     private LocalDate startDate;
 
@@ -48,18 +51,29 @@ public class Trip {
     // Constructors, getters, and setters
     public Trip() {}
 
-    public Trip(Long tripId, Long userId, String parkCode, String parkName, String parkDescription, LocalDate startDate, LocalDate endDate, String hikingTrail, String trailDescription, String campground, String campgroundDescription) {
+    public Trip(Long tripId, Long userId, String parkCode, String parkName, String parkDescription,
+                Long zipcode, LocalDate startDate, LocalDate endDate, String hikingTrail,
+                String trailDescription, String campground, String campgroundDescription) {
         this.tripId = tripId;
         this.userId = userId;
         this.parkCode = parkCode;
         this.parkName = parkName;
         this.parkDescription = parkDescription;
+        this.zipcode = zipcode;
         this.startDate = startDate;
         this.endDate = endDate;
         this.hikingTrail = hikingTrail;
         this.trailDescription = trailDescription;
         this.campground = campground;
         this.campgroundDescription = campgroundDescription;
+    }
+
+    public Long getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(Long zipcode) {
+        this.zipcode = zipcode;
     }
 
     public Long getTripId() {
