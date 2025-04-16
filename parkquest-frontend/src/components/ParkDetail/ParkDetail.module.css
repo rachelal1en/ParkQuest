@@ -63,7 +63,7 @@
 
 .carouselItem img {
   width: 30rem;
-  height:20rem;
+  height: 20rem;
   object-fit: cover;
 }
 
@@ -119,4 +119,38 @@ figcaption {
 .address {
   text-align: left;
   line-height: 150%;
+}
+
+@media (max-width: 768px) {
+  .parkDetails {
+    padding:  1.25rem 1rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .parkBtn {
+    margin-bottom: 10px;
+  }
+
+  #parkBtn {
+    margin-bottom: 15px;
+  }
+
+  .carouselWrapper {
+    width: 25rem;
+    height: 20rem;
+  }
+
+  .carousel {
+    gap: 0.5rem;
+  }
+
+  .carouselItem {
+    height: 320px;
+  }
+
+  .carouselItem img {
+    width: 20rem;
+    height: 18rem;
+  }
 }
