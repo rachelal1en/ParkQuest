@@ -158,7 +158,7 @@ export default function TripDetails() {
                     </>
             ) : (
                 <>
-                    <p> Enter a Date Range to Get a Chart of Temperatures for the Park from the Previous Year</p>
+                    <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the Park from the Previous Year</p>
                     <br/>
                     <p>
                         <strong>Start Date:</strong> {trip.startDate || "Not set"}
