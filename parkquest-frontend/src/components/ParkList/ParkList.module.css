@@ -58,3 +58,14 @@
 .parksList a:hover {
   color: #149f88;
 }
+
+@media (max-width: 540px) {
+  .parksList {
+    padding:  1.25rem 0.5rem;
+  }
+
+  .parksList li {
+    padding-bottom: 0;
+  }
+}
+
