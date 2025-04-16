@@ -163,4 +163,22 @@ public class Trip {
     public void setCampgroundDescription(String campgroundDescription) {
         this.campgroundDescription = campgroundDescription;
     }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "tripId=" + tripId +
+                ", userId=" + userId +
+                ", parkCode='" + parkCode + '\'' +
+                ", parkName='" + parkName + '\'' +
+                ", parkDescription='" + parkDescription + '\'' +
+                ", zipcode=" + zipcode +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", hikingTrail='" + hikingTrail + '\'' +
+                ", trailDescription='" + trailDescription + '\'' +
+                ", campground='" + campground + '\'' +
+                ", campgroundDescription='" + campgroundDescription + '\'' +
+                '}';
+    }
 }
