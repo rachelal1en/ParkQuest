@@ -19,19 +19,19 @@ ParkQuest is a user-friendly web application designed to help users explore and 
 ## Screenshots
 
 ### Login Page
-![ParkQuest Login Page](./assets/screenshots/login-page.png)
+![ParkQuest Login Page](./parkquest-frontend/src/assets/screenshots/login-page.png)
 
 ### Home Page
-![ParkQuest Home Page](./assets/screenshots/home-page.png)
+![ParkQuest Home Page](./parkquest-frontend/src/assets/screenshots/home-page.png)
 
 ### Parks Search Page
-![Parks Search Page](./assets/screenshots/parks-search-page.png)
+![Parks Search Page](./parkquest-frontend/src/assets/screenshots/parks-search-page.png)
 
 ### Park Detail Page
-![Park Detail Page](./assets/screenshots/park-detail-page.png)
+![Park Detail Page](./parkquest-frontend/src/assets/screenshots/park-detail-page.png)
 
 ### Trip Detail Page
-![Trip Detail Page](./assets/screenshots/trip-detail-page.png)
+![Trip Detail Page](./parkquest-frontend/src/assets/screenshots/trip-detail-page.png)
 
 ## Setup & Installation
 ### Database Setup (MySQL)
