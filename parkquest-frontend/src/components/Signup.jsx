@@ -8,15 +8,17 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
-
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
 
+    // Helper function to validate an email
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+    //Handle the form submission for the signup process
     const handleSignup = async (e) => {
         e.preventDefault();
+        //clear any existing error message
         setError("");
 
         try {
@@ -46,7 +48,7 @@ function Signup() {
                 role: isAdmin ? "ROLE_ADMIN" : "ROLE_USER"
             }, { withCredentials: true });
 
-            // Handle successful signup (navigate to login or dashboard)
+            // Log success response and navigate to the login page
             console.log('Signup successful:', response.data);
             navigate('/login');
         } catch (error) {

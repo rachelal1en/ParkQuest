@@ -31,14 +31,14 @@ const FavoritesList = ({userId}) => {
                 }
 
                 const data = await response.json();
-                setFavorites(data);
+                setFavorites(data); // Update `favorites` state with fetched data
             } catch (err) {
                 setError(err.message);
             }
         };
 
         fetchFavorites();
-    }, [userId, storedUserId]);
+    }, [userId, storedUserId]); //rerun if userId changes
 
     // Function to remove a favorite
     const removeFavorite = async (parkCode) => {
@@ -49,6 +49,7 @@ const FavoritesList = ({userId}) => {
                 throw new Error("User ID is missing. Please log in again.");
             }
 
+            // Make delete request to backend
             const response = await fetch(
                 `http://localhost:8081/favorites?userId=${id}&parkCode=${parkCode}`,
                 { method: "DELETE" }
@@ -117,6 +118,7 @@ const FavoritesList = ({userId}) => {
         try {
             setError(""); // Clear any existing error
 
+            // Fetch detailed information about the park
             const response = await fetch(
                 `http://localhost:8081/lookup?parkCode=${encodeURIComponent(parkCode)}`
             );

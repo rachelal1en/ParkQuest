@@ -4,7 +4,7 @@
     padding: 1.25rem 2.188rem;
 }
 
-/* Style for buttons similar to outlineButton */
+/* Styles for buttons resembling an outlined design */
 .outlineButton {
     background-color: transparent;
     color: rgba(0, 140, 0, 1);
@@ -17,17 +17,19 @@
     margin-bottom: 10px;
 }
 
+/*Change background to green and text to white on hover*/
 .outlineButton:hover {
     background-color: rgba(0, 140, 0, 1);
     color: white;
 }
 
+/*Adds green focus ring*/
 .outlineButton:focus {
     outline: none;
     box-shadow: 0 0 0 0.188rem rgba(0, 113, 0, 0.5);
 }
 
-/* Style for each trip entry in the list */
+/* Styling for the list of trips */
 .tripList {
     list-style: none;
     display: flex;
@@ -37,6 +39,7 @@
     margin: 0;
 }
 
+/* Styling for each individual trip entry */
 .tripItem {
     background: #f4f4f4;
     padding: 0.938rem;
@@ -52,11 +55,13 @@
     color: #015f4f;
 }
 
+/*gets rid of the ugly underline*/
 .tripName a {
     color: #015f4f;
     text-decoration: none;
 }
 
+/*lighter green and underlined when hovered*/
 .tripName a:hover {
     color: #149f88;
     text-decoration: underline;
@@ -70,13 +75,14 @@
     line-height: 1.5;
 }
 
-/* Buttons inside each trip item */
+/* Button group inside each trip, e.g., edit/delete buttons */
 .buttonGroup {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
 }
 
+/* General button styling for trip action buttons */
 .tripBtn {
     background-color: #004d40;
     font-size: 0.875rem;
@@ -88,22 +94,27 @@
     color: white;
 }
 
+/*lighter green on hover*/
 .tripBtn:hover {
     background-color: #017e69;
 }
 
+/* Edit button-specific styling */
 .editBtn {
     background-color: #007e67;
 }
 
+/*lighter green on hover*/
 .editBtn:hover {
     background-color: #02944f;
 }
 
+/* Delete button-specific styling */
 .deleteBtn {
     background-color: #8a1919;
 }
 
+/*brighter red on hover*/
 .deleteBtn:hover {
     background-color: #ca1f1f;
 }

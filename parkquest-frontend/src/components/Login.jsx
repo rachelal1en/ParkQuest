@@ -15,9 +15,11 @@ function Login({ setIsAuthenticated }) {
   const isValidEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  // Handle form submission
+  // Handle form submission when a user attempts to log in
   const handleSubmit = async (e) => {
+    //prevents default form submission
     e.preventDefault();
+    //clear old error messages
     setError("");
 
     try {
@@ -42,26 +44,26 @@ function Login({ setIsAuthenticated }) {
         }
       );
 
-      // Assuming the backend responds with token, userId, and isAdmin flag
+      // extract and validate the backend response
       const { token, userId, isAdmin } = response.data;
 
       if (token && userId !== undefined && isAdmin !== undefined) {
         console.log("Token received from backend:", token);
         console.log("UserId received from backend:", userId);
 
-        // Save the token and userId to local storage
+        // Save the token, userId, and isAdmin flag to local storage
         localStorage.setItem("authToken", token);
         localStorage.setItem("userId", userId);
-
-        // Save the isAdmin flag to local storage
         localStorage.setItem("isAdmin", isAdmin); // Save isAdmin
 
-        setIsAuthenticated(true); // Update authentication state
+        setIsAuthenticated(true);
         navigate("/Dashboard"); // Redirect to dashboard
       } else {
+        //if any required field is missing in the response
         setError("Token, userId, or isAdmin missing in backend response.");
       }
     } catch (error) {
+      //log the error and display an error message to the user
       console.error("Login request failed:", error.response?.data || error.message);
       setError(
         error.response?.data?.message ||
@@ -98,11 +100,11 @@ function Login({ setIsAuthenticated }) {
             Login
           </button>
         </form>
-        <div>
-          <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">
-            <GoogleLoginButton />
-          </GoogleOAuthProvider>
-        </div>
+        {/*<div>*/}
+        {/*  <GoogleOAuthProvider clientId="431740330929-ojmhr2kpqa7ocfbfcte5s396mrr0l6hu.apps.googleusercontent.com">*/}
+        {/*    <GoogleLoginButton />*/}
+        {/*  </GoogleOAuthProvider>*/}
+        {/*</div>*/}
         <div>
           <br />
           <p>

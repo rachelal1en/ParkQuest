@@ -11,32 +11,12 @@
   margin: 20px 0; /* Similar to ParkList sections */
 }
 
-/* Labels for styling (if applicable) */
+/* Labels for styling */
 .favoriteList label {
   padding-right: 5px;
 }
 
-/* Styling for the search input (if implemented) */
-.searchInput {
-  font-size: .875rem;
-  padding: .625rem 1.125rem;
-  border-radius: .313rem;
-  border: 1px solid #d3d3d3;
-  color: #646363;
-}
-
-/* Styling for the search button */
-.searchBtn {
-  background-color: #004d40;
-  font-size: .875rem;
-  padding: .7rem 1.125rem;
-  border-radius: .313rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: white;
-}
-
+/* Shared styles for outline buttons and trip buttons */
 .outlineButton,
 .tripButton {
   padding: 0.5rem 1rem;
@@ -47,27 +27,27 @@
   transition: all 0.3s ease;
 }
 
+/* Specific styling for outline buttons */
 .outlineButton {
   background-color: transparent;
   color: rgba(0, 140, 0, 1);
   border: 0.125rem solid rgba(0, 140, 0, 1);
 }
 
+/*green background with white text on hover*/
 .outlineButton:hover {
   background-color: rgba(0, 140, 0, 1);
   color: white;
 }
 
+/* Specific styling for trip buttons */
 .tripButton {
   background-color: #004d40;
   color: white;
 }
 
+/*lighter green background on hover*/
 .tripButton:hover {
-  background-color: #017e69;
-}
-
-.searchBtn:hover {
   background-color: #017e69;
 }
 
@@ -76,28 +56,28 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Increased space between list items */
+  gap: 1rem;
 }
 
 
-/* Styling for each favorite item in the list (using li) */
+/* Styling for each favorite item in the list */
 .favoriteList li {
   background: #f4f4f4;
-  padding: 0.5rem; /* Reduced padding inside the list items */
+  padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
-  text-align: left; /* Align text to the left */
-  display: flex; /* Make the content of the list item flexible */
-  flex-direction: column; /* Keep content stacked vertically */
-  gap: 0.5rem; /* Create space between sections in the list item */
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
-
 
 /* Link styling for list items */
 .favoriteList a {
   color: #015f4f;
 }
 
+/*lighter green on hover*/
 .favoriteList a:hover {
   color: #149f88;
 }
@@ -111,28 +91,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
-/*!* Specific styling for the outline button *!*/
-/*.outlineButton {*/
-/*  background-color: transparent;*/
-/*  color: rgba(0, 140, 0, 1);*/
-/*  font-size: .875rem;*/
-/*  padding: .625rem 1.125rem;*/
-/*  border: .125rem solid rgba(0, 140, 0, 1);*/
-/*  cursor: pointer;*/
-/*  transition: all 0.3s ease;*/
-/*  margin-bottom: 10px;*/
-/*}*/
-
-/*.outlineButton:hover {*/
-/*  background-color: rgba(0, 140, 0, 1);*/
-/*  color: white;*/
-/*}*/
-
-/*.outlineButton:focus {*/
-/*  outline: none;*/
-/*  box-shadow: 0 0 0 .188rem rgba(0, 113, 0, 0.5);*/
-/*}*/
 
 /* Styling for the note editing container */
 .editNoteContainer {
@@ -158,6 +116,7 @@
   transition: border-color 0.3s ease;
 }
 
+/*green border on focus*/
 .editNoteTextarea:focus {
   outline: none;
   border-color: #4caf50;
@@ -187,6 +146,7 @@
   color: white;
 }
 
+/*darker green on hover*/
 .saveButton:hover {
   background-color: #3e8e41;
 }
@@ -197,6 +157,7 @@
   color: white;
 }
 
+/*darker red on hover*/
 .cancelButton:hover {
   background-color: #d32f2f;
 }
@@ -225,10 +186,12 @@
   transition: background-color 0.3s ease;
 }
 
+/*lighter green on hover*/
 .editNoteTrigger:hover {
   background-color: #149f88;
 }
 
+/* General container for buttons underneath the favorites */
 .buttonsContainer {
   display: flex; /* Use flexbox to align the buttons */
   gap: 1rem; /* Create space between buttons */
@@ -243,6 +206,7 @@
   margin-top: 1rem;
 }
 
+/* Favorite list buttons section */
 .favoriteListBtn {
   display: flex;
   gap: 10px;

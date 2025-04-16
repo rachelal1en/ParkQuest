@@ -19,6 +19,7 @@
     color: white;
 }
 
+/* Button group for managing dates (e.g., Add/Edit, Clear dates) */
 .dateBtns {
     display: flex;
     justify-content: center;
@@ -26,16 +27,18 @@
     margin-bottom: 20px;
 }
 
+/*lighter green on hover*/
 .tripBtn:hover {
     background-color: #017e69;
 }
 
-/* Text Link Button for the Actions (e.g., Hiking Trails, Campgrounds) */
+/* Button styles for links (e.g., Hiking Trails, Campgrounds) */
 .tripBtn a {
     color: white;
     text-decoration: none;
 }
 
+/*light green text wtih underline on hover*/
 .tripBtn a:hover {
     color: #b2dfdb;
     text-decoration: underline;
@@ -124,7 +127,7 @@
 
     .additionalBtns {
         flex-direction: column;
-        gap: 10px; /* Smaller gap on smaller screens */
+        gap: 10px;
     }
 
     .tripBtn {
@@ -136,6 +139,7 @@
     }
 }
 
+/* Chart Title styling for Temperature Chart section */
 .chartTitle {
     display: flex;
     justify-content: center;
@@ -143,6 +147,7 @@
     margin: 0;
 }
 
+/* Container styling for the chart */
 .chartContainer {
     width: 60%;
     margin: 0 auto;
@@ -151,6 +156,7 @@
     align-items: center;
 }
 
+/* Italic styling for the "Enter Dates" message */
 .giveMeDataButton {
     font-style: italic;
 }

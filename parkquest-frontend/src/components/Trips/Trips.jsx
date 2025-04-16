@@ -7,9 +7,9 @@ const Trips = ({userId}) => {
     const [trips, setTrips] = useState([]);
     const [error, setError] = useState(null);
     const [hoveredTrip, setHoveredTrip] = useState(null);
+
     const navigate = useNavigate();
     const storedUserId = localStorage.getItem("userId");
-
 
     // Fetch trips for the user when the component mounts or `userId` changes
     useEffect(() => {
@@ -28,15 +28,15 @@ const Trips = ({userId}) => {
                     throw new Error("Failed to fetch trips. Please try again.");
                 }
 
-                const data = await response.json();
-                setTrips(data);
+                const data = await response.json(); //parse the fetched data
+                setTrips(data); //update the trips state with fetched data
             } catch (err) {
                 setError(err.message);
             }
         };
 
         fetchTrips();
-    }, [userId, storedUserId]);
+    }, [userId, storedUserId]); //refetch if userId changes
 
     // Function to remove a trip
     const removeTrip = async (tripId) => {
@@ -55,13 +55,10 @@ const Trips = ({userId}) => {
         }
     };
 
-
     // Navigate to TripDetails for editing
     const handleEdit = (trip) => {
         navigate(`/trips/${trip.tripId}`); // Navigate with tripId
     };
-
-
 
     // Function to fetch a trip by parkCode
     const fetchTripByParkCode = async (parkCode) => {
@@ -88,14 +85,18 @@ const Trips = ({userId}) => {
 
   return (
       <div className={style.trips}>
+          {/*navigate to favorite parks*/}
           <button className={style.outlineButton}>
               <Link to="/favorites">My Favorite Parks</Link>
           </button>
+          {/*navigate to parks search page*/}
           <button className={style.outlineButton}>
               <Link to="/parklist">Go to Parks List</Link>
           </button>
           <h1>My Trips</h1>
+          {/* Display error message if any */}
           {error && <p className={style.error}>{error}</p>}
+          {/* Display a message if there are no trips or render the list of trips */}
           {trips.length === 0 ? (
               <p>No trips yet!</p>
           ) : (
@@ -137,44 +138,6 @@ const Trips = ({userId}) => {
           )}
       </div>
   );
-// <div >
-    //     <button className={style.outlineButton}>
-    //         <Link to="/favorites">My Favorite Parks</Link>
-    //     </button>
-    //     <button className={style.outlineButton}>
-    //         <Link to="/parklist">Go to Parks List</Link>
-    //     </button>
-    //   <h1>Trips</h1>
-    //     {/* Display error if any */}
-    //     {error && <p className={style.error}>{error}</p>}
-    //
-    //     {trips.length === 0 ? <p>No trips yet!</p> : (
-    //         <ul>
-    //             {trips.map((trip) => (
-    //                 <li key={trip.id}>
-    //                     {/* Title */}
-    //                     <h3
-    //                         onMouseEnter={() => fetchParkByParkCode(trip.parkCode)} // Trigger fetching park data on hover
-    //                     >
-    //                         <Link
-    //                             to={`/tripdetails/${trip.parkCode}`} // Pass the parkCode in the link
-    //                             state={{
-    //                                 trip: hoveredTrip || {}, // Pass hover data if available
-    //                             }}
-    //                             userId={storedUserId}
-    //                         >
-    //                             `Trip Plan to {trip.fullName}`
-    //                         </Link>
-    //                     </h3>
-    //                     <p>{trip.parkDescription}</p>
-    //                     <br />
-    //                     <button onClick={() => removeTrip(trip.parkCode)} >Remove</button>
-    //                 </li>
-    //             ))}
-    //         </ul>
-    //     )}
-    // </div>
-  // );
 };
 
 export default Trips;
