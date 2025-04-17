@@ -1,213 +1,213 @@
 /* Main container for the favorite list, styled similar to parksList */
 .favoriteList {
-  padding: 1.25rem;
-  text-align: center;
-  background-color: rgba(238, 245, 238, 0.75);
-  height: 100vh;
+    padding: 1.25rem;
+    text-align: center;
+    background-color: rgba(238, 245, 238, 0.75);
+    height: 100vh;
 }
 
 /* Sections within the favorite list */
 .favoriteList section {
-  margin: 20px 0; /* Similar to ParkList sections */
+    margin: 20px 0; /* Similar to ParkList sections */
 }
 
 /* Labels for styling */
 .favoriteList label {
-  padding-right: 5px;
+    padding-right: 5px;
 }
 
 /* Shared styles for outline buttons and trip buttons */
 .outlineButton,
 .tripButton {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  border-radius: 0.313rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 0.313rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 /* Specific styling for outline buttons */
 .outlineButton {
-  background-color: transparent;
-  color: rgba(0, 140, 0, 1);
-  border: 0.125rem solid rgba(0, 140, 0, 1);
+    background-color: transparent;
+    color: rgba(0, 140, 0, 1);
+    border: 0.125rem solid rgba(0, 140, 0, 1);
 }
 
 /*green background with white text on hover*/
 .outlineButton:hover {
-  background-color: rgba(0, 140, 0, 1);
-  color: white;
+    background-color: rgba(0, 140, 0, 1);
+    color: white;
 }
 
 /* Specific styling for trip buttons */
 .tripButton {
-  background-color: #004d40;
-  color: white;
+    background-color: #004d40;
+    color: white;
 }
 
 /*lighter green background on hover*/
 .tripButton:hover {
-  background-color: #017e69;
+    background-color: #017e69;
 }
 
 /* Align the list structure with reduced spacing between list items */
 .favoriteList ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 
 /* Styling for each favorite item in the list */
 .favoriteList li {
-  background: #f4f4f4;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    background: #f4f4f4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 /* Link styling for list items */
 .favoriteList a {
-  color: #015f4f;
+    color: #015f4f;
 }
 
 /*lighter green on hover*/
 .favoriteList a:hover {
-  color: #149f88;
+    color: #149f88;
 }
 
 /* Styling for individual buttons */
 .favoriteList button {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  border-radius: 0.313rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 0.313rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 /* Styling for the note editing container */
 .editNoteContainer {
-  margin-top: 0.5rem;
-  padding: 0.938rem;
-  background: #e8f5e9;
-  border-radius: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.5rem;
-  box-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
+    margin-top: 0.5rem;
+    padding: 0.938rem;
+    background: #e8f5e9;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    box-shadow: 0.125rem 0.125rem 0.313rem rgba(0, 0, 0, 0.15);
 }
 
 /* Styling for the textarea within the note editor */
 .editNoteTextarea {
-  width: 100%;
-  padding: 0.625rem;
-  font-size: 0.875rem;
-  border: 0.125rem solid #cccccc;
-  border-radius: 0.313rem;
-  resize: vertical;
-  transition: border-color 0.3s ease;
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    border: 0.125rem solid #cccccc;
+    border-radius: 0.313rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
 }
 
 /*green border on focus*/
 .editNoteTextarea:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 0 0.125rem rgba(76, 175, 80, 0.4);
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 0.125rem rgba(76, 175, 80, 0.4);
 }
 
 /* Container for editor buttons */
 .editNoteButtons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }
 
 /* Styling for buttons in the note editor */
 .editNoteButton {
-  padding: 0.5rem 1.25rem;
-  font-size: 0.875rem;
-  border: none;
-  border-radius: 0.313rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: 0.313rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 /* Save button styling */
 .saveButton {
-  background-color: #4caf50;
-  color: white;
+    background-color: #4caf50;
+    color: white;
 }
 
 /*darker green on hover*/
 .saveButton:hover {
-  background-color: #3e8e41;
+    background-color: #3e8e41;
 }
 
 /* Cancel button styling */
 .cancelButton {
-  background-color: #f44336;
-  color: white;
+    background-color: #f44336;
+    color: white;
 }
 
 /*darker red on hover*/
 .cancelButton:hover {
-  background-color: #d32f2f;
+    background-color: #d32f2f;
 }
 
 /* Display mode for the note (when editing is inactive) */
 .noteDisplay {
-  margin-top: 0.5rem;
-  background: #fff;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-  font-size: 0.875rem;
-  color: #333;
+    margin-top: 0.5rem;
+    background: #fff;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem;
+    color: #333;
 }
 
 /* Edit note button (trigger to switch to editor) */
 .editNoteTrigger {
-  font-size: 0.75rem;
-  background-color: #015f4f;
-  color: white;
-  padding: 0.375rem 0.75rem;
-  border: none;
-  border-radius: 0.313rem;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background-color 0.3s ease;
+    font-size: 0.75rem;
+    background-color: #015f4f;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border: none;
+    border-radius: 0.313rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
 }
 
 /*lighter green on hover*/
 .editNoteTrigger:hover {
-  background-color: #149f88;
+    background-color: #149f88;
 }
 
 /* General container for buttons underneath the favorites */
 .buttonsContainer {
-  display: flex; /* Use flexbox to align the buttons */
-  gap: 1rem; /* Create space between buttons */
-  align-items: center; /* Align buttons vertically on the same baseline */
+    display: flex; /* Use flexbox to align the buttons */
+    gap: 1rem; /* Create space between buttons */
+    align-items: center; /* Align buttons vertically on the same baseline */
 }
 
 
 /* General error message styling */
 .error {
-  color: #d32f2f;
-  font-weight: bold;
-  margin-top: 1rem;
+    color: #d32f2f;
+    font-weight: bold;
+    margin-top: 1rem;
 }
 
 /* Favorite list buttons section */
 .favoriteListBtn {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
 }

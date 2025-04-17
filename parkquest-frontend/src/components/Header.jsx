@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 // Header component to render the navigation bar
 // Accepts 'isAuthenticated' to check if the user is logged in
 // Accepts 'onLogout' as a logout function handler
-const Header = ({ isAuthenticated, onLogout }) => {
+const Header = ({isAuthenticated, onLogout}) => {
     return (
         <header>
             {/* Display the website name with a link */}

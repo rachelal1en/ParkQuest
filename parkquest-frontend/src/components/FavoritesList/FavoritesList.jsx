@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import style from "./FavoritesList.module.css";
-import TripButton from "../Trips/Buttons/TripButton";
 
 const FavoritesList = ({userId}) => {
     const [favorites, setFavorites] = useState([]);
@@ -52,7 +51,7 @@ const FavoritesList = ({userId}) => {
             // Make delete request to backend
             const response = await fetch(
                 `http://localhost:8081/favorites?userId=${id}&parkCode=${parkCode}`,
-                { method: "DELETE" }
+                {method: "DELETE"}
             );
 
             if (!response.ok) {
@@ -80,7 +79,7 @@ const FavoritesList = ({userId}) => {
 
             const response = await fetch(`http://localhost:8081/favorites/note`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     userId: id,
                     parkId: parkId,
@@ -94,7 +93,7 @@ const FavoritesList = ({userId}) => {
 
             // Update the local state to reflect the changes
             const updatedFavorites = favorites.map((park) =>
-                park.parkId === parkId ? { ...park, noteToSelf: newNote } : park
+                park.parkId === parkId ? {...park, noteToSelf: newNote} : park
             );
             setFavorites(updatedFavorites);
 
@@ -147,7 +146,7 @@ const FavoritesList = ({userId}) => {
                 <Link to="/parklist">Go to Parks List</Link>
             </button>
             <h1>My Favorite Parks</h1>
-            <br />
+            <br/>
             {/* Display error if any */}
             {error && <p className={style.error}>{error}</p>}
 
@@ -171,7 +170,7 @@ const FavoritesList = ({userId}) => {
                                 </Link>
                             </h3>
                             <p>{park.description}</p>
-                            <br />
+                            <br/>
 
                             {/* Display note with edit option */}
                             {editingNote === park.parkId ? (
@@ -216,7 +215,9 @@ const FavoritesList = ({userId}) => {
                                 {/*description={park.description}*/}
                                 {/*/>*/}
                                 {/* Button to remove the park as a favorite */}
-                                <button onClick={() => removeFavorite(park.parkCode)} className={style.tripButton}>Remove</button>
+                                <button onClick={() => removeFavorite(park.parkCode)}
+                                        className={style.tripButton}>Remove
+                                </button>
                             </div>
 
                         </li>

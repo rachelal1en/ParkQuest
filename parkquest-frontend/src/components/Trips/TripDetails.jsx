@@ -1,5 +1,5 @@
-import {useNavigate, useParams, Link} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import style from "./TripDetails.module.css";
 import TemperatureChart from "./TemperatureChart";
@@ -134,35 +134,37 @@ export default function TripDetails() {
             <h2>Trip Details</h2>
             {trip.zipcode && trip.startDate && trip.endDate ?
                 (
-                <>
-                    {/* Display temperature chart based on trip ZIP code and dates */}
-                    <h3 className={style.chartTitle}>Temperature Data From the Previous Year for the Selected Date Range</h3>
-                <TemperatureChart
-                    zipcode={trip.zipcode}
-                    startDate={trip.startDate || null}
-                    endDate={trip.endDate || null}
-                />
-                    <br/>
-                    <p>
-                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
-                    </p>
-                    <p>
-                        <strong>End Date:</strong> {trip.endDate || "Not set"}
-                    </p>
+                    <>
+                        {/* Display temperature chart based on trip ZIP code and dates */}
+                        <h3 className={style.chartTitle}>Temperature Data From the Previous Year for the Selected Date
+                            Range</h3>
+                        <TemperatureChart
+                            zipcode={trip.zipcode}
+                            startDate={trip.startDate || null}
+                            endDate={trip.endDate || null}
+                        />
+                        <br/>
+                        <p>
+                            <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                        </p>
+                        <p>
+                            <strong>End Date:</strong> {trip.endDate || "Not set"}
+                        </p>
                     </>
-            ) : (
-                <>
-                    {/* Renders when zipcode or dates are not set */}
-                    <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the Park from the Previous Year</p>
-                    <br/>
-                    <p>
-                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
-                    </p>
-                    <p>
-                        <strong>End Date:</strong> {trip.endDate || "Not set"}
-                    </p>
-                </>
-            )}
+                ) : (
+                    <>
+                        {/* Renders when zipcode or dates are not set */}
+                        <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the
+                            Park from the Previous Year</p>
+                        <br/>
+                        <p>
+                            <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                        </p>
+                        <p>
+                            <strong>End Date:</strong> {trip.endDate || "Not set"}
+                        </p>
+                    </>
+                )}
 
             {/* Buttons for managing dates */}
             <div className={style.dateBtns}>

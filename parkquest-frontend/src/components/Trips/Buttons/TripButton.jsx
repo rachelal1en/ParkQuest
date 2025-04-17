@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import style from "../Trips.module.css";
 
-const TripButton = ({ userId, parkCode, fullName, description, postalCode }) => {
+const TripButton = ({userId, parkCode, fullName, description, postalCode}) => {
     const [isTripPlanned, setIsTripPlanned] = useState(false);
 
     const storedUserId = localStorage.getItem("userId");

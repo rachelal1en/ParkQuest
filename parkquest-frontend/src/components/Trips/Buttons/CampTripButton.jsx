@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import style from "../Trips.module.css";
 
@@ -35,7 +35,7 @@ const CampTripButton = ({userId, tripId, name, description}) => {
     // Function to add the campground to the trip
     const handleAddCampgroundToTrip = async () => {
         try {
-            console.log({ userId, tripId, name, description });
+            console.log({userId, tripId, name, description});
             // Send a PUT request to associate the campground with the trip
             await axios.put(`http://localhost:8081/trips/${tripId}/campgrounds`, {
                 campground: name,
@@ -52,7 +52,7 @@ const CampTripButton = ({userId, tripId, name, description}) => {
         try {
             // Send a DELETE request to disassociate the campground from the trip
             await axios.delete(`http://localhost:8081/trips/${tripId}/campgrounds`, {
-                data: { campground: name }, // Pass the campground name to identify which to remove
+                data: {campground: name}, // Pass the campground name to identify which to remove
             });
             setIsSaved(false); // Update state to reflect the campground is no longer saved
         } catch (err) {

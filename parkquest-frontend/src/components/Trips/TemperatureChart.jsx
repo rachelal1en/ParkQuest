@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
+import {Line} from "react-chartjs-2";
 import {
-    Chart as ChartJS,
     CategoryScale,
+    Chart as ChartJS,
+    Legend,
     LinearScale,
-    PointElement,
     LineElement,
+    PointElement,
     Title,
     Tooltip,
-    Legend,
 } from "chart.js";
+import style from "./TripDetails.module.css";
 
 // Register Chart.js components
 ChartJS.register(
@@ -22,9 +23,8 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-import style from "./TripDetails.module.css";
 
-const TemperatureChart = ({ zipcode, startDate, endDate }) => {
+const TemperatureChart = ({zipcode, startDate, endDate}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [chartData, setChartData] = useState(null);
@@ -52,33 +52,34 @@ const TemperatureChart = ({ zipcode, startDate, endDate }) => {
             setError(null); // Reset errors
 
             // Build API request URL using input values
-            const apiKey = "T7W9NDKHH9TZ38QGEC8VR6SSL";
+            const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
             const baseUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/`;
             const requestUrl = `${baseUrl}${zipcode}/${adjustedStartDate}/${adjustedEndDate}?unitGroup=us&elements=datetime%2Ctempmax%2Ctempmin&include=obs%2Cdays&key=${apiKey}&contentType=json`;
+            console.log("Weather API Key:", import.meta.env.VITE_WEATHER_API_KEY);
 
             try {
-                    const response = await axios.get(requestUrl);
-                    console.log("Fetched temperature data:", response.data);
+                const response = await axios.get(requestUrl);
+                console.log("Fetched temperature data:", response.data);
 
-                    //validate response and parse data
-                    if (!response.data || !response.data.days || response.data.days.length === 0) {
-                        throw new Error("No temperature data available in response.");
-                    }
-
-                    //extract data from response
-                    const forecastData = response.data.days.map((day) => ({
-                        date: day.datetime,
-                        minTemp: day.tempmin,
-                        maxTemp: day.tempmax,
-                    }));
-
-                    setTemperatureData(forecastData);
-                } catch (err) {
-                    console.error("Error fetching temperature data:", err);
-                    setError("Failed to fetch temperature data.");
-                } finally {
-                    setLoading(false); //stop loading
+                //validate response and parse data
+                if (!response.data || !response.data.days || response.data.days.length === 0) {
+                    throw new Error("No temperature data available in response.");
                 }
+
+                //extract data from response
+                const forecastData = response.data.days.map((day) => ({
+                    date: day.datetime,
+                    minTemp: day.tempmin,
+                    maxTemp: day.tempmax,
+                }));
+
+                setTemperatureData(forecastData);
+            } catch (err) {
+                console.error("Error fetching temperature data:", err);
+                setError("Failed to fetch temperature data.");
+            } finally {
+                setLoading(false); //stop loading
+            }
         };
 
         fetchTemperatureData();
@@ -136,7 +137,7 @@ const TemperatureChart = ({ zipcode, startDate, endDate }) => {
 
     // Render an error message if there's an issue fetching data
     if (error) {
-        return <p style={{ color: "red" }}>{error}</p>;
+        return <p style={{color: "red"}}>{error}</p>;
     }
 
     // Render a fallback message if chart data isn't available
@@ -148,7 +149,7 @@ const TemperatureChart = ({ zipcode, startDate, endDate }) => {
     return (
         <div className={style.chartContainer}>
 
-        <Line
+            <Line
                 data={processChartData()}
                 options={{
                     responsive: true,

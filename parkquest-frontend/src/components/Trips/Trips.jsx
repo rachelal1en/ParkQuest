@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import style from "./Trips.module.css";
 import axios from "axios";
 
@@ -83,61 +83,61 @@ const Trips = ({userId}) => {
         }
     };
 
-  return (
-      <div className={style.trips}>
-          {/*navigate to favorite parks*/}
-          <button className={style.outlineButton}>
-              <Link to="/favorites">My Favorite Parks</Link>
-          </button>
-          {/*navigate to parks search page*/}
-          <button className={style.outlineButton}>
-              <Link to="/parklist">Go to Parks List</Link>
-          </button>
-          <h1>My Trips</h1>
-          {/* Display error message if any */}
-          {error && <p className={style.error}>{error}</p>}
-          {/* Display a message if there are no trips or render the list of trips */}
-          {trips.length === 0 ? (
-              <p>No trips yet!</p>
-          ) : (
-              <ul className={style.tripList}>
-                  {trips.map((trip) => (
-                      <li key={trip.tripId} className={style.tripItem}>
-                          {/* Park Name (Clickable to navigate to TripDetails) */}
-                          <h3
-                              className={style.tripName}
-                              onClick={() => handleEdit(trip)}
-                              role="button"
-                              tabIndex={0} // Accessibility for keyboard navigation
-                              onKeyDown={(e) => {
-                                  if (e.key === "Enter") handleEdit(trip); // Allows "Enter" key to trigger click
-                              }}
-                          >
-                              {trip.parkName}
-                          </h3>
-                          {/* Park Description */}
-                          <p className={style.description}>{trip.parkDescription || "No description available"}</p>
-                          {/* Buttons for Delete and Edit */}
-                          <div className={style.buttonGroup}>
-                              <button
-                                  onClick={() => handleEdit(trip)}
-                                  className={`${style.tripBtn} ${style.editBtn}`}
-                              >
-                                  Edit
-                              </button>
-                              <button
-                                  onClick={() => removeTrip(trip.tripId)}
-                                  className={`${style.tripBtn} ${style.deleteBtn}`}
-                              >
-                                  Delete
-                              </button>
-                          </div>
-                      </li>
-                  ))}
-              </ul>
-          )}
-      </div>
-  );
+    return (
+        <div className={style.trips}>
+            {/*navigate to favorite parks*/}
+            <button className={style.outlineButton}>
+                <Link to="/favorites">My Favorite Parks</Link>
+            </button>
+            {/*navigate to parks search page*/}
+            <button className={style.outlineButton}>
+                <Link to="/parklist">Go to Parks List</Link>
+            </button>
+            <h1>My Trips</h1>
+            {/* Display error message if any */}
+            {error && <p className={style.error}>{error}</p>}
+            {/* Display a message if there are no trips or render the list of trips */}
+            {trips.length === 0 ? (
+                <p>No trips yet!</p>
+            ) : (
+                <ul className={style.tripList}>
+                    {trips.map((trip) => (
+                        <li key={trip.tripId} className={style.tripItem}>
+                            {/* Park Name (Clickable to navigate to TripDetails) */}
+                            <h3
+                                className={style.tripName}
+                                onClick={() => handleEdit(trip)}
+                                role="button"
+                                tabIndex={0} // Accessibility for keyboard navigation
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") handleEdit(trip); // Allows "Enter" key to trigger click
+                                }}
+                            >
+                                {trip.parkName}
+                            </h3>
+                            {/* Park Description */}
+                            <p className={style.description}>{trip.parkDescription || "No description available"}</p>
+                            {/* Buttons for Delete and Edit */}
+                            <div className={style.buttonGroup}>
+                                <button
+                                    onClick={() => handleEdit(trip)}
+                                    className={`${style.tripBtn} ${style.editBtn}`}
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => removeTrip(trip.tripId)}
+                                    className={`${style.tripBtn} ${style.deleteBtn}`}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
 };
 
 export default Trips;

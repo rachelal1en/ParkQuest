@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import style from "../Trips.module.css";
 
@@ -33,7 +33,7 @@ const TrailTripButton = ({userId, tripId, title, shortDescription}) => {
     // Function to handle saving a hiking trail to the trip
     const handleAddTrailToTrip = async () => {
         try {
-            console.log({ userId, tripId, title, shortDescription });
+            console.log({userId, tripId, title, shortDescription});
             // Send a PUT request to add the trail to the trip
             await axios.put(`http://localhost:8081/trips/${tripId}/hiking-trails`, {
                 hikingTrail: title,
@@ -61,7 +61,7 @@ const TrailTripButton = ({userId, tripId, title, shortDescription}) => {
         <button
             onClick={isSaved ? handleRemoveTrailFromTrip : handleAddTrailToTrip}
             className={`${style.tripBtn} ${isSaved ? style.saved : ""}`}
-            >
+        >
             {isSaved ? "Saved" : "Add to Trip"}
         </button>
     );
