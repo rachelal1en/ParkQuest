@@ -21,10 +21,9 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173") // Frontend's origin domain
 public class AuthController {
 
+    private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     @Autowired
     private UserService userService;
-
-    private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     // Handles user login by validating credentials and generating a JWT token.
     @PostMapping("/login")
@@ -98,18 +97,23 @@ public class AuthController {
         public String getEmail() {
             return email;
         }
+
         public void setEmail(String email) {
             this.email = email;
         }
+
         public String getName() {
             return name;
         }
+
         public void setName(String name) {
             this.name = name;
         }
+
         public String getPassword() {
             return password;
         }
+
         public void setPassword(String password) {
             this.password = password;
         }
@@ -124,18 +128,23 @@ public class AuthController {
         public String getEmail() {
             return email;
         }
+
         public void setEmail(String email) {
             this.email = email;
         }
+
         public String getUsername() {
             return username;
         }
+
         public void setUsername(String username) {
             this.username = username;
         }
+
         public String getPassword() {
             return password;
         }
+
         public void setPassword(String password) {
             this.password = password;
         }

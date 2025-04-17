@@ -30,7 +30,7 @@ public class FavoriteController {
             @RequestParam String fullName,
             @RequestParam String description,
             @RequestParam String noteToSelf
-    ){
+    ) {
         Park park = parkService.addFavorite(userId, parkCode, fullName, description, noteToSelf);
         return ResponseEntity.ok(park); // Return success
     }

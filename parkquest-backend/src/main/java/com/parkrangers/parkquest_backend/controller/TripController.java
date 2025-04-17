@@ -17,10 +17,9 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173")
 public class TripController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
     @Autowired
     private TripService tripService;
-
-    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
 
     // Retrieve a list of trips for a specific user by their user ID.
     @GetMapping("/user/{userId}")

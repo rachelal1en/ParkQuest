@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    update profile information
+    //    update profile information
     @PutMapping("/update-profile")
     public ResponseEntity<?> updateProfile(@RequestBody Map<String, String> payload) {
         try {
