@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+// configuration class to enable and customize cross-origin resource sharing (aka communication between front and back)
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

@@ -26,7 +26,7 @@ public class AuthController {
 
     private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-
+    // Handles user login by validating credentials and generating a JWT token.
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> body) {
         try {
@@ -67,9 +67,7 @@ public class AuthController {
         }
     }
 
-
-
-
+    // Handles user registration by creating a new user in the system.
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody Map<String, String> body) {
         try {

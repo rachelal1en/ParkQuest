@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+// seeds the database with default roles when the application starts if they aren't already there
 @Component
 public class RoleSeeder implements CommandLineRunner {
 

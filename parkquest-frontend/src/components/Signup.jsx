@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Signup() {
     const [email, setEmail] = useState('');
@@ -8,15 +8,17 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
-
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
 
+    // Helper function to validate an email
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+    //Handle the form submission for the signup process
     const handleSignup = async (e) => {
         e.preventDefault();
+        //clear any existing error message
         setError("");
 
         try {
@@ -44,9 +46,9 @@ function Signup() {
                 username,
                 password,
                 role: isAdmin ? "ROLE_ADMIN" : "ROLE_USER"
-            }, { withCredentials: true });
+            }, {withCredentials: true});
 
-            // Handle successful signup (navigate to login or dashboard)
+            // Log success response and navigate to the login page
             console.log('Signup successful:', response.data);
             navigate('/login');
         } catch (error) {
@@ -59,58 +61,58 @@ function Signup() {
     };
 
     return (
-      <div className='signup-page'>
-        <div className="account-forms">
-            <h2>Sign up</h2>
-            <form onSubmit={handleSignup}>
-                {error && <div className="error">{error}</div>} {/* Render error message */}
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    id="username"
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                <label>
+        <div className='signup-page'>
+            <div className="account-forms">
+                <h2>Sign up</h2>
+                <form onSubmit={handleSignup}>
+                    {error && <div className="error">{error}</div>} {/* Render error message */}
                     <input
-                        type="checkbox"
-                        checked={isAdmin}
-                        onChange={() => setIsAdmin(!isAdmin)}
+                        id="email"
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
-                    Register as Admin
-                </label>
-                <button type="submit" className="outline-button">Sign up</button>
-            </form>
-            <div>
-                <p>Already registered? <Link to="/Login" className="not-transparent-links">Login</Link></p>
+                    <input
+                        id="username"
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <input
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isAdmin}
+                            onChange={() => setIsAdmin(!isAdmin)}
+                        />
+                        Register as Admin
+                    </label>
+                    <button type="submit" className="outline-button">Sign up</button>
+                </form>
+                <div>
+                    <p>Already registered? <Link to="/Login" className="not-transparent-links">Login</Link></p>
+                </div>
             </div>
         </div>
-      </div>
     );
 }
 

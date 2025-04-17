@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import style from "./Profile.module.css";
 
 const ProfilePage = () => {
@@ -14,7 +14,9 @@ const ProfilePage = () => {
 
     const userId = localStorage.getItem("userId");
 
+    // Handles the form submission for updating profile information
     const handleUpdateProfile = async (e) => {
+        // Prevent page refresh on form submit
         e.preventDefault();
         try {
             if (!userId) throw new Error("User ID is missing. Please log in again.");
@@ -35,7 +37,7 @@ const ProfilePage = () => {
             setSuccess(response.data.message); // Display backend success message
             setError(""); // Clear errors
 
-            // Optionally log the user out if the password is changed
+            // If a new password is provided, log the user out for security reasons
             if (newPassword) {
                 localStorage.removeItem("authToken");
                 localStorage.removeItem("userId");
@@ -52,7 +54,9 @@ const ProfilePage = () => {
         <div className={style.profilePage}>
             <h1>Edit Profile</h1>
 
+            {/* Display error message if an error occurs */}
             {error && <p className={style.error}>{error}</p>}
+            {/* Display success message upon successful update */}
             {success && <p className={style.success}>{success}</p>}
 
             <form onSubmit={handleUpdateProfile} className={style.form}>

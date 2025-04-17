@@ -15,6 +15,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    //configures security settings, enables CORS, throws exception with config issues
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -29,7 +30,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-
+    //configures CORS, defines headers
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -43,6 +44,7 @@ public class SecurityConfig {
         return source;
     }
 
+    //configures password encoder
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

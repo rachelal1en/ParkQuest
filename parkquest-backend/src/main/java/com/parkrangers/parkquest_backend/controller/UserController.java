@@ -17,6 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+//    update profile information
     @PutMapping("/update-profile")
     public ResponseEntity<?> updateProfile(@RequestBody Map<String, String> payload) {
         try {
@@ -53,6 +54,7 @@ public class UserController {
         }
     }
 
+    //fetches all users must be an admin to use
     @GetMapping("/all")
     public ResponseEntity<?> getAllUsers(@RequestParam Long adminId) {
         return userService.isAdmin(adminId)
@@ -60,7 +62,7 @@ public class UserController {
                 : ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized");
     }
 
-
+    //as an admin can update the role of another user
     @PutMapping("/update-role")
     public ResponseEntity<String> updateRole(@RequestBody Map<String, String> payload) {
         try {
@@ -83,6 +85,7 @@ public class UserController {
         }
     }
 
+    //as an admin can delete another user
     @DeleteMapping("/delete/{userId}")
     public ResponseEntity<String> deleteUser(
             @PathVariable Long userId,

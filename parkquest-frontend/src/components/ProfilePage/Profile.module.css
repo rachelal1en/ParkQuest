@@ -1,18 +1,22 @@
+/* Main container for the profile page, centered and padded */
 .profilePage {
     text-align: center;
     padding: 2rem;
 }
 
+/* Style for error messages, using red color for visibility */
 .error {
     color: red;
     margin: 0.5rem 0;
 }
 
+/* Style for success messages, using green color for positive feedback */
 .success {
     color: green;
     margin: 0.5rem 0;
 }
 
+/* Styles for the form layout */
 .form {
     display: flex;
     flex-direction: column;
@@ -21,6 +25,7 @@
     margin: 1rem auto;
 }
 
+/* General styles for all input fields */
 input {
     padding: 0.5rem;
     font-size: 1rem;
@@ -28,6 +33,7 @@ input {
     border-radius: 4px;
 }
 
+/* Styles for the submit button */
 .submitButton {
     background-color: #004d40;
     color: white;
@@ -38,6 +44,7 @@ input {
     cursor: pointer;
 }
 
+/*slightly darker green on hover*/
 .submitButton:hover {
     background-color: #00392f;
 }

@@ -16,11 +16,13 @@ public class FavoriteController {
     @Autowired
     private ParkService parkService;
 
+    // Get the list of favorite parks for a specific user.
     @GetMapping("/{userId}")
     public List<Park> getUserFavorites(@PathVariable Long userId) {
         return parkService.getFavoritesByUser(userId);
     }
 
+    // Add a park to the user's list of favorites.
     @PostMapping
     public ResponseEntity<Park> addFavorite(
             @RequestParam Long userId,
@@ -33,6 +35,7 @@ public class FavoriteController {
         return ResponseEntity.ok(park); // Return success
     }
 
+    // Update the "note to self" for a specific user's favorite park.
     @PutMapping("/note")
     public ResponseEntity<Park> updateNoteToSelf(
             @RequestBody Map<String, Object> payload
@@ -45,7 +48,7 @@ public class FavoriteController {
         return ResponseEntity.ok(updatedPark);
     }
 
-
+    // Remove a park from the user's list of favorites.
     @DeleteMapping
     public ResponseEntity<Void> removeFavorite(@RequestParam Long userId, @RequestParam String parkCode) {
         parkService.deleteFavorite(userId, parkCode);

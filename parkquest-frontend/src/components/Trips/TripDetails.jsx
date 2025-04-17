@@ -1,14 +1,12 @@
-import {useNavigate, useParams, Link} from "react-router-dom";
-import React, {useState, useEffect} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import style from "./TripDetails.module.css";
-import TrailTripButton from "./Buttons/TrailTripButton.jsx";
-import CampTripButton from "./Buttons/CampTripButton.jsx";
 import TemperatureChart from "./TemperatureChart";
 
 
 export default function TripDetails() {
-    const {tripId} = useParams();
+    const {tripId} = useParams(); // Extract the tripId from the route parameters
     const navigate = useNavigate();
 
     //State management
@@ -16,10 +14,9 @@ export default function TripDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch trip details
+    // Fetch trip details on component load or when tripId changes
     useEffect(() => {
         const fetchTrip = async () => {
-
             setLoading(true); // Start loading
             setError(null); // Clear any previous errors
 
@@ -42,11 +39,11 @@ export default function TripDetails() {
         };
 
         fetchTrip();
-    }, [tripId]); // Dependencies: Re-fetch when tripId changes
+    }, [tripId]); //Re-fetch when tripId changes
 
-    // Go back handler
+    // Navigate back to the previous page
     const goBack = () => {
-        navigate(-1); // Navigate back to the previous page
+        navigate(-1);
     };
 
     // Handle updating the trip start and end dates
@@ -56,13 +53,13 @@ export default function TripDetails() {
         try {
             const response = await axios.put(
                 `http://localhost:8081/trips/${tripId}/dates`,
-                {startDate, endDate}
+                {startDate, endDate} //send updated dates to backend
             );
             console.log("Dates updated successfully:", response.data);
 
-            setTrip(response.data); // Update trip with the new data
+            setTrip(response.data); // Update local trip state with the new data
         } catch (err) {
-            console.error("Error updating trip dates:", err);
+            console.error("Error updating trip dates:", err); //debug log
         }
     };
 
@@ -72,7 +69,7 @@ export default function TripDetails() {
 
         try {
             await axios.delete(`http://localhost:8081/trips/${tripId}/dates`, {
-                params: {clearStartDate: true, clearEndDate: true},
+                params: {clearStartDate: true, clearEndDate: true}, //clear dates
             });
             console.log("Dates cleared successfully.");
 
@@ -118,15 +115,11 @@ export default function TripDetails() {
         }
     };
 
-
-    // Render handlers for different states
+    // Render loading state if data is being fetched
     if (loading) return <p>Loading trip details...</p>; // Loading indicator
+    //Render error message if an error occurred
     if (error) return <p>{error}</p>; // Error message if fetching fails
 
-    // // If no trip is loaded successfully
-    // if (!trip) return <p>No trip data available.</p>;
-
-    // If trip data is available
     return (
         <div className={style.tripDetails}>
             {/* Back button */}
@@ -134,40 +127,44 @@ export default function TripDetails() {
                 Back to Trips
             </button>
 
-            {/* Trip Details */}
+            {/* Trip Information */}
             <h1>{trip.parkName}</h1>
             <p className={style.description}>{trip.parkDescription || "No description available"}</p>
 
             <h2>Trip Details</h2>
             {trip.zipcode && trip.startDate && trip.endDate ?
                 (
-                <>
-                    <h3 className={style.chartTitle}>Temperature Data From the Previous Year for the Selected Date Range</h3>
-                <TemperatureChart
-                    zipcode={trip.zipcode}
-                    startDate={trip.startDate || null}
-                    endDate={trip.endDate || null}
-                />
-                    <br/>
-                    <p>
-                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
-                    </p>
-                    <p>
-                        <strong>End Date:</strong> {trip.endDate || "Not set"}
-                    </p>
+                    <>
+                        {/* Display temperature chart based on trip ZIP code and dates */}
+                        <h3 className={style.chartTitle}>Temperature Data From the Previous Year for the Selected Date
+                            Range</h3>
+                        <TemperatureChart
+                            zipcode={trip.zipcode}
+                            startDate={trip.startDate || null}
+                            endDate={trip.endDate || null}
+                        />
+                        <br/>
+                        <p>
+                            <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                        </p>
+                        <p>
+                            <strong>End Date:</strong> {trip.endDate || "Not set"}
+                        </p>
                     </>
-            ) : (
-                <>
-                    <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the Park from the Previous Year</p>
-                    <br/>
-                    <p>
-                        <strong>Start Date:</strong> {trip.startDate || "Not set"}
-                    </p>
-                    <p>
-                        <strong>End Date:</strong> {trip.endDate || "Not set"}
-                    </p>
-                </>
-            )}
+                ) : (
+                    <>
+                        {/* Renders when zipcode or dates are not set */}
+                        <p className={style.giveMeDataButton}> Enter a Date Range to Get a Chart of Temperatures for the
+                            Park from the Previous Year</p>
+                        <br/>
+                        <p>
+                            <strong>Start Date:</strong> {trip.startDate || "Not set"}
+                        </p>
+                        <p>
+                            <strong>End Date:</strong> {trip.endDate || "Not set"}
+                        </p>
+                    </>
+                )}
 
             {/* Buttons for managing dates */}
             <div className={style.dateBtns}>
@@ -186,8 +183,7 @@ export default function TripDetails() {
                 </button>
             </div>
 
-            {/* Hiking Trails Section */
-            }
+            {/* Hiking Trails Section */}
             <h3>Hiking Trails</h3>
             <div className={style.hikingContainer}>
                 <p>
@@ -198,8 +194,7 @@ export default function TripDetails() {
                 </p>
             </div>
 
-            {/* Campground Section */
-            }
+            {/* Campground Section */}
             <h3>Campground</h3>
             <div className={style.campgroundContainer}>
                 <p>
@@ -210,7 +205,7 @@ export default function TripDetails() {
                 </p>
             </div>
 
-
+            {/* Additional navigation buttons */}
             <div className={style.additionalBtns}>
                 <button className={style.tripBtn}>
                     <Link
@@ -247,8 +242,7 @@ export default function TripDetails() {
 
             </div>
 
-            {/* Delete Trip Button */
-            }
+            {/* Delete Trip Button */}
             <button className={style.deleteTripBtn} onClick={handleTripDelete}>
                 Delete Trip
             </button>

@@ -20,7 +20,9 @@ public class TripController {
     @Autowired
     private TripService tripService;
 
-    // Retrieve trips by userId
+    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
+
+    // Retrieve a list of trips for a specific user by their user ID.
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Trip>> getTripsByUserId(@PathVariable Long userId) {
         List<Trip> trips = tripService.getTripsByUserId(userId);
@@ -32,7 +34,7 @@ public class TripController {
         return ResponseEntity.ok(trips); // Return 200 with the list of trips
     }
 
-    // Retrieve trips by parkCode
+    // Retrieve a list of trips for a specific park by park code.
     @GetMapping("/park/{parkCode}")
     public ResponseEntity<List<Trip>> getTripsByParkCode(@PathVariable String parkCode) {
         List<Trip> trips = tripService.getTripsByParkCode(parkCode);
@@ -44,9 +46,7 @@ public class TripController {
         return ResponseEntity.ok(trips); // Return 200 with the list of trips
     }
 
-    // Add or update a trip based on parkCode
-    private static final Logger logger = LoggerFactory.getLogger(TripController.class);
-
+    // Create or update a trip for a specific park based on its park code.
     @PostMapping("/{parkCode}")
     public ResponseEntity<Trip> createOrUpdateTripByParkCode(
             @PathVariable String parkCode,  // Extract parkCode from the path
@@ -71,7 +71,7 @@ public class TripController {
     }
 
 
-    // Delete a trip by parkCode
+    // Delete a trip by its ID.
     @DeleteMapping("/{tripId}")
     public ResponseEntity<Void> deleteTrip(@PathVariable Long tripId) {
         boolean success = tripService.deleteTripById(tripId);
@@ -79,7 +79,7 @@ public class TripController {
         return success ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
-    // Add or update hiking trails for a trip based on parkCode
+    // Add or update hiking trails for a specific trip.
     @PutMapping("/{tripId}/hiking-trails")
     public ResponseEntity<Trip> addOrUpdateHikingTrails(
             @PathVariable Long tripId,
@@ -94,7 +94,7 @@ public class TripController {
         return ResponseEntity.ok(updatedTrip);
     }
 
-    // Delete hiking trails for a trip based on parkCode
+    // Delete hiking trails for a specific trip.
     @DeleteMapping("/{tripId}/hiking-trails")
     public ResponseEntity<Void> deleteHikingTrails(@PathVariable Long tripId) {
         boolean success = tripService.deleteHikingTrails(tripId);
@@ -102,7 +102,7 @@ public class TripController {
         return success ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
-    // Add or update campground data for a trip based on parkCode
+    // Add or update campground data for a specific trip.
     @PutMapping("/{tripId}/campgrounds")
     public ResponseEntity<Trip> addOrUpdateCampground(
             @PathVariable Long tripId,
@@ -116,7 +116,7 @@ public class TripController {
         return ResponseEntity.ok(updatedTrip);
     }
 
-    // Delete campground data for a trip based on parkCode
+    // Delete campground data for a specific trip.
     @DeleteMapping("/{tripId}/campgrounds")
     public ResponseEntity<Void> deleteCampground(@PathVariable Long tripId) {
         boolean success = tripService.deleteCampground(tripId);
@@ -124,7 +124,7 @@ public class TripController {
         return success ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
-    // Add or update startDate or endDate for a trip based on parkCode
+    // Add or update start and/or end dates for a trip.
     @PutMapping("/{tripId}/dates")
     public ResponseEntity<Trip> addOrUpdateTripDates(
             @PathVariable Long tripId,
@@ -141,7 +141,7 @@ public class TripController {
         return ResponseEntity.ok(updatedTrip);
     }
 
-    // Delete startDate or endDate for a trip based on parkCode
+    // Delete start and/or end dates for a trip.
     @DeleteMapping("/{tripId}/dates")
     public ResponseEntity<Void> deleteTripDates(
             @PathVariable Long tripId,
@@ -153,6 +153,7 @@ public class TripController {
         return success ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
+    // Retrieve trip details by trip ID.
     @GetMapping("/{tripId}")
     public ResponseEntity<Trip> getTripById(@PathVariable Long tripId) {
         logger.info("Fetching trip for tripId: {}", tripId);
