@@ -6,19 +6,27 @@
 ParkQuest is a user-friendly web application designed to help users explore and plan trips to national parks. It offers intuitive tools for browsing park details, discovering available activities, viewing campground options, saving favorite parks, tracking trips, writing and managing reviews, and more—making outdoor adventure planning seamless and enjoyable.
 
 ## Features
+![ParkQuest Home Page](./parkquest-frontend/src/assets/pq_app.png)
 
 ### User Features:
 1. **User Authentication**
    - Sign up and log in with input validation for email, password, and other details.
    - Secure token-based authentication.
    - Role-based access for users (Admin/User).
+   ![ParkQuest Login Page](./parkquest-frontend/src/assets/pq_login.png)
+   ![ParkQuest Signup Page](./parkquest-frontend/src/assets/pq_signup.png)
+   ![ParkQuest Profile Page](./parkquest-frontend/src/assets/pq_profile.png)
 
 2. **Dashboard**
    - Personalized dashboard with quick links to search parks, favorites, trips, and the admin panel (for admin users).
+     ![ParkQuest Dashboard](./parkquest-frontend/src/assets/pq_dashboard.png)
+     ![ParkQuest Dashboard with Admin](./parkquest-frontend/src/assets/pq_dashboardwadmin.png)
 
 3. **Search Parks**
    - Search parks by their **name** or **state**.
    - View detailed park information such as images, descriptions, activities, and addresses.
+     ![ParkQuest Search by State](./parkquest-frontend/src/assets/pq_search2.png)
+     ![ParkQuest Search by Name](./parkquest-frontend/src/assets/pq_search3.png)
 
 4. **Park Details**
    - View detailed information about a specific park, including:
@@ -28,27 +36,34 @@ ParkQuest is a user-friendly web application designed to help users explore and 
      - Links to explore **hiking trails** and **campgrounds** within the park.
      - Favorite a park for quick access later.
      - Subscribe for updates on specific parks.
+       ![ParkQuest Park Details](./parkquest-frontend/src/assets/pq_parkdetails.png)
 
 5. **Campgrounds**
    - View a list of campgrounds within a park.
    - Explore detailed information about specific campgrounds, including:
      - Images, descriptions, nearby attractions, amenities, and reservation info.
    - View campground reservation links.
+     ![ParkQuest Campgrounds List](./parkquest-frontend/src/assets/pq_campgrounds1.png)
+     ![ParkQuest Campground Details](./parkquest-frontend/src/assets/pq_campgrounds2.png)
 
 6. **Hiking Trails**
    - Explore hiking trails within a park.
    - View trail details such as descriptions, difficulty levels, and durations.
+     ![ParkQuest Hiking Trails List](./parkquest-frontend/src/assets/pq_hiking1.png)
 
 7. **Favorite Parks**
    - Save parks as favorites for easy access later.
    - Remove parks from favorites.
    - Add and update personal notes for each favorite park.
+     ![ParkQuest Favorites List](./parkquest-frontend/src/assets/pq_favoriteslist.png)
 
 8. **Trip Management**
    - Create, view, and manage trips.
    - Add parks, campgrounds, and hiking trails to trips.
    - Update trip details such as start and end dates.
    - Delete trips when no longer needed.
+     ![ParkQuest Trip List](./parkquest-frontend/src/assets/pq_triplist.png)
+     ![ParkQuest Trip Details](./parkquest-frontend/src/assets/pq_tripdetails.png)
 
 9. **Park Reviews**
    - View and submit reviews for parks.
@@ -65,6 +80,7 @@ ParkQuest is a user-friendly web application designed to help users explore and 
 
 2. **User Management**
    - Access a table of all registered users with options to edit roles or remove accounts.
+     ![ParkQuest Admin Page](./parkquest-frontend/src/assets/pq_admin.png)
 
 ### Notifications:
 - Toast notifications for actions like adding favorites, submitting reviews, handling errors, and more.
@@ -90,25 +106,6 @@ ParkQuest is a user-friendly web application designed to help users explore and 
 - **chart.js**: Renders temperature charts in trips.
 - **react-icons**: Adds intuitive icons to the UI.
 - **react-hot-toast**: Displays notifications.
-
----
-
-## Screenshots
-
-### Login Page
-![ParkQuest Login Page](./parkquest-frontend/src/assets/login-page.png)
-
-### Home Page
-![ParkQuest Home Page](./parkquest-frontend/src/assets/home-page.png)
-
-### Parks Search Page
-![Parks Search Page](./parkquest-frontend/src/assets/parks-search-page.png)
-
-### Park Detail Page
-![Park Detail Page](./parkquest-frontend/src/assets/park-detail-page.png)
-
-### Trip Detail Page
-![Trip Detail Page](./parkquest-frontend/src/assets/trip-detail-page.png)
 
 ---
 
